@@ -1,5 +1,7 @@
 package com.babyjuan.house.service.crawler;
 
+import com.babyjuan.house.service.crawler.model.SpiderState;
+
 /**
  * @Author: hjg
  * @Date: Create in 2018/6/4 16:04
@@ -7,13 +9,22 @@ package com.babyjuan.house.service.crawler;
  */
 public interface CrawlerService {
 
+    /**
+     * 同步执行爬虫
+     */
     void run();
+
+    /**
+     * 异步执行爬虫，主线程终止，则爬虫终止
+     */
+    void start();
 
     void stop();
 
+    SpiderState status();
+
     /**
      * 使用爬虫抓取一个url测试
-     * @param url
      */
     void test(String url);
 

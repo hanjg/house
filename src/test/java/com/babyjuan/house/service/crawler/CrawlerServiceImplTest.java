@@ -21,6 +21,17 @@ public class CrawlerServiceImplTest extends BaseTest {
     }
 
     @Test
+    public void start() throws Exception {
+        crawlerService.start();
+        Thread.sleep(10 * 1000);
+        crawlerService.stop();
+        Thread.sleep(5 * 1000);
+        crawlerService.start();
+        Thread.sleep(10 * 1000);
+        crawlerService.stop();
+    }
+
+    @Test
     public void stop() throws Exception {
         crawlerService.stop();
     }

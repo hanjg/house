@@ -4,6 +4,7 @@ import com.babyjuan.house.dao.entity.RentingHouse;
 import com.babyjuan.house.dao.entity.RentingHouseExample;
 import com.babyjuan.house.dao.mapper.RentingHouseMapper;
 import com.babyjuan.house.service.crawler.CrawlerService;
+import com.babyjuan.house.service.crawler.model.SpiderState;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -52,11 +53,16 @@ public class CrawlerServiceImpl implements CrawlerService {
 
     @Override
     public void run() {
-        LOGGER.debug("spider start run");
-
-        List<String> startUrls = getStartUrls();
-        initSpider(startUrls);
+        LOGGER.debug("spider run");
+        initSpider(getStartUrls());
         spider.run();
+    }
+
+    @Override
+    public void start() {
+        LOGGER.debug("spider start");
+        initSpider(getStartUrls());
+        spider.start();
     }
 
     private void initSpider(List<String> startUrls) {
@@ -89,6 +95,16 @@ public class CrawlerServiceImpl implements CrawlerService {
         if (spider != null) {
             spider.stop();
         }
+    }
+
+    @Override
+    public SpiderState status() {
+        SpiderState spiderState = new SpiderState();
+        spiderState.setPageCount(spider.getPageCount());
+        spiderState.setStartTime(spider.getStartTime());
+        spiderState.setThreadAlive(spider.getThreadAlive());
+        spiderState.setStatus(spider.getStatus());
+        return spiderState;
     }
 
     @Override

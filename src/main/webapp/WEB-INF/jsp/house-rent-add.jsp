@@ -56,12 +56,14 @@
                  </td>
              </tr>--%>
         </table>
-        <input type="hidden" name="itemParams"/>
-        <<input type="text" name="state" id="crawlerState" disabled>
+        <%--<input type="hidden" name="itemParams"/>--%>
+        <textarea style="width:600px;height:100px;" name="state" id="crawlerState" disabled></textarea>
+
     </form>
     <div style="padding:5px">
         <a href="javascript:void(0)" class="easyui-linkbutton" onclick="startCrawler()">开始</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="stopCrawler()">结束</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="stopCrawler()">停止</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="crawlerStatus()">状态</a>
     </div>
 </div>
 <script type="text/javascript">
@@ -79,16 +81,38 @@
 //			}
 //		});
     $.get(HOUSE.rootUrl + "/crawler/start", null, function (data) {
-      $('#crawlerState').val("started")
-      alert(data)
+      var a;
+      if (data.status == 200) {
+        a = "爬虫启动";
+      } else {
+        a = data.msg;
+      }
+      $('#crawlerState').val(a);
     });
-    // TODO 响应爬虫过程信息
   }
 
   function stopCrawler() {
     $.get(HOUSE.rootUrl + "/crawler/stop", null, function (data) {
-      $('#crawlerState').val("stopping")
-      alert(data)
+      var a;
+      if (data.status == 200) {
+        a = "爬虫停止";
+      } else {
+        a = data.msg;
+      }
+      $('#crawlerState').val(a);
+    });
+  }
+
+  function crawlerStatus() {
+    $.get(HOUSE.rootUrl + "/crawler/status", null, function (data) {
+      var a;
+      if (data.status == 200) {
+        data.data.startTime = new Date(data.data.startTime);
+        a = "爬虫状态：\n" + JSON.stringify(data.data);
+      } else {
+        a = data.msg;
+      }
+      $('#crawlerState').val(a);
     });
   }
 </script>

@@ -16,8 +16,8 @@
   <bean id="scheduler" class="us.codecraft.webmagic.scheduler.QueueScheduler"></bean>
 
   <bean id="pageProcessor" class="com.babyjuan.house.service.webmagic.LianjiaPageProcessor">
-    <constructor-arg name="retryTimes" value="3"/>
-    <constructor-arg name="sleepTime" value="1000"/>
+    <constructor-arg name="retryTimes" value="${spider.retryTimes}"/>
+    <constructor-arg name="sleepTime" value="${spider.sleepTime}"/>
     <property name="LIANJIA_CITY_RENT_ROOT" value="${lianjia.city.rent.root}"/>
     <property name="CITY" value="${lianjia.city}"/>
   </bean>

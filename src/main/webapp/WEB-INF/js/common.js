@@ -252,4 +252,5 @@ var TT = TAOTAO = {
 
 var HOUSE = {
 	rootUrl :"http://47.96.151.139:8080/house"
+  // rootUrl :"http://localhost:8080/house"
 }
