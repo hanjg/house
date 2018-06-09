@@ -1,22 +1,22 @@
-Date.prototype.format = function(format){ 
-    var o =  { 
-    "M+" : this.getMonth()+1, //month 
-    "d+" : this.getDate(), //day 
-    "h+" : this.getHours(), //hour 
-    "m+" : this.getMinutes(), //minute 
-    "s+" : this.getSeconds(), //second 
-    "q+" : Math.floor((this.getMonth()+3)/3), //quarter 
-    "S" : this.getMilliseconds() //millisecond 
+Date.prototype.format = function(format){
+    var o =  {
+    "M+" : this.getMonth()+1, //month
+    "d+" : this.getDate(), //day
+    "h+" : this.getHours(), //hour
+    "m+" : this.getMinutes(), //minute
+    "s+" : this.getSeconds(), //second
+    "q+" : Math.floor((this.getMonth()+3)/3), //quarter
+    "S" : this.getMilliseconds() //millisecond
     };
-    if(/(y+)/.test(format)){ 
-    	format = format.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length)); 
+    if(/(y+)/.test(format)){
+    	format = format.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
     }
-    for(var k in o)  { 
-	    if(new RegExp("("+ k +")").test(format)){ 
-	    	format = format.replace(RegExp.$1, RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length)); 
-	    } 
-    } 
-    return format; 
+    for(var k in o)  {
+	    if(new RegExp("("+ k +")").test(format)){
+	    	format = format.replace(RegExp.$1, RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length));
+	    }
+    }
+    return format;
 };
 
 var TT = TAOTAO = {
@@ -37,7 +37,7 @@ var TT = TAOTAO = {
 	// 格式化连接
 	formatUrl : function(val,row){
 		if(val){
-			return "<a href='"+val+"' target='_blank'>查看</a>";			
+			return "<a href='"+val+"' target='_blank'>查看</a>";
 		}
 		return "";
 	},
@@ -55,7 +55,7 @@ var TT = TAOTAO = {
         	return '未知';
         }
     },
-    
+
     init : function(data){
     	// 初始化图片上传组件
     	this.initPicUpload(data);
@@ -101,7 +101,7 @@ var TT = TAOTAO = {
         	});
     	});
     },
-    
+
     // 初始化选择类目组件
     initItemCat : function(data){
     	$(".selectItemCat").each(function(i,e){
@@ -145,27 +145,27 @@ var TT = TAOTAO = {
     		});
     	});
     },
-    
+
     createEditor : function(select){
     	return KindEditor.create(select, TT.kingEditorParams);
     },
-    
+
     /**
      * 创建一个窗口，关闭窗口后销毁该窗口对象。<br/>
-     * 
+     *
      * 默认：<br/>
      * width : 80% <br/>
      * height : 80% <br/>
      * title : (空字符串) <br/>
-     * 
+     *
      * 参数：<br/>
      * width : <br/>
      * height : <br/>
      * title : <br/>
      * url : 必填参数 <br/>
      * onLoad : function 加载完窗口内容后执行<br/>
-     * 
-     * 
+     *
+     *
      */
     createWindow : function(params){
     	$("<div>").css({padding:"5px"}).window({
@@ -184,11 +184,11 @@ var TT = TAOTAO = {
 		    }
     	}).window("open");
     },
-    
+
     closeCurrentWindow : function(){
     	$(".panel-tool-close").click();
     },
-    
+
     changeItemParam : function(node,formId){
     	$.getJSON("/item/param/query/itemcatid/" + node.id,function(data){
 			  if(data.status == 200 && data.data){
@@ -199,12 +199,12 @@ var TT = TAOTAO = {
 					 var pd = paramData[i];
 					 html+="<li><table>";
 					 html+="<tr><td colspan=\"2\" class=\"group\">"+pd.group+"</td></tr>";
-					 
+
 					 for(var j in pd.params){
 						 var ps = pd.params[j];
 						 html+="<tr><td class=\"param\"><span>"+ps+"</span>: </td><td><input autocomplete=\"off\" type=\"text\"/></td></tr>";
 					 }
-					 
+
 					 html+="</li></table>";
 				 }
 				 html+= "</ul>";
@@ -225,11 +225,11 @@ var TT = TAOTAO = {
     	ids = ids.join(",");
     	return ids;
     },
-    
+
     /**
      * 初始化单图片上传组件 <br/>
      * 选择器为：.onePicUpload <br/>
-     * 上传完成后会设置input内容以及在input后面追加<img> 
+     * 上传完成后会设置input内容以及在input后面追加<img>
      */
     initOnePicUpload : function(){
     	$(".onePicUpload").click(function(){
@@ -251,5 +251,5 @@ var TT = TAOTAO = {
 };
 
 var HOUSE = {
-	rootUrl :"http://localhost:8080/house"
+	rootUrl :"http://47.96.151.139:8080/house"
 }
