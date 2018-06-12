@@ -21,4 +21,7 @@
     <property name="LIANJIA_CITY_RENT_ROOT" value="${lianjia.city.rent.root}"/>
     <property name="CITY" value="${lianjia.city}"/>
   </bean>
+
+  <bean id="proxyProvider" class="com.babyjuan.house.service.webmagic.ProxyPool">
+  </bean>
 </beans>
