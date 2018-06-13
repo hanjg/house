@@ -13,7 +13,7 @@
 
   <bean id="downloader" class="us.codecraft.webmagic.downloader.HttpClientDownloader"></bean>
 
-  <bean id="scheduler" class="us.codecraft.webmagic.scheduler.QueueScheduler"></bean>
+  <bean id="scheduler" class="com.babyjuan.house.service.webmagic.DuplicateQueueScheduler"></bean>
 
   <bean id="pageProcessor" class="com.babyjuan.house.service.webmagic.LianjiaPageProcessor">
     <constructor-arg name="retryTimes" value="${spider.retryTimes}"/>
