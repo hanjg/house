@@ -78,8 +78,10 @@ public class LianjiaDbPipeLine implements Pipeline {
     }
 
     private long insertNew(Community currentCommunity) {
-        //日期使用默认值：当前时间
+        //日期使用默认值：当前时间。mysql5.5之前timestamp只有一个默认值，直接写入当前时间，不使用默认值
         currentCommunity.setStatus(RecordStatus.UPDATING.getStatus());
+        currentCommunity.setFromTime(new Date());
+        currentCommunity.setToTime(new Date());
         communityMapper.insert(currentCommunity);
         return currentCommunity.getInfoId();
     }
@@ -96,6 +98,8 @@ public class LianjiaDbPipeLine implements Pipeline {
     private long insertNew(RentingHouse currentHouse) {
         //日期使用默认值：当前时间
         currentHouse.setStatus(RecordStatus.UPDATING.getStatus());
+        currentHouse.setFromTime(new Date());
+        currentHouse.setToTime(new Date());
         rentingHouseMapper.insert(currentHouse);
         return currentHouse.getInfoId();
     }

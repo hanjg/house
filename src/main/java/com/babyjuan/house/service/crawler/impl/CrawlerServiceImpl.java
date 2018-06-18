@@ -153,19 +153,22 @@ public class CrawlerServiceImpl implements CrawlerService {
                 try {
                     while (true) {
                         if (spider != null && spider.getStatus().equals(Status.Stopped)) {
+                            int communityCount = 0;
+                            int houseCount = 0;
                             CommunityExample communityExample = new CommunityExample();
                             CommunityExample.Criteria communityCriteria = communityExample.createCriteria();
                             communityCriteria.andStatusEqualTo(RecordStatus.UPDATING.getStatus());
                             if (!communityMapper.selectByExample(communityExample).isEmpty()) {
-                                communityMapper.updateStatus();
+                                communityCount = communityMapper.updateStatus();
                             }
 
                             RentingHouseExample rentingHouseExample = new RentingHouseExample();
                             Criteria renthouseCriteria = rentingHouseExample.createCriteria();
                             renthouseCriteria.andStatusEqualTo(RecordStatus.UPDATING.getStatus());
                             if (!rentingHouseMapper.selectByExample(rentingHouseExample).isEmpty()) {
-                                rentingHouseMapper.updateStatus();
+                                houseCount = rentingHouseMapper.updateStatus();
                             }
+                            LOGGER.info("update status, community {}, house: {}", communityCount, houseCount);
                             break;
                         }
                         Thread.sleep(60 * 1000);

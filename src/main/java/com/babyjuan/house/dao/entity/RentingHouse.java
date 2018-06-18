@@ -143,4 +143,24 @@ public class RentingHouse {
     public void setStatus(Byte status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "RentingHouse{" +
+                "infoId=" + infoId +
+                ", sourceId=" + sourceId +
+                ", houseCode='" + houseCode + '\'' +
+                ", title='" + title + '\'' +
+                ", bedroomNum=" + bedroomNum +
+                ", hallNum=" + hallNum +
+                ", orientation='" + orientation + '\'' +
+                ", priceTotal=" + priceTotal +
+                ", rentArea=" + rentArea +
+                ", communityInfoId=" + communityInfoId +
+                ", md5='" + md5 + '\'' +
+                ", fromTime=" + fromTime +
+                ", toTime=" + toTime +
+                ", status=" + status +
+                '}';
+    }
 }

@@ -351,7 +351,7 @@
     where info_id = #{infoId,jdbcType=BIGINT}
   </update>
   <update id="updateStatus">
-    update community
+    update renting_house
     set status = status - 1
     where status != 0
   </update>

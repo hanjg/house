@@ -133,4 +133,23 @@ public class Community {
     public void setStatus(Byte status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "Community{" +
+                "infoId=" + infoId +
+                ", sourceId=" + sourceId +
+                ", communityCode='" + communityCode + '\'' +
+                ", communityName='" + communityName + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", city='" + city + '\'' +
+                ", district='" + district + '\'' +
+                ", block='" + block + '\'' +
+                ", md5='" + md5 + '\'' +
+                ", fromTime=" + fromTime +
+                ", toTime=" + toTime +
+                ", status=" + status +
+                '}';
+    }
 }

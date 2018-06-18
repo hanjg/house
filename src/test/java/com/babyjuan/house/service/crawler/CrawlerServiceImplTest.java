@@ -1,6 +1,10 @@
 package com.babyjuan.house.service.crawler;
 
 import com.babyjuan.house.base.BaseTest;
+import com.babyjuan.house.dao.entity.CommunityExample;
+import com.babyjuan.house.dao.entity.RentingHouseExample;
+import com.babyjuan.house.dao.mapper.CommunityMapper;
+import com.babyjuan.house.dao.mapper.RentingHouseMapper;
 import com.babyjuan.house.service.crawler.CrawlerService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,10 @@ public class CrawlerServiceImplTest extends BaseTest {
 
     @Autowired
     private CrawlerService crawlerService;
+    @Autowired
+    private RentingHouseMapper rentingHouseMapper;
+    @Autowired
+    private CommunityMapper communityMapper;
 
     @Test
     public void run() throws Exception {
@@ -23,12 +31,12 @@ public class CrawlerServiceImplTest extends BaseTest {
     @Test
     public void start() throws Exception {
         crawlerService.start();
-        Thread.sleep(10 * 1000);
-        crawlerService.stop();
-        Thread.sleep(5 * 1000);
-        crawlerService.start();
-        Thread.sleep(10 * 1000);
-        crawlerService.stop();
+        Thread.sleep(60 * 1000);
+        System.out.println(rentingHouseMapper.selectByExample(new RentingHouseExample()));
+        System.out.println(communityMapper.selectByExample(new CommunityExample()));
+        Thread.sleep(60 * 1000);
+        System.out.println(rentingHouseMapper.selectByExample(new RentingHouseExample()));
+        System.out.println(communityMapper.selectByExample(new CommunityExample()));
     }
 
     @Test
