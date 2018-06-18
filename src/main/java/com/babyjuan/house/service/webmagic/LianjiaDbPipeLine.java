@@ -48,7 +48,8 @@ public class LianjiaDbPipeLine implements Pipeline {
         Criteria criteria = example.createCriteria();
         criteria.andSourceIdEqualTo(currentCommunity.getSourceId());
         criteria.andCommunityCodeEqualTo(currentCommunity.getCommunityCode());
-        criteria.andStatusEqualTo(RecordStatus.LATEST.getStatus());
+        //没有过期的数据中查找
+        criteria.andStatusNotEqualTo(RecordStatus.EXPIRED.getStatus());
 
         List<Community> oldCommunityList = communityMapper.selectByExample(example);
         if (oldCommunityList.isEmpty()) {
@@ -107,7 +108,8 @@ public class LianjiaDbPipeLine implements Pipeline {
         RentingHouseExample.Criteria criteria = example.createCriteria();
         criteria.andSourceIdEqualTo(currentHouse.getSourceId());
         criteria.andHouseCodeEqualTo(currentHouse.getHouseCode());
-        criteria.andStatusEqualTo(RecordStatus.LATEST.getStatus());
+        //没有过期的数据中查找
+        criteria.andStatusNotEqualTo(RecordStatus.EXPIRED.getStatus());
 
         List<RentingHouse> oldHouseList = rentingHouseMapper.selectByExample(example);
         if (oldHouseList.isEmpty()) {
