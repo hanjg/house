@@ -10,7 +10,7 @@ public interface CommunityMapper {
 
     int deleteByExample(CommunityExample example);
 
-    int deleteByPrimaryKey(Long communityId);
+    int deleteByPrimaryKey(Long infoId);
 
     int insert(Community record);
 
@@ -18,7 +18,7 @@ public interface CommunityMapper {
 
     List<Community> selectByExample(CommunityExample example);
 
-    Community selectByPrimaryKey(Long communityId);
+    Community selectByPrimaryKey(Long infoId);
 
     int updateByExampleSelective(@Param("record") Community record, @Param("example") CommunityExample example);
 
@@ -27,4 +27,6 @@ public interface CommunityMapper {
     int updateByPrimaryKeySelective(Community record);
 
     int updateByPrimaryKey(Community record);
+
+    int updateStatus();
 }

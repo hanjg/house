@@ -1,23 +1,11 @@
 package com.babyjuan.house.service.crawler;
 
 import com.babyjuan.house.base.BaseTest;
-import com.babyjuan.house.common.ProxyUtil;
-import java.io.IOException;
-import java.util.List;
-import org.apache.http.HttpHost;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.config.CookieSpecs;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.RequestBuilder;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
+import com.babyjuan.house.common.utils.ProxyUtil;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import us.codecraft.webmagic.proxy.Proxy;
 import us.codecraft.webmagic.utils.ProxyUtils;
-import us.codecraft.webmagic.utils.UrlUtils;
 
 /**
  * @Author: hjg

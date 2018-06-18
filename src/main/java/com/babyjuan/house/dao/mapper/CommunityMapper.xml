@@ -2,16 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.babyjuan.house.dao.mapper.CommunityMapper" >
   <resultMap id="BaseResultMap" type="com.babyjuan.house.dao.entity.Community" >
-    <id column="community_id" property="communityId" jdbcType="BIGINT" />
+    <id column="info_id" property="infoId" jdbcType="BIGINT" />
+    <result column="source_id" property="sourceId" jdbcType="INTEGER" />
+    <result column="community_code" property="communityCode" jdbcType="VARCHAR" />
     <result column="community_name" property="communityName" jdbcType="VARCHAR" />
     <result column="latitude" property="latitude" jdbcType="DECIMAL" />
     <result column="longitude" property="longitude" jdbcType="DECIMAL" />
     <result column="city" property="city" jdbcType="VARCHAR" />
     <result column="district" property="district" jdbcType="VARCHAR" />
-    <result column="area" property="area" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="block" property="block" jdbcType="VARCHAR" />
     <result column="md5" property="md5" jdbcType="VARCHAR" />
+    <result column="from_time" property="fromTime" jdbcType="TIMESTAMP" />
+    <result column="to_time" property="toTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="TINYINT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -72,8 +75,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    community_id, community_name, latitude, longitude, city, district, area, create_time, 
-    update_time, md5
+    info_id, source_id, community_code, community_name, latitude, longitude, city, district, 
+    block, md5, from_time, to_time, status
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.babyjuan.house.dao.entity.CommunityExample" >
     select
@@ -93,11 +96,11 @@
     select 
     <include refid="Base_Column_List" />
     from community
-    where community_id = #{communityId,jdbcType=BIGINT}
+    where info_id = #{infoId,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from community
-    where community_id = #{communityId,jdbcType=BIGINT}
+    where info_id = #{infoId,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.babyjuan.house.dao.entity.CommunityExample" >
     delete from community
@@ -106,20 +109,34 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.babyjuan.house.dao.entity.Community" >
-    insert into community (community_id, community_name, latitude, 
-      longitude, city, district, 
-      area, create_time, update_time, 
-      md5)
-    values (#{communityId,jdbcType=BIGINT}, #{communityName,jdbcType=VARCHAR}, #{latitude,jdbcType=DECIMAL}, 
-      #{longitude,jdbcType=DECIMAL}, #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, 
-      #{area,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{md5,jdbcType=VARCHAR})
+    <selectKey keyProperty="infoId" resultType="long" order="AFTER">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into community (info_id, source_id, community_code, 
+      community_name, latitude, longitude, 
+      city, district, block, 
+      md5, from_time, to_time, 
+      status)
+    values (#{infoId,jdbcType=BIGINT}, #{sourceId,jdbcType=INTEGER}, #{communityCode,jdbcType=VARCHAR}, 
+      #{communityName,jdbcType=VARCHAR}, #{latitude,jdbcType=DECIMAL}, #{longitude,jdbcType=DECIMAL}, 
+      #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, #{block,jdbcType=VARCHAR}, 
+      #{md5,jdbcType=VARCHAR}, #{fromTime,jdbcType=TIMESTAMP}, #{toTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.babyjuan.house.dao.entity.Community" >
+    <selectKey keyProperty="infoId" resultType="long" order="AFTER">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into community
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="communityId != null" >
-        community_id,
+      <if test="infoId != null" >
+        info_id,
+      </if>
+      <if test="sourceId != null" >
+        source_id,
+      </if>
+      <if test="communityCode != null" >
+        community_code,
       </if>
       <if test="communityName != null" >
         community_name,
@@ -136,22 +153,31 @@
       <if test="district != null" >
         district,
       </if>
-      <if test="area != null" >
-        area,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="updateTime != null" >
-        update_time,
+      <if test="block != null" >
+        block,
       </if>
       <if test="md5 != null" >
         md5,
       </if>
+      <if test="fromTime != null" >
+        from_time,
+      </if>
+      <if test="toTime != null" >
+        to_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="communityId != null" >
-        #{communityId,jdbcType=BIGINT},
+      <if test="infoId != null" >
+        #{infoId,jdbcType=BIGINT},
+      </if>
+      <if test="sourceId != null" >
+        #{sourceId,jdbcType=INTEGER},
+      </if>
+      <if test="communityCode != null" >
+        #{communityCode,jdbcType=VARCHAR},
       </if>
       <if test="communityName != null" >
         #{communityName,jdbcType=VARCHAR},
@@ -168,17 +194,20 @@
       <if test="district != null" >
         #{district,jdbcType=VARCHAR},
       </if>
-      <if test="area != null" >
-        #{area,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
+      <if test="block != null" >
+        #{block,jdbcType=VARCHAR},
       </if>
       <if test="md5 != null" >
         #{md5,jdbcType=VARCHAR},
+      </if>
+      <if test="fromTime != null" >
+        #{fromTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="toTime != null" >
+        #{toTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -191,8 +220,14 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update community
     <set >
-      <if test="record.communityId != null" >
-        community_id = #{record.communityId,jdbcType=BIGINT},
+      <if test="record.infoId != null" >
+        info_id = #{record.infoId,jdbcType=BIGINT},
+      </if>
+      <if test="record.sourceId != null" >
+        source_id = #{record.sourceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.communityCode != null" >
+        community_code = #{record.communityCode,jdbcType=VARCHAR},
       </if>
       <if test="record.communityName != null" >
         community_name = #{record.communityName,jdbcType=VARCHAR},
@@ -209,17 +244,20 @@
       <if test="record.district != null" >
         district = #{record.district,jdbcType=VARCHAR},
       </if>
-      <if test="record.area != null" >
-        area = #{record.area,jdbcType=VARCHAR},
-      </if>
-      <if test="record.createTime != null" >
-        create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.updateTime != null" >
-        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      <if test="record.block != null" >
+        block = #{record.block,jdbcType=VARCHAR},
       </if>
       <if test="record.md5 != null" >
         md5 = #{record.md5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fromTime != null" >
+        from_time = #{record.fromTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.toTime != null" >
+        to_time = #{record.toTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=TINYINT},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -228,16 +266,19 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update community
-    set community_id = #{record.communityId,jdbcType=BIGINT},
+    set info_id = #{record.infoId,jdbcType=BIGINT},
+      source_id = #{record.sourceId,jdbcType=INTEGER},
+      community_code = #{record.communityCode,jdbcType=VARCHAR},
       community_name = #{record.communityName,jdbcType=VARCHAR},
       latitude = #{record.latitude,jdbcType=DECIMAL},
       longitude = #{record.longitude,jdbcType=DECIMAL},
       city = #{record.city,jdbcType=VARCHAR},
       district = #{record.district,jdbcType=VARCHAR},
-      area = #{record.area,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
-      md5 = #{record.md5,jdbcType=VARCHAR}
+      block = #{record.block,jdbcType=VARCHAR},
+      md5 = #{record.md5,jdbcType=VARCHAR},
+      from_time = #{record.fromTime,jdbcType=TIMESTAMP},
+      to_time = #{record.toTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=TINYINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -245,6 +286,12 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.babyjuan.house.dao.entity.Community" >
     update community
     <set >
+      <if test="sourceId != null" >
+        source_id = #{sourceId,jdbcType=INTEGER},
+      </if>
+      <if test="communityCode != null" >
+        community_code = #{communityCode,jdbcType=VARCHAR},
+      </if>
       <if test="communityName != null" >
         community_name = #{communityName,jdbcType=VARCHAR},
       </if>
@@ -260,32 +307,43 @@
       <if test="district != null" >
         district = #{district,jdbcType=VARCHAR},
       </if>
-      <if test="area != null" >
-        area = #{area,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      <if test="block != null" >
+        block = #{block,jdbcType=VARCHAR},
       </if>
       <if test="md5 != null" >
         md5 = #{md5,jdbcType=VARCHAR},
       </if>
+      <if test="fromTime != null" >
+        from_time = #{fromTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="toTime != null" >
+        to_time = #{toTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
     </set>
-    where community_id = #{communityId,jdbcType=BIGINT}
+    where info_id = #{infoId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.babyjuan.house.dao.entity.Community" >
     update community
-    set community_name = #{communityName,jdbcType=VARCHAR},
+    set source_id = #{sourceId,jdbcType=INTEGER},
+      community_code = #{communityCode,jdbcType=VARCHAR},
+      community_name = #{communityName,jdbcType=VARCHAR},
       latitude = #{latitude,jdbcType=DECIMAL},
       longitude = #{longitude,jdbcType=DECIMAL},
       city = #{city,jdbcType=VARCHAR},
       district = #{district,jdbcType=VARCHAR},
-      area = #{area,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      md5 = #{md5,jdbcType=VARCHAR}
-    where community_id = #{communityId,jdbcType=BIGINT}
+      block = #{block,jdbcType=VARCHAR},
+      md5 = #{md5,jdbcType=VARCHAR},
+      from_time = #{fromTime,jdbcType=TIMESTAMP},
+      to_time = #{toTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT}
+    where info_id = #{infoId,jdbcType=BIGINT}
+  </update>
+  <update id="updateStatus">
+    update community
+    set status = status - 1
+    where status != 0
   </update>
 </mapper>

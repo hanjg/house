@@ -1,4 +1,4 @@
-package com.babyjuan.house.common;
+package com.babyjuan.house.common.utils;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;

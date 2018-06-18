@@ -62,7 +62,6 @@
     </form>
     <div style="padding:5px">
         <a href="javascript:void(0)" class="easyui-linkbutton" onclick="startCrawler()">开始</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="stopCrawler()">停止</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" onclick="crawlerStatus()">状态</a>
     </div>
 </div>
@@ -83,25 +82,13 @@
     $.get(HOUSE.rootUrl + "/crawler/start", null, function (data) {
       var a;
       if (data.status == 200) {
-        a = "爬虫启动";
+        a = JSON.stringify(data.data);
       } else {
         a = data.msg;
       }
       $('#crawlerState').val(a);
     });
-  }
-
-  function stopCrawler() {
-    $.get(HOUSE.rootUrl + "/crawler/stop", null, function (data) {
-      var a;
-      if (data.status == 200) {
-        a = "爬虫停止";
-      } else {
-        a = data.msg;
-      }
-      $('#crawlerState').val(a);
-    });
-  }
+  }host
 
   function crawlerStatus() {
     $.get(HOUSE.rootUrl + "/crawler/status", null, function (data) {

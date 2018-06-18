@@ -1,7 +1,12 @@
 package com.babyjuan.house.service.crawler.impl;
 
+import com.babyjuan.house.common.HouseResult;
+import com.babyjuan.house.common.enums.RecordStatus;
+import com.babyjuan.house.dao.entity.CommunityExample;
 import com.babyjuan.house.dao.entity.RentingHouse;
 import com.babyjuan.house.dao.entity.RentingHouseExample;
+import com.babyjuan.house.dao.entity.RentingHouseExample.Criteria;
+import com.babyjuan.house.dao.mapper.CommunityMapper;
 import com.babyjuan.house.dao.mapper.RentingHouseMapper;
 import com.babyjuan.house.service.crawler.CrawlerService;
 import com.babyjuan.house.service.crawler.model.SpiderState;
@@ -15,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.Spider;
+import us.codecraft.webmagic.Spider.Status;
 import us.codecraft.webmagic.downloader.HttpClientDownloader;
 import us.codecraft.webmagic.pipeline.Pipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
@@ -51,19 +57,24 @@ public class CrawlerServiceImpl implements CrawlerService {
 
     @Autowired
     private RentingHouseMapper rentingHouseMapper;
+    @Autowired
+    private CommunityMapper communityMapper;
 
     @Autowired
     private ProxyPool proxyPool;
 
     @Override
-    public void run() {
-        if (spider != null) {
-            destroySpider();
+    public HouseResult run() {
+        if (spider != null && !spider.getStatus().equals(Status.Stopped)) {
+            return HouseResult.ok("爬虫正在运行");
         }
         initSpider(getStartUrls());
         spider.run();
+        updateStatus();
+        return HouseResult.ok("爬虫启动");
     }
 
+    @Deprecated
     private void destroySpider() {
         LOGGER.info("destroy spider");
         //销毁没有完成的爬虫
@@ -72,38 +83,33 @@ public class CrawlerServiceImpl implements CrawlerService {
     }
 
     @Override
-    public void start() {
-        if (spider != null) {
-            destroySpider();
+    public HouseResult start() {
+        if (spider != null && !spider.getStatus().equals(Status.Stopped)) {
+            return HouseResult.ok("爬虫正在运行");
         }
         initSpider(getStartUrls());
         spider.start();
+        updateStatus();
+        return HouseResult.ok("爬虫启动");
     }
 
     private void initSpider(List<String> startUrls) {
-        LOGGER.info("spider initing");
-        spider = Spider.create(pageProcessor);
-        spider.addPipeline(pipeline);
-        downloader.setProxyProvider(proxyPool);
-        spider.setDownloader(downloader);
-        spider.setScheduler(scheduler);
-        spider.thread(SPIDER_THREAD_NUM);
+        if (spider == null) {
+            LOGGER.info("spider initing");
+            spider = Spider.create(pageProcessor);
+            spider.addPipeline(pipeline);
+            downloader.setProxyProvider(proxyPool);
+            spider.setDownloader(downloader);
+            spider.setScheduler(scheduler);
+            spider.thread(SPIDER_THREAD_NUM);
+
+        }
         for (String url : startUrls) {
             spider.addUrl(url);
         }
-
-        //开始爬取数据之前，将所有的房屋信息设置为过时的
-        try {
-            RentingHouseExample example = new RentingHouseExample();
-            RentingHouse rentingHouse = new RentingHouse();
-            rentingHouse.setIsNew(false);
-            rentingHouseMapper.updateByExampleSelective(rentingHouse, example);
-        } catch (Exception e) {
-            LOGGER.error(e.toString());
-        }
     }
 
-    @Override
+    @Deprecated
     public void stop() {
         LOGGER.debug("spider start stop");
         if (spider != null) {
@@ -138,6 +144,39 @@ public class CrawlerServiceImpl implements CrawlerService {
             urlList.add(url);
         }
         return urlList;
+    }
+
+    private void updateStatus() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while (true) {
+                        if (spider != null && spider.getStatus().equals(Status.Stopped)) {
+                            CommunityExample communityExample = new CommunityExample();
+                            CommunityExample.Criteria communityCriteria = communityExample.createCriteria();
+                            communityCriteria.andStatusEqualTo(RecordStatus.UPDATING.getStatus());
+                            if (!communityMapper.selectByExample(communityExample).isEmpty()) {
+                                communityMapper.updateStatus();
+                            }
+
+                            RentingHouseExample rentingHouseExample = new RentingHouseExample();
+                            Criteria renthouseCriteria = rentingHouseExample.createCriteria();
+                            renthouseCriteria.andStatusEqualTo(RecordStatus.UPDATING.getStatus());
+                            if (!rentingHouseMapper.selectByExample(rentingHouseExample).isEmpty()) {
+                                rentingHouseMapper.updateStatus();
+                            }
+                            break;
+                        }
+                        Thread.sleep(60 * 1000);
+                    }
+                } catch (InterruptedException e) {
+                    LOGGER.warn(e.toString());
+                }
+            }
+        });
+        thread.setDaemon(false);
+        thread.start();
     }
 
 }

@@ -1,5 +1,6 @@
 package com.babyjuan.house.service.crawler;
 
+import com.babyjuan.house.common.HouseResult;
 import com.babyjuan.house.service.crawler.model.SpiderState;
 
 /**
@@ -12,13 +13,14 @@ public interface CrawlerService {
     /**
      * 同步执行爬虫
      */
-    void run();
+    HouseResult run();
 
     /**
      * 异步执行爬虫，主线程终止，则爬虫终止
      */
-    void start();
+    HouseResult start();
 
+    @Deprecated
     void stop();
 
     SpiderState status();

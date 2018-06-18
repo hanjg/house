@@ -76,7 +76,7 @@ public class LianjiaPageProcessor implements PageProcessor {
         matcher = locationPattern.matcher(content);
         if (matcher.find()) {
             page.putField(LianjiaFieldInfo.DISTRICT, matcher.group(1));
-            page.putField(LianjiaFieldInfo.AREA, matcher.group(2));
+            page.putField(LianjiaFieldInfo.BLOCK, matcher.group(2));
             page.putField(LianjiaFieldInfo.CITY, CITY);
         }
 
@@ -90,7 +90,7 @@ public class LianjiaPageProcessor implements PageProcessor {
                 if (matcher.find()) {
                     Json json = new Json(matcher.group(1));
                     page.putField(LianjiaFieldInfo.HOUSE_CODE, json.jsonPath("$.houseId").get());
-                    page.putField(LianjiaFieldInfo.COMMUNITY_ID, json.jsonPath("$.resblockId").get());
+                    page.putField(LianjiaFieldInfo.COMMUNITY_CODE, json.jsonPath("$.resblockId").get());
                     page.putField(LianjiaFieldInfo.COMMUNITY_NAME, json.jsonPath("$.resblockName").get());
                     String[] location = json.jsonPath("$.resblockPosition").get().split(",");
                     page.putField(LianjiaFieldInfo.LONGITUDE, location[0]);

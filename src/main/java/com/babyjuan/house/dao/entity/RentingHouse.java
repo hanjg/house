@@ -3,7 +3,13 @@ package com.babyjuan.house.dao.entity;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class RentingHouse extends RentingHouseKey {
+public class RentingHouse {
+    private Long infoId;
+
+    private Integer sourceId;
+
+    private String houseCode;
+
     private String title;
 
     private Byte bedroomNum;
@@ -16,15 +22,39 @@ public class RentingHouse extends RentingHouseKey {
 
     private BigDecimal rentArea;
 
-    private Long communityId;
-
-    private Date createTime;
-
-    private Date updateTime;
+    private Long communityInfoId;
 
     private String md5;
 
-    private Boolean isNew;
+    private Date fromTime;
+
+    private Date toTime;
+
+    private Byte status;
+
+    public Long getInfoId() {
+        return infoId;
+    }
+
+    public void setInfoId(Long infoId) {
+        this.infoId = infoId;
+    }
+
+    public Integer getSourceId() {
+        return sourceId;
+    }
+
+    public void setSourceId(Integer sourceId) {
+        this.sourceId = sourceId;
+    }
+
+    public String getHouseCode() {
+        return houseCode;
+    }
+
+    public void setHouseCode(String houseCode) {
+        this.houseCode = houseCode == null ? null : houseCode.trim();
+    }
 
     public String getTitle() {
         return title;
@@ -74,28 +104,12 @@ public class RentingHouse extends RentingHouseKey {
         this.rentArea = rentArea;
     }
 
-    public Long getCommunityId() {
-        return communityId;
+    public Long getCommunityInfoId() {
+        return communityInfoId;
     }
 
-    public void setCommunityId(Long communityId) {
-        this.communityId = communityId;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setCommunityInfoId(Long communityInfoId) {
+        this.communityInfoId = communityInfoId;
     }
 
     public String getMd5() {
@@ -106,11 +120,27 @@ public class RentingHouse extends RentingHouseKey {
         this.md5 = md5 == null ? null : md5.trim();
     }
 
-    public Boolean getIsNew() {
-        return isNew;
+    public Date getFromTime() {
+        return fromTime;
     }
 
-    public void setIsNew(Boolean isNew) {
-        this.isNew = isNew;
+    public void setFromTime(Date fromTime) {
+        this.fromTime = fromTime;
+    }
+
+    public Date getToTime() {
+        return toTime;
+    }
+
+    public void setToTime(Date toTime) {
+        this.toTime = toTime;
+    }
+
+    public Byte getStatus() {
+        return status;
+    }
+
+    public void setStatus(Byte status) {
+        this.status = status;
     }
 }

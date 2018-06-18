@@ -2,7 +2,6 @@ package com.babyjuan.house.dao.mapper;
 
 import com.babyjuan.house.dao.entity.RentingHouse;
 import com.babyjuan.house.dao.entity.RentingHouseExample;
-import com.babyjuan.house.dao.entity.RentingHouseKey;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -11,7 +10,7 @@ public interface RentingHouseMapper {
 
     int deleteByExample(RentingHouseExample example);
 
-    int deleteByPrimaryKey(RentingHouseKey key);
+    int deleteByPrimaryKey(Long infoId);
 
     int insert(RentingHouse record);
 
@@ -19,7 +18,7 @@ public interface RentingHouseMapper {
 
     List<RentingHouse> selectByExample(RentingHouseExample example);
 
-    RentingHouse selectByPrimaryKey(RentingHouseKey key);
+    RentingHouse selectByPrimaryKey(Long infoId);
 
     int updateByExampleSelective(@Param("record") RentingHouse record, @Param("example") RentingHouseExample example);
 
@@ -28,4 +27,6 @@ public interface RentingHouseMapper {
     int updateByPrimaryKeySelective(RentingHouse record);
 
     int updateByPrimaryKey(RentingHouse record);
+
+    int updateStatus();
 }

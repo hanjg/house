@@ -1,15 +1,13 @@
 package com.babyjuan.house.controller;
 
-import com.babyjuan.house.common.ExceptionUtil;
+import com.babyjuan.house.common.utils.ExceptionUtil;
 import com.babyjuan.house.common.HouseResult;
-import com.babyjuan.house.common.enums.HouseSource;
 import com.babyjuan.house.service.crawler.CrawlerService;
 import com.babyjuan.house.service.crawler.model.SpiderState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import us.codecraft.webmagic.Spider;
 
 /**
  * @Author: hjg
@@ -28,8 +26,7 @@ public class CrawlerController {
     public HouseResult start() {
         HouseResult result = null;
         try {
-            crawlerService.start();
-            result = HouseResult.ok();
+            result = crawlerService.start();
         } catch (Exception e) {
             result = HouseResult.build(500, ExceptionUtil.getStackTrace(e));
         }
@@ -41,21 +38,7 @@ public class CrawlerController {
     public HouseResult run() {
         HouseResult result = null;
         try {
-            crawlerService.run();
-            result = HouseResult.ok();
-        } catch (Exception e) {
-            result = HouseResult.build(500, ExceptionUtil.getStackTrace(e));
-        }
-        return result;
-    }
-
-    @RequestMapping("/stop")
-    @ResponseBody
-    public HouseResult stop() {
-        HouseResult result = null;
-        try {
-            crawlerService.stop();
-            result = HouseResult.ok();
+            result = crawlerService.run();
         } catch (Exception e) {
             result = HouseResult.build(500, ExceptionUtil.getStackTrace(e));
         }

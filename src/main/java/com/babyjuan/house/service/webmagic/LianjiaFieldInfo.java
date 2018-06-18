@@ -15,12 +15,12 @@ public class LianjiaFieldInfo {
     /**
      * 地区：城市>行政区>地区
      */
-    public static final String AREA = "area";
+    public static final String BLOCK = "block";
     public static final String DISTRICT = "district";
     public static final String CITY = "city";
     public static final String PRICE_TOTAL = "priceTotal";
     public static final String HOUSE_CODE = "houseCode";
-    public static final String COMMUNITY_ID = "communityId";
+    public static final String COMMUNITY_CODE = "communityId";
     public static final String COMMUNITY_NAME = "communityName";
     public static final String LONGITUDE = "longitude";
     public static final String LATITUDE = "latitude";

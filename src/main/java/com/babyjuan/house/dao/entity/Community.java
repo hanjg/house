@@ -4,7 +4,11 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class Community {
-    private Long communityId;
+    private Long infoId;
+
+    private Integer sourceId;
+
+    private String communityCode;
 
     private String communityName;
 
@@ -16,20 +20,38 @@ public class Community {
 
     private String district;
 
-    private String area;
-
-    private Date createTime;
-
-    private Date updateTime;
+    private String block;
 
     private String md5;
 
-    public Long getCommunityId() {
-        return communityId;
+    private Date fromTime;
+
+    private Date toTime;
+
+    private Byte status;
+
+    public Long getInfoId() {
+        return infoId;
     }
 
-    public void setCommunityId(Long communityId) {
-        this.communityId = communityId;
+    public void setInfoId(Long infoId) {
+        this.infoId = infoId;
+    }
+
+    public Integer getSourceId() {
+        return sourceId;
+    }
+
+    public void setSourceId(Integer sourceId) {
+        this.sourceId = sourceId;
+    }
+
+    public String getCommunityCode() {
+        return communityCode;
+    }
+
+    public void setCommunityCode(String communityCode) {
+        this.communityCode = communityCode == null ? null : communityCode.trim();
     }
 
     public String getCommunityName() {
@@ -72,28 +94,12 @@ public class Community {
         this.district = district == null ? null : district.trim();
     }
 
-    public String getArea() {
-        return area;
+    public String getBlock() {
+        return block;
     }
 
-    public void setArea(String area) {
-        this.area = area == null ? null : area.trim();
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setBlock(String block) {
+        this.block = block == null ? null : block.trim();
     }
 
     public String getMd5() {
@@ -102,5 +108,29 @@ public class Community {
 
     public void setMd5(String md5) {
         this.md5 = md5 == null ? null : md5.trim();
+    }
+
+    public Date getFromTime() {
+        return fromTime;
+    }
+
+    public void setFromTime(Date fromTime) {
+        this.fromTime = fromTime;
+    }
+
+    public Date getToTime() {
+        return toTime;
+    }
+
+    public void setToTime(Date toTime) {
+        this.toTime = toTime;
+    }
+
+    public Byte getStatus() {
+        return status;
+    }
+
+    public void setStatus(Byte status) {
+        this.status = status;
     }
 }
