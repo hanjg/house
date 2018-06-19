@@ -86,22 +86,20 @@ public class LianjiaDbPipeLine implements Pipeline {
         return currentCommunity.getInfoId();
     }
 
-    private long updateOld(RentingHouse oldHouse) {
+    private void updateOld(RentingHouse oldHouse) {
         Community community = new Community();
         community.setInfoId(oldHouse.getInfoId());
         community.setToTime(new Date());
         community.setStatus(RecordStatus.UPDATING.getStatus());
         communityMapper.updateByPrimaryKeySelective(community);
-        return community.getInfoId();
     }
 
-    private long insertNew(RentingHouse currentHouse) {
+    private void insertNew(RentingHouse currentHouse) {
         //日期使用默认值：当前时间
         currentHouse.setStatus(RecordStatus.UPDATING.getStatus());
         currentHouse.setFromTime(new Date());
         currentHouse.setToTime(new Date());
         rentingHouseMapper.insert(currentHouse);
-        return currentHouse.getInfoId();
     }
 
 
