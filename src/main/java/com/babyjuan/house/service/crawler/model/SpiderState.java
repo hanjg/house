@@ -47,4 +47,14 @@ public class SpiderState {
     public void setThreadAlive(int threadAlive) {
         this.threadAlive = threadAlive;
     }
+
+    @Override
+    public String toString() {
+        return "SpiderState{" +
+                "status=" + status +
+                ", startTime=" + startTime +
+                ", pageCount=" + pageCount +
+                ", threadAlive=" + threadAlive +
+                '}';
+    }
 }

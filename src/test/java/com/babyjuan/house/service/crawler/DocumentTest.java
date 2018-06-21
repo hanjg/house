@@ -1,4 +1,4 @@
-package com.babyjuan.house.service;
+package com.babyjuan.house.service.crawler;
 
 import java.io.IOException;
 import org.jsoup.Jsoup;
