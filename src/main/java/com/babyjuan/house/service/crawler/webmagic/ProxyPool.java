@@ -1,4 +1,4 @@
-package com.babyjuan.house.service.webmagic;
+package com.babyjuan.house.service.crawler.webmagic;
 
 import java.util.Iterator;
 import java.util.Queue;

@@ -8,20 +8,20 @@
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
 
-  <bean id="pipeline" class="com.babyjuan.house.service.webmagic.LianjiaDbPipeLine"></bean>
+  <bean id="pipeline" class="com.babyjuan.house.service.crawler.webmagic.LianjiaDbPipeLine"></bean>
   <!--<bean id="pipeline" class="us.codecraft.webmagic.pipeline.ConsolePipeline"></bean>-->
 
   <bean id="downloader" class="us.codecraft.webmagic.downloader.HttpClientDownloader"></bean>
 
-  <bean id="scheduler" class="com.babyjuan.house.service.webmagic.DuplicateQueueScheduler"></bean>
+  <bean id="scheduler" class="com.babyjuan.house.service.crawler.webmagic.DuplicateQueueScheduler"></bean>
 
-  <bean id="pageProcessor" class="com.babyjuan.house.service.webmagic.LianjiaPageProcessor">
+  <bean id="pageProcessor" class="com.babyjuan.house.service.crawler.webmagic.LianjiaPageProcessor">
     <constructor-arg name="retryTimes" value="${spider.retryTimes}"/>
     <constructor-arg name="sleepTime" value="${spider.sleepTime}"/>
     <property name="LIANJIA_CITY_RENT_ROOT" value="${lianjia.city.rent.root}"/>
     <property name="CITY" value="${lianjia.city}"/>
   </bean>
 
-  <bean id="proxyProvider" class="com.babyjuan.house.service.webmagic.ProxyPool">
+  <bean id="proxyProvider" class="com.babyjuan.house.service.crawler.webmagic.ProxyPool">
   </bean>
 </beans>

@@ -5,7 +5,9 @@ import com.babyjuan.house.common.enums.RecordStatus;
 import com.babyjuan.house.dao.entity.Community;
 import com.babyjuan.house.dao.entity.CommunityExample;
 import com.babyjuan.house.dao.entity.CommunityExample.Criteria;
+import com.babyjuan.house.dao.entity.RentingHouse;
 import com.babyjuan.house.dao.mapper.CommunityMapper;
+import com.babyjuan.house.dao.mapper.RentingHouseMapper;
 import java.util.List;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class DaoTest extends BaseTest {
     @Autowired
     private CommunityMapper communityMapper;
 
+    @Autowired
+    private RentingHouseMapper houseMapper;
+
     @Test
     public void testExample() {
 
@@ -31,6 +36,13 @@ public class DaoTest extends BaseTest {
 
         List<Community> OldCommunityList = communityMapper.selectByExample(example);
         System.out.println(OldCommunityList);
+    }
+
+    @Test
+    public void testNull() {
+        RentingHouse house = new RentingHouse();
+        house.setSourceId(1);
+        houseMapper.insert(house);
     }
 
 }

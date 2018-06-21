@@ -53,8 +53,9 @@ public class CrawlerServiceImplTest extends BaseTest {
     }
 
     @Test
-    public void testUrl() {
-        String url = "https://nj.lianjia.com/zufang/103102437978.html";
+    public void testUrl() throws InterruptedException {
+        String url = "https://nj.lianjia.com/zufang/103102434083.html";
         crawlerService.test(url);
+        Thread.sleep(10 * 1000);
     }
 }

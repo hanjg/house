@@ -3,14 +3,13 @@ package com.babyjuan.house.service.crawler.impl;
 import com.babyjuan.house.common.HouseResult;
 import com.babyjuan.house.common.enums.RecordStatus;
 import com.babyjuan.house.dao.entity.CommunityExample;
-import com.babyjuan.house.dao.entity.RentingHouse;
 import com.babyjuan.house.dao.entity.RentingHouseExample;
 import com.babyjuan.house.dao.entity.RentingHouseExample.Criteria;
 import com.babyjuan.house.dao.mapper.CommunityMapper;
 import com.babyjuan.house.dao.mapper.RentingHouseMapper;
 import com.babyjuan.house.service.crawler.CrawlerService;
 import com.babyjuan.house.service.crawler.model.SpiderState;
-import com.babyjuan.house.service.webmagic.ProxyPool;
+import com.babyjuan.house.service.crawler.webmagic.ProxyPool;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -134,6 +133,7 @@ public class CrawlerServiceImpl implements CrawlerService {
         LOGGER.debug("spider start run");
         initSpider(Arrays.asList(url));
         spider.run();
+        updateStatus();
     }
 
     private List<String> getStartUrls() {

@@ -2,7 +2,7 @@ package com.babyjuan.house.service.crawler.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.babyjuan.house.service.crawler.ProxyService;
-import com.babyjuan.house.service.webmagic.ProxyPool;
+import com.babyjuan.house.service.crawler.webmagic.ProxyPool;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.babyjuan.house.service.webmagic;
+package com.babyjuan.house.service.crawler.webmagic;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

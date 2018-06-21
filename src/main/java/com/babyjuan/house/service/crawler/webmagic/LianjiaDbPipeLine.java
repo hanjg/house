@@ -1,4 +1,4 @@
-package com.babyjuan.house.service.webmagic;
+package com.babyjuan.house.service.crawler.webmagic;
 
 
 import com.babyjuan.house.common.enums.HouseSource;
@@ -87,11 +87,11 @@ public class LianjiaDbPipeLine implements Pipeline {
     }
 
     private void updateOld(RentingHouse oldHouse) {
-        Community community = new Community();
-        community.setInfoId(oldHouse.getInfoId());
-        community.setToTime(new Date());
-        community.setStatus(RecordStatus.UPDATING.getStatus());
-        communityMapper.updateByPrimaryKeySelective(community);
+        RentingHouse house = new RentingHouse();
+        house.setInfoId(oldHouse.getInfoId());
+        house.setToTime(new Date());
+        house.setStatus(RecordStatus.UPDATING.getStatus());
+        rentingHouseMapper.updateByPrimaryKeySelective(house);
     }
 
     private void insertNew(RentingHouse currentHouse) {
@@ -115,8 +115,7 @@ public class LianjiaDbPipeLine implements Pipeline {
 
         List<RentingHouse> oldHouseList = rentingHouseMapper.selectByExample(example);
         if (oldHouseList.isEmpty()) {
-            currentHouse.setStatus(RecordStatus.UPDATING.getStatus());
-            rentingHouseMapper.insert(currentHouse);
+            insertNew(currentHouse);
         } else {
             RentingHouse oldHouse = oldHouseList.get(0);
             if (oldHouse.getMd5().equals(currentHouse.getMd5())) {
