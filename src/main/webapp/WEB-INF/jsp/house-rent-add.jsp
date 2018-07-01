@@ -79,7 +79,7 @@
 //				$.messager.alert('提示','新增商品成功!');
 //			}
 //		});
-    $.get(HOUSE.rootUrl + "/crawler/start", null, function (data) {
+    $.get(HOUSE.rootUrl + "/crawler/start/3", null, function (data) {
       var a;
       if (data.status == 200) {
         a = JSON.stringify(data.data);

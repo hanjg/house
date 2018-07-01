@@ -46,25 +46,20 @@ public class LianjiaDbPipeLine implements Pipeline {
 
         CommunityExample example = new CommunityExample();
         Criteria criteria = example.createCriteria();
-        criteria.andSourceIdEqualTo(currentCommunity.getSourceId());
-        criteria.andCommunityCodeEqualTo(currentCommunity.getCommunityCode());
-        //没有过期的数据中查找
-        criteria.andStatusNotEqualTo(RecordStatus.EXPIRED.getStatus());
+        criteria.andMd5EqualTo(currentCommunity.getMd5());
+        //由sourceId和houseCode查找:
+        //在不包括过期的数据中查找，某些数据由于网络原因不一定每次都能爬取到，会误认为过期
+        //在包括过期的数据中查找，如果数据更新，每次的数据都和第一次过期的数据比较，会重复插入最新的数据
+        //所以变更为md5查找，确保不会有重复插入
 
         List<Community> oldCommunityList = communityMapper.selectByExample(example);
         if (oldCommunityList.isEmpty()) {
-            //不存在相同的小区
+            //不存在相同的小区或者相同小区信息有变化，重新插入数据
             return insertNew(currentCommunity);
         } else {
-            //存在相同的小区
+            //存在相同的小区并且无变化，只需更新时间和状态
             Community oldCommunity = oldCommunityList.get(0);
-            if (oldCommunity.getMd5().equals(currentCommunity.getMd5())) {
-                //小区信息没有变化，只需更新时间和状态
-                return updateOld(oldCommunity);
-            } else {
-                //小区信息有变化，重新插入数据
-                return insertNew(currentCommunity);
-            }
+            return updateOld(oldCommunity);
         }
     }
 
@@ -108,23 +103,15 @@ public class LianjiaDbPipeLine implements Pipeline {
 
         RentingHouseExample example = new RentingHouseExample();
         RentingHouseExample.Criteria criteria = example.createCriteria();
-        criteria.andSourceIdEqualTo(currentHouse.getSourceId());
-        criteria.andHouseCodeEqualTo(currentHouse.getHouseCode());
-        //没有过期的数据中查找
-        criteria.andStatusNotEqualTo(RecordStatus.EXPIRED.getStatus());
+        criteria.andMd5EqualTo(currentHouse.getMd5());
 
         List<RentingHouse> oldHouseList = rentingHouseMapper.selectByExample(example);
         if (oldHouseList.isEmpty()) {
             insertNew(currentHouse);
         } else {
             RentingHouse oldHouse = oldHouseList.get(0);
-            if (oldHouse.getMd5().equals(currentHouse.getMd5())) {
-                updateOld(oldHouse);
-            } else {
-                insertNew(currentHouse);
-            }
+            updateOld(oldHouse);
         }
-
     }
 
     /**

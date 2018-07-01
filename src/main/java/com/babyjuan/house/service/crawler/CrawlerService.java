@@ -18,7 +18,7 @@ public interface CrawlerService {
     /**
      * 异步执行爬虫，主线程终止，则爬虫终止
      */
-    HouseResult start();
+    HouseResult start(int repeatTimes);
 
     @Deprecated
     void stop();

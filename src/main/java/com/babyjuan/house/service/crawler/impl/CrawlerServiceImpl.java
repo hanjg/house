@@ -82,14 +82,37 @@ public class CrawlerServiceImpl implements CrawlerService {
     }
 
     @Override
-    public HouseResult start() {
+    public HouseResult start(int repeatTimes) {
         if (spider != null && !spider.getStatus().equals(Status.Stopped)) {
             return HouseResult.ok("爬虫正在运行");
         }
-        initSpider(getStartUrls());
-        spider.start();
-        updateStatus();
+        spiderThreadStart(repeatTimes);
         return HouseResult.ok("爬虫启动");
+    }
+
+    private void spiderThreadStart(final int repeatTimes) {
+        Thread thread = new Thread(new Runnable() {
+            private int runCount = 0;
+
+            @Override
+            public void run() {
+                while (runCount < repeatTimes) {
+                    if (spider == null || spider.getStatus().equals(Status.Stopped)) {
+                        initSpider(getStartUrls());
+                        spider.start();
+                        updateStatus();
+                        runCount++;
+                    }
+                    try {
+                        Thread.sleep(10 * 60 * 1000);
+                    } catch (InterruptedException e) {
+                        LOGGER.error(e.toString());
+                    }
+                }
+            }
+        });
+        thread.setDaemon(false);
+        thread.start();
     }
 
     private void initSpider(List<String> startUrls) {
@@ -171,7 +194,7 @@ public class CrawlerServiceImpl implements CrawlerService {
                             LOGGER.info("update status, community {}, house: {}", communityCount, houseCount);
                             break;
                         }
-                        Thread.sleep(60 * 1000);
+                        Thread.sleep(1 * 60 * 1000);
                     }
                 } catch (InterruptedException e) {
                     LOGGER.warn(e.toString());

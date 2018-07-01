@@ -7,6 +7,7 @@ import com.babyjuan.house.service.crawler.model.SpiderState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -21,12 +22,12 @@ public class CrawlerController {
     @Autowired
     private CrawlerService crawlerService;
 
-    @RequestMapping("/start")
+    @RequestMapping("/start/{repeatTimes}")
     @ResponseBody
-    public HouseResult start() {
+    public HouseResult start(@RequestParam(defaultValue = "3") int repeatTimes) {
         HouseResult result = null;
         try {
-            result = crawlerService.start();
+            result = crawlerService.start(repeatTimes);
         } catch (Exception e) {
             result = HouseResult.build(500, ExceptionUtil.getStackTrace(e));
         }

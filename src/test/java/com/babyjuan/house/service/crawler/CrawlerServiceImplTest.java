@@ -32,11 +32,11 @@ public class CrawlerServiceImplTest extends BaseTest {
     public void start() throws Exception {
         crawlerService.start();
         Thread.sleep(60 * 1000);
-        System.out.println(rentingHouseMapper.selectByExample(new RentingHouseExample()));
-        System.out.println(communityMapper.selectByExample(new CommunityExample()));
+//        System.out.println(rentingHouseMapper.selectByExample(new RentingHouseExample()));
+//        System.out.println(communityMapper.selectByExample(new CommunityExample()));
         Thread.sleep(60 * 1000);
-        System.out.println(rentingHouseMapper.selectByExample(new RentingHouseExample()));
-        System.out.println(communityMapper.selectByExample(new CommunityExample()));
+//        System.out.println(rentingHouseMapper.selectByExample(new RentingHouseExample()));
+//        System.out.println(communityMapper.selectByExample(new CommunityExample()));
     }
 
     @Test
