@@ -261,8 +261,8 @@ var TT = TAOTAO = {
   }
 };
 
-var host = "47.96.107.70";
-// var host = "localhost";
+var host_port = "47.96.107.70:80";
+// var host = "localhost:8080";
 var HOUSE = {
-  rootUrl: "http://" + host + ":8080/house"
+  rootUrl: "http://" + host_port + "/house"
 }

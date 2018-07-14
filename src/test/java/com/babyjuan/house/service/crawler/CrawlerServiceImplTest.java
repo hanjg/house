@@ -30,7 +30,7 @@ public class CrawlerServiceImplTest extends BaseTest {
 
     @Test
     public void start() throws Exception {
-        crawlerService.start();
+        crawlerService.start(1);
         Thread.sleep(60 * 1000);
 //        System.out.println(rentingHouseMapper.selectByExample(new RentingHouseExample()));
 //        System.out.println(communityMapper.selectByExample(new CommunityExample()));

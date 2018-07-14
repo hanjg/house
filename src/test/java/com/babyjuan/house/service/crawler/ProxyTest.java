@@ -48,7 +48,7 @@ public class ProxyTest extends BaseTest {
     @Test
     public void start() throws InterruptedException {
         proxyService.start();
-        crawlerService.start();
+        crawlerService.start(1);
         Thread.sleep(60 * 1000);
     }
 }
