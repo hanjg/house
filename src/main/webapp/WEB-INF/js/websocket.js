@@ -1,15 +1,18 @@
 var websocket = null;
 if ('WebSocket' in window) {
   //Websocket的连接
-  websocket = new WebSocket("ws://" + host_port + "/house/websocket/socketServer.do");//WebSocket对应的地址
+  websocket = new WebSocket("ws://" + host_port
+      + "/house/websocket/socketServer.do");//WebSocket对应的地址
 }
 else if ('MozWebSocket' in window) {
   //Websocket的连接
-  websocket = new MozWebSocket("ws://" + host_port + "/house/websocket/socketServer.do");//SockJS对应的地址
+  websocket = new MozWebSocket("ws://" + host_port
+      + "/house/websocket/socketServer.do");//SockJS对应的地址
 }
 else {
   //SockJS的连接
-  websocket = new SockJS("http://" + host_port + "/house/sockjs/socketServer.do");    //SockJS对应的地址
+  websocket = new SockJS("http://" + host_port
+      + "/house/sockjs/socketServer.do");    //SockJS对应的地址
 }
 websocket.onopen = onOpen;
 websocket.onmessage = onMessage;
@@ -22,6 +25,7 @@ function onOpen() {
 
 function onMessage(evt) {
   alert(evt.data);
+  // $('#push').text(evt.data);
 }
 
 function onError() {

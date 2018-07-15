@@ -1,5 +1,6 @@
 package com.babyjuan.house.service.manager;
 
+import com.babyjuan.house.common.EasyUIDataGridResult;
 import com.babyjuan.house.dao.entity.RentingHouse;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +12,20 @@ import java.util.List;
  */
 public interface RentingHouseService {
 
-    List<RentingHouse> getLatestRelativeHouseList(String communityName,Date lastPushTime);
+    /**
+     * 获得关注小区的更新租房信息
+     */
+    List<RentingHouse> getLatestFavourateHouseList(String communityName, Date lastPushTime);
+
+
+    /**
+     * 获得关注小区的租房信息
+     */
+    EasyUIDataGridResult getFavourateHouseList(int page, int rows);
+
+    /**
+     * 获得所有租房信息
+     */
+    EasyUIDataGridResult getRentingHouseList(int page, int rows);
 
 }

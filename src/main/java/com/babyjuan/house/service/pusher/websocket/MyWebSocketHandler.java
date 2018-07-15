@@ -1,6 +1,6 @@
 package com.babyjuan.house.service.pusher.websocket;
 
-import com.babyjuan.house.common.utils.JsonUtils;
+import com.babyjuan.house.common.constant.Constant;
 import com.babyjuan.house.dao.entity.RentingHouse;
 import com.babyjuan.house.service.crawler.CrawlerService;
 import com.babyjuan.house.service.crawler.model.SpiderState;
@@ -8,7 +8,6 @@ import com.babyjuan.house.service.manager.RentingHouseService;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +36,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
     @Value("${lianjia.city.rent.root}")
     private String LIANJIA_CITY_RENT_ROOT;
 
-    private Date lastPushTime = DateTime.parse("1000-01-01").toDate();
+    private Date lastPushTime = Constant.LONG_LONG_AGO;
 
     /**
      * 处理前端发送的文本信息 js调用websocket.send时候，会调用该方法
@@ -55,7 +54,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
         LOGGER.info("websocket connection established......");
         List<RentingHouse> houseList = new ArrayList<>();
         for (String communityName : PUSHER_COMMUNITIES.split(",")) {
-            houseList.addAll(rentingHouseService.getLatestRelativeHouseList(communityName, lastPushTime));
+            houseList.addAll(rentingHouseService.getLatestFavourateHouseList(communityName, lastPushTime));
         }
         SpiderState spiderState = crawlerService.status();
         String crawlerMessage =
@@ -66,8 +65,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
             houseMessage.append("\n").append(house.getTitle()).append("\t").append(LIANJIA_CITY_RENT_ROOT)
                     .append(house.getHouseCode()).append(".html");
         }
-        session.sendMessage(new TextMessage(crawlerMessage));
-        session.sendMessage(new TextMessage(houseMessage.toString()));
+        session.sendMessage(new TextMessage(crawlerMessage + "\n\n" + houseMessage.toString()));
         //更新最近推送时间
         lastPushTime = new Date();
         LOGGER.info("last push time: {}", lastPushTime);

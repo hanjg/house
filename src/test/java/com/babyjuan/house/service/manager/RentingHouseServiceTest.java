@@ -1,7 +1,9 @@
 package com.babyjuan.house.service.manager;
 
 import com.babyjuan.house.base.BaseTest;
+import com.babyjuan.house.common.EasyUIDataGridResult;
 import com.babyjuan.house.dao.entity.RentingHouse;
+import com.babyjuan.house.service.manager.model.RentingHouseDto;
 import java.util.Date;
 import java.util.List;
 import org.joda.time.DateTime;
@@ -29,9 +31,18 @@ public class RentingHouseServiceTest extends BaseTest {
         queryHouse(com1, com2);
     }
 
+    @Test
+    public void getRentingHosueList() {
+        EasyUIDataGridResult result = rentingHouseService.getRentingHouseList(1, 10);
+        List<RentingHouseDto> dtos = (List<RentingHouseDto>) result.getRows();
+        for (RentingHouseDto house : dtos) {
+            System.out.println(house.toString());
+        }
+    }
+
     private void queryHouse(String com1, String com2) {
-        List<RentingHouse> list1 = rentingHouseService.getLatestRelativeHouseList(com1, lastPushDate);
-        List<RentingHouse> list2 = rentingHouseService.getLatestRelativeHouseList(com2, lastPushDate);
+        List<RentingHouse> list1 = rentingHouseService.getLatestFavourateHouseList(com1, lastPushDate);
+        List<RentingHouse> list2 = rentingHouseService.getLatestFavourateHouseList(com2, lastPushDate);
         System.out.println(com1 + " : ");
         printHouse(list1);
         System.out.println(com2 + " :");

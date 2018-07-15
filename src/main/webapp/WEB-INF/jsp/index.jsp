@@ -26,6 +26,7 @@
             <ul>
                 <li data-options="attributes:{'url':'house-rent-list'}">查询租房信息</li>
                 <li data-options="attributes:{'url':'house-rent-add'}">获取租房数据</li>
+                <li data-options="attributes:{'url':'favourate-house-rent-list'}">关注租房信息</li>
             </ul>
         </li>
 
