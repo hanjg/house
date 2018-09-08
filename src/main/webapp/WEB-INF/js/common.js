@@ -263,6 +263,3 @@ var TT = TAOTAO = {
 
 var host_port = "www.babyjuan.cn";
 // var host_port = "localhost:8080";
-var HOUSE = {
-  rootUrl: "http://" + host_port + "/house"
-}
