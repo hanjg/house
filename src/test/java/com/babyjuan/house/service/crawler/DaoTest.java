@@ -1,13 +1,13 @@
 package com.babyjuan.house.service.crawler;
 
-import com.babyjuan.house.base.BaseTest;
+import com.babyjuan.house.HouseApplicationTests;
 import com.babyjuan.house.common.enums.RecordStatus;
 import com.babyjuan.house.dao.entity.Community;
 import com.babyjuan.house.dao.entity.CommunityExample;
 import com.babyjuan.house.dao.entity.CommunityExample.Criteria;
 import com.babyjuan.house.dao.entity.RentingHouse;
-import com.babyjuan.house.dao.mapper.CommunityMapper;
-import com.babyjuan.house.dao.mapper.RentingHouseMapper;
+import com.babyjuan.house.dao.CommunityMapper;
+import com.babyjuan.house.dao.RentingHouseMapper;
 import java.util.List;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @Date: Create in 2018/6/18 13:21
  * @Description:
  */
-public class DaoTest extends BaseTest {
+public class DaoTest extends HouseApplicationTests {
 
     @Autowired
     private CommunityMapper communityMapper;

@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>房源信息管理系统</title>
+    <title>租房推荐网站</title>
     <link rel="stylesheet" type="text/css" href="js/jquery-easyui-1.4.1/themes/default/easyui.css"/>
     <link rel="stylesheet" type="text/css" href="js/jquery-easyui-1.4.1/themes/icon.css"/>
     <link rel="stylesheet" type="text/css" href="css/house.css"/>
@@ -25,7 +25,7 @@
             <span>房源管理</span>
             <ul>
                 <li data-options="attributes:{'url':'house-rent-list'}">查询租房信息</li>
-                <li data-options="attributes:{'url':'house-rent-add'}">获取租房数据</li>
+                <li data-options="attributes:{'url':'spider'}">获取租房数据</li>
                 <li data-options="attributes:{'url':'favourate-house-rent-list'}">关注租房信息</li>
             </ul>
         </li>

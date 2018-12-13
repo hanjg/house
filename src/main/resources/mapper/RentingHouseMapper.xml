@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.babyjuan.house.dao.RentingHouseMapper" >
+  <resultMap id="BaseResultMap" type="com.babyjuan.house.dao.entity.RentingHouse" >
+    <id column="info_id" property="infoId" jdbcType="BIGINT" />
+    <result column="source_id" property="sourceId" jdbcType="INTEGER" />
+    <result column="house_code" property="houseCode" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="bedroom_num" property="bedroomNum" jdbcType="TINYINT" />
+    <result column="hall_num" property="hallNum" jdbcType="TINYINT" />
+    <result column="orientation" property="orientation" jdbcType="VARCHAR" />
+    <result column="price_total" property="priceTotal" jdbcType="INTEGER" />
+    <result column="rent_area" property="rentArea" jdbcType="DECIMAL" />
+    <result column="community_info_id" property="communityInfoId" jdbcType="BIGINT" />
+    <result column="md5" property="md5" jdbcType="VARCHAR" />
+    <result column="from_time" property="fromTime" jdbcType="TIMESTAMP" />
+    <result column="to_time" property="toTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    info_id, source_id, house_code, title, bedroom_num, hall_num, orientation, price_total, 
+    rent_area, community_info_id, md5, from_time, to_time, status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.babyjuan.house.dao.entity.RentingHouseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from renting_house
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from renting_house
+    where info_id = #{infoId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from renting_house
+    where info_id = #{infoId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.babyjuan.house.dao.entity.RentingHouseExample" >
+    delete from renting_house
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.babyjuan.house.dao.entity.RentingHouse" >
+    insert into renting_house (info_id, source_id, house_code, 
+      title, bedroom_num, hall_num, 
+      orientation, price_total, rent_area, 
+      community_info_id, md5, from_time, 
+      to_time, status)
+    values (#{infoId,jdbcType=BIGINT}, #{sourceId,jdbcType=INTEGER}, #{houseCode,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{bedroomNum,jdbcType=TINYINT}, #{hallNum,jdbcType=TINYINT}, 
+      #{orientation,jdbcType=VARCHAR}, #{priceTotal,jdbcType=INTEGER}, #{rentArea,jdbcType=DECIMAL}, 
+      #{communityInfoId,jdbcType=BIGINT}, #{md5,jdbcType=VARCHAR}, #{fromTime,jdbcType=TIMESTAMP}, 
+      #{toTime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.babyjuan.house.dao.entity.RentingHouse" >
+    insert into renting_house
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="infoId != null" >
+        info_id,
+      </if>
+      <if test="sourceId != null" >
+        source_id,
+      </if>
+      <if test="houseCode != null" >
+        house_code,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="bedroomNum != null" >
+        bedroom_num,
+      </if>
+      <if test="hallNum != null" >
+        hall_num,
+      </if>
+      <if test="orientation != null" >
+        orientation,
+      </if>
+      <if test="priceTotal != null" >
+        price_total,
+      </if>
+      <if test="rentArea != null" >
+        rent_area,
+      </if>
+      <if test="communityInfoId != null" >
+        community_info_id,
+      </if>
+      <if test="md5 != null" >
+        md5,
+      </if>
+      <if test="fromTime != null" >
+        from_time,
+      </if>
+      <if test="toTime != null" >
+        to_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="infoId != null" >
+        #{infoId,jdbcType=BIGINT},
+      </if>
+      <if test="sourceId != null" >
+        #{sourceId,jdbcType=INTEGER},
+      </if>
+      <if test="houseCode != null" >
+        #{houseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="bedroomNum != null" >
+        #{bedroomNum,jdbcType=TINYINT},
+      </if>
+      <if test="hallNum != null" >
+        #{hallNum,jdbcType=TINYINT},
+      </if>
+      <if test="orientation != null" >
+        #{orientation,jdbcType=VARCHAR},
+      </if>
+      <if test="priceTotal != null" >
+        #{priceTotal,jdbcType=INTEGER},
+      </if>
+      <if test="rentArea != null" >
+        #{rentArea,jdbcType=DECIMAL},
+      </if>
+      <if test="communityInfoId != null" >
+        #{communityInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="md5 != null" >
+        #{md5,jdbcType=VARCHAR},
+      </if>
+      <if test="fromTime != null" >
+        #{fromTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="toTime != null" >
+        #{toTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.babyjuan.house.dao.entity.RentingHouseExample" resultType="java.lang.Integer" >
+    select count(*) from renting_house
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update renting_house
+    <set >
+      <if test="record.infoId != null" >
+        info_id = #{record.infoId,jdbcType=BIGINT},
+      </if>
+      <if test="record.sourceId != null" >
+        source_id = #{record.sourceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.houseCode != null" >
+        house_code = #{record.houseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bedroomNum != null" >
+        bedroom_num = #{record.bedroomNum,jdbcType=TINYINT},
+      </if>
+      <if test="record.hallNum != null" >
+        hall_num = #{record.hallNum,jdbcType=TINYINT},
+      </if>
+      <if test="record.orientation != null" >
+        orientation = #{record.orientation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priceTotal != null" >
+        price_total = #{record.priceTotal,jdbcType=INTEGER},
+      </if>
+      <if test="record.rentArea != null" >
+        rent_area = #{record.rentArea,jdbcType=DECIMAL},
+      </if>
+      <if test="record.communityInfoId != null" >
+        community_info_id = #{record.communityInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="record.md5 != null" >
+        md5 = #{record.md5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fromTime != null" >
+        from_time = #{record.fromTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.toTime != null" >
+        to_time = #{record.toTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update renting_house
+    set info_id = #{record.infoId,jdbcType=BIGINT},
+      source_id = #{record.sourceId,jdbcType=INTEGER},
+      house_code = #{record.houseCode,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      bedroom_num = #{record.bedroomNum,jdbcType=TINYINT},
+      hall_num = #{record.hallNum,jdbcType=TINYINT},
+      orientation = #{record.orientation,jdbcType=VARCHAR},
+      price_total = #{record.priceTotal,jdbcType=INTEGER},
+      rent_area = #{record.rentArea,jdbcType=DECIMAL},
+      community_info_id = #{record.communityInfoId,jdbcType=BIGINT},
+      md5 = #{record.md5,jdbcType=VARCHAR},
+      from_time = #{record.fromTime,jdbcType=TIMESTAMP},
+      to_time = #{record.toTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.babyjuan.house.dao.entity.RentingHouse" >
+    update renting_house
+    <set >
+      <if test="sourceId != null" >
+        source_id = #{sourceId,jdbcType=INTEGER},
+      </if>
+      <if test="houseCode != null" >
+        house_code = #{houseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="bedroomNum != null" >
+        bedroom_num = #{bedroomNum,jdbcType=TINYINT},
+      </if>
+      <if test="hallNum != null" >
+        hall_num = #{hallNum,jdbcType=TINYINT},
+      </if>
+      <if test="orientation != null" >
+        orientation = #{orientation,jdbcType=VARCHAR},
+      </if>
+      <if test="priceTotal != null" >
+        price_total = #{priceTotal,jdbcType=INTEGER},
+      </if>
+      <if test="rentArea != null" >
+        rent_area = #{rentArea,jdbcType=DECIMAL},
+      </if>
+      <if test="communityInfoId != null" >
+        community_info_id = #{communityInfoId,jdbcType=BIGINT},
+      </if>
+      <if test="md5 != null" >
+        md5 = #{md5,jdbcType=VARCHAR},
+      </if>
+      <if test="fromTime != null" >
+        from_time = #{fromTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="toTime != null" >
+        to_time = #{toTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+    </set>
+    where info_id = #{infoId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.babyjuan.house.dao.entity.RentingHouse" >
+    update renting_house
+    set source_id = #{sourceId,jdbcType=INTEGER},
+      house_code = #{houseCode,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      bedroom_num = #{bedroomNum,jdbcType=TINYINT},
+      hall_num = #{hallNum,jdbcType=TINYINT},
+      orientation = #{orientation,jdbcType=VARCHAR},
+      price_total = #{priceTotal,jdbcType=INTEGER},
+      rent_area = #{rentArea,jdbcType=DECIMAL},
+      community_info_id = #{communityInfoId,jdbcType=BIGINT},
+      md5 = #{md5,jdbcType=VARCHAR},
+      from_time = #{fromTime,jdbcType=TIMESTAMP},
+      to_time = #{toTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT}
+    where info_id = #{infoId,jdbcType=BIGINT}
+  </update>
+  <update id="updateStatus">
+    update renting_house
+    set status = status - 1
+    where status != 0
+  </update>
+</mapper>

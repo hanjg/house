@@ -1,6 +1,6 @@
 package com.babyjuan.house.service.manager;
 
-import com.babyjuan.house.base.BaseTest;
+import com.babyjuan.house.HouseApplicationTests;
 import com.babyjuan.house.common.EasyUIDataGridResult;
 import com.babyjuan.house.dao.entity.RentingHouse;
 import com.babyjuan.house.service.manager.model.RentingHouseDto;
@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @Date: Create in 2018/6/21 17:48
  * @Description:
  */
-public class RentingHouseServiceTest extends BaseTest {
+public class RentingHouseServiceTest extends HouseApplicationTests {
 
     @Autowired
     private RentingHouseService rentingHouseService;
@@ -25,7 +25,7 @@ public class RentingHouseServiceTest extends BaseTest {
     @Test
     public void getRelativeHouseList() throws Exception {
         String com1 = "蓝筹";
-        String com2 = "阅城";
+        String com2 = "盘金";
         queryHouse(com1, com2);
         lastPushDate = DateTime.parse("2100-01-01").toDate();
         queryHouse(com1, com2);

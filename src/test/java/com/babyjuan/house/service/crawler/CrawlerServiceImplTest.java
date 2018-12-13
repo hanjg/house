@@ -1,20 +1,25 @@
 package com.babyjuan.house.service.crawler;
 
-import com.babyjuan.house.base.BaseTest;
+import com.babyjuan.house.HouseApplicationTests;
+import com.babyjuan.house.dao.CommunityMapper;
+import com.babyjuan.house.dao.RentingHouseMapper;
 import com.babyjuan.house.dao.entity.CommunityExample;
 import com.babyjuan.house.dao.entity.RentingHouseExample;
-import com.babyjuan.house.dao.mapper.CommunityMapper;
-import com.babyjuan.house.dao.mapper.RentingHouseMapper;
-import com.babyjuan.house.service.crawler.CrawlerService;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import us.codecraft.webmagic.Spider.Status;
 
 /**
  * @Author: hjg
  * @Date: Create in 2018/6/4 18:29
  * @Description:
  */
-public class CrawlerServiceImplTest extends BaseTest {
+@SuppressWarnings("SpringJavaAutowiringInspection")
+public class CrawlerServiceImplTest extends HouseApplicationTests {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CrawlerServiceImplTest.class);
 
     @Autowired
     private CrawlerService crawlerService;
@@ -24,38 +29,27 @@ public class CrawlerServiceImplTest extends BaseTest {
     private CommunityMapper communityMapper;
 
     @Test
-    public void run() throws Exception {
-        crawlerService.run();
-    }
-
-    @Test
     public void start() throws Exception {
-        crawlerService.start(1);
-        Thread.sleep(60 * 1000);
-//        System.out.println(rentingHouseMapper.selectByExample(new RentingHouseExample()));
-//        System.out.println(communityMapper.selectByExample(new CommunityExample()));
-        Thread.sleep(60 * 1000);
-//        System.out.println(rentingHouseMapper.selectByExample(new RentingHouseExample()));
-//        System.out.println(communityMapper.selectByExample(new CommunityExample()));
-    }
+        crawlerService.start(2);
+        do {
+            Thread.sleep(1000);
+        }
+        while (!crawlerService.status().getStatus().equals(Status.Stopped));
 
-    @Test
-    public void stop() throws Exception {
-        crawlerService.stop();
-    }
-
-    @Test
-    public void runGivenTime() throws InterruptedException {
-        crawlerService.run();
-        Thread.sleep(30 * 1000);
-        //没卵用，因为同步其他线程阻塞
-        crawlerService.stop();
+        LOGGER.info("house from db: {}", rentingHouseMapper.countByExample(new RentingHouseExample()));
+        LOGGER.info("community from db: {}", communityMapper.countByExample(new CommunityExample()));
     }
 
     @Test
     public void testUrl() throws InterruptedException {
         String url = "https://nj.lianjia.com/zufang/103102434083.html";
-        crawlerService.test(url);
-        Thread.sleep(10 * 1000);
+        crawlerService.test(url, 2);
+        do {
+            Thread.sleep(1000);
+        }
+        while (!crawlerService.status().getStatus().equals(Status.Stopped));
+
+        LOGGER.info("house from db: {}", rentingHouseMapper.countByExample(new RentingHouseExample()));
+        LOGGER.info("community from db: {}", communityMapper.countByExample(new CommunityExample()));
     }
 }

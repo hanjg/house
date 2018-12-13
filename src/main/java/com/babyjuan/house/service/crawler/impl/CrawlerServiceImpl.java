@@ -1,29 +1,18 @@
 package com.babyjuan.house.service.crawler.impl;
 
 import com.babyjuan.house.common.HouseResult;
-import com.babyjuan.house.common.enums.RecordStatus;
-import com.babyjuan.house.dao.entity.CommunityExample;
-import com.babyjuan.house.dao.entity.RentingHouseExample;
-import com.babyjuan.house.dao.entity.RentingHouseExample.Criteria;
-import com.babyjuan.house.dao.mapper.CommunityMapper;
-import com.babyjuan.house.dao.mapper.RentingHouseMapper;
 import com.babyjuan.house.service.crawler.CrawlerService;
+import com.babyjuan.house.service.crawler.impl.action.SpiderThreadManager;
+import com.babyjuan.house.service.crawler.model.LianjiaConst;
 import com.babyjuan.house.service.crawler.model.SpiderState;
-import com.babyjuan.house.service.crawler.webmagic.ProxyPool;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.Spider;
-import us.codecraft.webmagic.Spider.Status;
-import us.codecraft.webmagic.downloader.HttpClientDownloader;
-import us.codecraft.webmagic.pipeline.Pipeline;
-import us.codecraft.webmagic.processor.PageProcessor;
-import us.codecraft.webmagic.scheduler.Scheduler;
 
 /**
  * @Author: hjg
@@ -36,99 +25,33 @@ public class CrawlerServiceImpl implements CrawlerService {
     private static final Logger LOGGER = LoggerFactory.getLogger(CrawlerServiceImpl.class);
 
     @Autowired
-    private PageProcessor pageProcessor;
-
-    @Autowired
-    private Pipeline pipeline;
-    @Autowired
-    private HttpClientDownloader downloader;
-    @Autowired
-    private Scheduler scheduler;
-
-    @Value("${lianjia.city.rent.root}")
-    private String LIANJIA_NJ_RENT_ROOT;
-    @Value("${lianjia.city.districts}")
-    private String LIANJIA_DISTRICTS;
-    @Value("${spider.threadnum}")
-    private Integer SPIDER_THREAD_NUM;
-
     private Spider spider;
+    @Autowired
+    private SpiderThreadManager spiderThreadManager;
 
     @Autowired
-    private RentingHouseMapper rentingHouseMapper;
-    @Autowired
-    private CommunityMapper communityMapper;
-
-    @Autowired
-    private ProxyPool proxyPool;
-
-    @Override
-    public HouseResult run() {
-        if (spider != null && !spider.getStatus().equals(Status.Stopped)) {
-            return HouseResult.ok("爬虫正在运行");
-        }
-        initSpider(getStartUrls());
-        spider.run();
-        updateStatus();
-        return HouseResult.ok("爬虫启动");
-    }
-
-    @Deprecated
-    private void destroySpider() {
-        LOGGER.info("destroy spider");
-        //销毁没有完成的爬虫
-        spider.close();
-        spider = null;
-    }
+    private LianjiaConst lianjiaConst;
 
     @Override
     public HouseResult start(int repeatTimes) {
-        if (spider != null && !spider.getStatus().equals(Status.Stopped)) {
-            return HouseResult.ok("爬虫正在运行");
+        if (spiderThreadManager.isSpiderRunnnig()) {
+            LOGGER.info("spider is running");
+            return HouseResult.ok("spider is running");
         }
-        spiderThreadStart(repeatTimes);
-        return HouseResult.ok("爬虫启动");
+        LOGGER.info("spider is starting, for {} turn", repeatTimes);
+        spiderThreadManager.start(repeatTimes, readStartUrls());
+        return HouseResult.ok("spider started");
     }
 
-    private void spiderThreadStart(final int repeatTimes) {
-        Thread thread = new Thread(new Runnable() {
-            private int runCount = 0;
-
-            @Override
-            public void run() {
-                while (runCount < repeatTimes) {
-                    if (spider == null || spider.getStatus().equals(Status.Stopped)) {
-                        initSpider(getStartUrls());
-                        spider.start();
-                        updateStatus();
-                        runCount++;
-                    }
-                    try {
-                        Thread.sleep(10 * 60 * 1000);
-                    } catch (InterruptedException e) {
-                        LOGGER.error(e.toString());
-                    }
-                }
-            }
-        });
-        thread.setDaemon(false);
-        thread.start();
-    }
-
-    private void initSpider(List<String> startUrls) {
-        if (spider == null) {
-            LOGGER.info("spider initing");
-            spider = Spider.create(pageProcessor);
-            spider.addPipeline(pipeline);
-            downloader.setProxyProvider(proxyPool);
-            spider.setDownloader(downloader);
-            spider.setScheduler(scheduler);
-            spider.thread(SPIDER_THREAD_NUM);
-
+    private List<String> readStartUrls() {
+        List<String> districts = lianjiaConst.getDistricts();
+        List<String> urlList = new ArrayList<>();
+        for (String district : districts) {
+            String url = lianjiaConst.getRentCityRoot() + district;
+            urlList.add(url);
         }
-        for (String url : startUrls) {
-            spider.addUrl(url);
-        }
+        LOGGER.info("root url: {}", urlList);
+        return urlList;
     }
 
     @Deprecated
@@ -152,57 +75,10 @@ public class CrawlerServiceImpl implements CrawlerService {
     }
 
     @Override
-    public void test(String url) {
+    public void test(String url, int repeatTimes) {
         LOGGER.debug("spider start run");
-        initSpider(Arrays.asList(url));
-        spider.run();
-        updateStatus();
+        spiderThreadManager.start(repeatTimes, Arrays.asList(url));
     }
 
-    private List<String> getStartUrls() {
-        String[] districts = LIANJIA_DISTRICTS.trim().split(",");
-        List<String> urlList = new ArrayList<>();
-        for (String district : districts) {
-            String url = LIANJIA_NJ_RENT_ROOT + district;
-            urlList.add(url);
-        }
-        return urlList;
-    }
-
-    private void updateStatus() {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    while (true) {
-                        if (spider != null && spider.getStatus().equals(Status.Stopped)) {
-                            int communityCount = 0;
-                            int houseCount = 0;
-                            CommunityExample communityExample = new CommunityExample();
-                            CommunityExample.Criteria communityCriteria = communityExample.createCriteria();
-                            communityCriteria.andStatusEqualTo(RecordStatus.UPDATING.getStatus());
-                            if (!communityMapper.selectByExample(communityExample).isEmpty()) {
-                                communityCount = communityMapper.updateStatus();
-                            }
-
-                            RentingHouseExample rentingHouseExample = new RentingHouseExample();
-                            Criteria renthouseCriteria = rentingHouseExample.createCriteria();
-                            renthouseCriteria.andStatusEqualTo(RecordStatus.UPDATING.getStatus());
-                            if (!rentingHouseMapper.selectByExample(rentingHouseExample).isEmpty()) {
-                                houseCount = rentingHouseMapper.updateStatus();
-                            }
-                            LOGGER.info("update status, community {}, house: {}", communityCount, houseCount);
-                            break;
-                        }
-                        Thread.sleep(1 * 60 * 1000);
-                    }
-                } catch (InterruptedException e) {
-                    LOGGER.warn(e.toString());
-                }
-            }
-        });
-        thread.setDaemon(false);
-        thread.start();
-    }
 
 }

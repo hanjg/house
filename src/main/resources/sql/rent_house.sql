@@ -26,7 +26,7 @@ CREATE TABLE `renting_house`
 (
   `info_id`           BIGINT      NOT NULL AUTO_INCREMENT,
   `source_id`         INT         NOT NULL,
-  `house_code`        VARCHAR(20) NOT NULL,
+  `house_code`        VARCHAR(32) NOT NULL,
   `title`             VARCHAR(50) NOT NULL,
   `bedroom_num`       TINYINT,
   `hall_num`          TINYINT,

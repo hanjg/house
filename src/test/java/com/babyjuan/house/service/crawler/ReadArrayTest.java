@@ -1,6 +1,6 @@
 package com.babyjuan.house.service.crawler;
 
-import com.babyjuan.house.base.BaseTest;
+import com.babyjuan.house.HouseApplicationTests;
 import java.util.List;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
  * @Date: Create in 2018/6/4 17:51
  * @Description:
  */
-public class ReadArrayTest extends BaseTest {
+public class ReadArrayTest extends HouseApplicationTests {
 
     @Value("${lianjia.root.urls}")
     private List<String> rootUrls;

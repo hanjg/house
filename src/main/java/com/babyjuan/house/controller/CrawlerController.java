@@ -24,22 +24,13 @@ public class CrawlerController {
 
     @RequestMapping("/start/{repeatTimes}")
     @ResponseBody
-    public HouseResult start(@PathVariable int repeatTimes) {
+    public HouseResult start(@PathVariable(required = false) Integer repeatTimes) {
+        if (repeatTimes == null) {
+            repeatTimes = 1000;
+        }
         HouseResult result = null;
         try {
             result = crawlerService.start(repeatTimes);
-        } catch (Exception e) {
-            result = HouseResult.build(500, ExceptionUtil.getStackTrace(e));
-        }
-        return result;
-    }
-
-    @RequestMapping("/run")
-    @ResponseBody
-    public HouseResult run() {
-        HouseResult result = null;
-        try {
-            result = crawlerService.run();
         } catch (Exception e) {
             result = HouseResult.build(500, ExceptionUtil.getStackTrace(e));
         }

@@ -1,6 +1,6 @@
 package com.babyjuan.house.service.crawler;
 
-import com.babyjuan.house.base.BaseTest;
+import com.babyjuan.house.HouseApplicationTests;
 import com.babyjuan.house.common.utils.ProxyUtil;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import us.codecraft.webmagic.utils.ProxyUtils;
  * @Date: Create in 2018/6/10 17:57
  * @Description:
  */
-public class ProxyTest extends BaseTest {
+public class ProxyTest extends HouseApplicationTests {
 
     @Autowired
     private ProxyService proxyService;

@@ -1,9 +1,10 @@
 package com.babyjuan.house.service.crawler;
 
-import com.alibaba.fastjson.JSON;
+import com.babyjuan.house.service.crawler.impl.webmagic.LianjiaFieldInfo;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.jsoup.nodes.Document;
 import org.junit.Test;
 import us.codecraft.webmagic.selector.Json;
 
@@ -22,7 +23,9 @@ public class PatternTest {
             + "}\\);.*?");
     private Pattern locationPattern = Pattern
             .compile("<p><i>位置：</i><a href=\".+?\">(.+?)</a> <a href=\".+?\">(.+?)</a></p>");
-
+    private Pattern communityPattern = Pattern
+            .compile("&nbsp; <a href=\".+?\">(.+?)租房</a>.*?<a href=\".+?\">(.+?)租房</a>"
+                    + "&nbsp;&gt;&nbsp; </p>\n<h1> <a href=\"/zufang/c(.+?)/\">(.+?)租房</a> </h1>");
 
     @Test
     public void regex() {
@@ -35,7 +38,7 @@ public class PatternTest {
 
     @Test
     public void area() {
-        String content =" <p class=\"lf\"><i>面积：</i>70.18平米</p><p class=\"lf\"><i>房屋户型：</i>2室2厅1卫  </p>\n"
+        String content = " <p class=\"lf\"><i>面积：</i>70.18平米</p><p class=\"lf\"><i>房屋户型：</i>2室2厅1卫  </p>\n"
                 + "      <p class=\"lf\"><i>楼层：</i>中楼层 (共7层)</p><p class=\"lf\"><i>房屋朝向：</i>南 北</p>\n"
                 + "      <div class=\"clear\"></div>\n"
                 + "            <p><i>地铁：</i>距地铁4号线龙江234米</p>\n"
@@ -87,5 +90,29 @@ public class PatternTest {
         Json json = new Json(matcher.group(1));
 
         System.out.println(json.jsonPath("$.area"));
+    }
+
+    @Test
+    public void commuityTest() {
+        Map<String, String> page = new HashMap<>();
+        String communityContent =
+                "<p class=\"bread__nav__wrapper oneline\"> <a href=\"/zufang/\">南京租房网</a>&nbsp;&gt;&nbsp; "
+                        + "<a href=\"/zufang/liuhe/\">六合租房</a>&nbsp;&gt;&nbsp; <a href=\"/zufang/dachang12/\">大厂租房</a>"
+                        + "&nbsp;&gt;&nbsp; </p>\n"
+                        + "<h1> <a href=\"/zufang/c2511053296366/\">盘金华府租房</a> </h1> \n"
+                        + "<p></p>";
+        Matcher matcher = communityPattern.matcher(communityContent);
+        if (matcher.find()) {
+            page.put(LianjiaFieldInfo.DISTRICT, matcher.group(1));
+            page.put(LianjiaFieldInfo.BLOCK, matcher.group(2));
+        }
+        matcher = communityPattern.matcher(communityContent);
+        if (matcher.find()) {
+            page.put(LianjiaFieldInfo.COMMUNITY_CODE, matcher.group(3));
+            page.put(LianjiaFieldInfo.COMMUNITY_NAME, matcher.group(4));
+        }
+        for (String key : page.keySet()) {
+            System.out.println("key: " + key + ", val: " + page.get(key));
+        }
     }
 }

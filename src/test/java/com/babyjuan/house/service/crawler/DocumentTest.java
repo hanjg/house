@@ -1,11 +1,13 @@
 package com.babyjuan.house.service.crawler;
 
+import java.io.File;
 import java.io.IOException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @Author: hjg
@@ -13,6 +15,8 @@ import org.junit.Test;
  * @Description:
  */
 public class DocumentTest {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DocumentTest.class);
 
     @Test
     public void getDoc() throws IOException {

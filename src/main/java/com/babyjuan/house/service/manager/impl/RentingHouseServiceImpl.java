@@ -3,14 +3,15 @@ package com.babyjuan.house.service.manager.impl;
 import com.babyjuan.house.common.EasyUIDataGridResult;
 import com.babyjuan.house.common.constant.Constant;
 import com.babyjuan.house.common.enums.RecordStatus;
+import com.babyjuan.house.dao.CommunityMapper;
+import com.babyjuan.house.dao.RentingHouseMapper;
 import com.babyjuan.house.dao.entity.Community;
 import com.babyjuan.house.dao.entity.CommunityExample;
 import com.babyjuan.house.dao.entity.RentingHouse;
 import com.babyjuan.house.dao.entity.RentingHouseExample;
 import com.babyjuan.house.dao.entity.RentingHouseExample.Criteria;
-import com.babyjuan.house.dao.mapper.CommunityMapper;
-import com.babyjuan.house.dao.mapper.RentingHouseMapper;
 import com.babyjuan.house.service.manager.RentingHouseService;
+import com.babyjuan.house.service.manager.model.PusherConst;
 import com.babyjuan.house.service.manager.model.RentingHouseDto;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -18,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -33,9 +33,8 @@ public class RentingHouseServiceImpl implements RentingHouseService {
     private RentingHouseMapper rentingHouseMapper;
     @Autowired
     private CommunityMapper communityMapper;
-
-    @Value("${pusher.communities}")
-    private String PUSHER_COMMUNITIES;
+    @Autowired
+    private PusherConst pusherConst;
 
     @Override
     public List<RentingHouse> getLatestFavourateHouseList(String communityName, Date lastPushTime) {
@@ -61,7 +60,7 @@ public class RentingHouseServiceImpl implements RentingHouseService {
     @Override
     public EasyUIDataGridResult getFavourateHouseList(int page, int rows) {
         List<RentingHouse> houseList = new ArrayList<>();
-        for (String communityName : PUSHER_COMMUNITIES.split(",")) {
+        for (String communityName : pusherConst.getPushedCommunities()) {
             houseList.addAll(getLatestFavourateHouseList(communityName, Constant.LONG_LONG_AGO));
         }
 

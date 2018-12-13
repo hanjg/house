@@ -2,7 +2,9 @@ package com.babyjuan.house.service.crawler.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.babyjuan.house.service.crawler.ProxyService;
-import com.babyjuan.house.service.crawler.webmagic.ProxyPool;
+import com.babyjuan.house.service.crawler.impl.webmagic.ProxyPool;
+import com.babyjuan.house.service.crawler.model.CrawlerConst;
+import com.babyjuan.house.service.crawler.model.LianjiaConst;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,7 +24,6 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.proxy.Proxy;
 
@@ -39,14 +40,10 @@ public class ProxyServiceImpl implements ProxyService, Runnable {
     @Autowired
     private ProxyPool proxyPool;
 
-    @Value("${spider.proxy.xiciRoot}")
-    private String xiciRoot;
-    @Value("${spider.proxy.mimiipRoot}")
-    private String mimiipRoot;
-    @Value("${lianjia.city.rent.root}")
-    private String LIANJIA_NJ_RENT_ROOT;
-    @Value("${spider.proxy.file}")
-    private String SPIDER_PROXY_FILE;
+    @Autowired
+    private LianjiaConst lianjiaConst;
+    @Autowired
+    private CrawlerConst crawlerConst;
 
     private HttpClient testClient;
 
@@ -61,7 +58,7 @@ public class ProxyServiceImpl implements ProxyService, Runnable {
         int currentPage = 1;
         int urlCount = 0;
         while (true) {
-            String url = xiciRoot + currentPage;
+            String url = crawlerConst.getXiciRoot() + currentPage;
             LOGGER.info("get proxy from: {}", url);
             try {
                 Document document = Jsoup.connect(url).timeout(3 * 1000).get();
@@ -97,7 +94,7 @@ public class ProxyServiceImpl implements ProxyService, Runnable {
         int currentPage = 1;
         int urlCount = 0;
         while (true) {
-            String url = mimiipRoot + currentPage;
+            String url = crawlerConst.getMimiipRoot() + currentPage;
             LOGGER.info("get proxy from: {}", url);
             try {
                 Document document = Jsoup.connect(url).timeout(3 * 1000).get();
@@ -167,14 +164,14 @@ public class ProxyServiceImpl implements ProxyService, Runnable {
                 setConnectionRequestTimeout(10000).
                 setCookieSpec(CookieSpecs.STANDARD).
                 setProxy(new HttpHost(proxy.getHost(), proxy.getPort())).build();
-        HttpGet httpGet = new HttpGet(LIANJIA_NJ_RENT_ROOT);
+        HttpGet httpGet = new HttpGet(lianjiaConst.getRentCityRoot());
         httpGet.setConfig(config);
         return httpGet;
     }
 
     @Override
     public void run() {
-        File proxyFile = new File(SPIDER_PROXY_FILE);
+        File proxyFile = new File(crawlerConst.getProxyFile());
 
         //反序列化可用Proxy
         String json = null;
