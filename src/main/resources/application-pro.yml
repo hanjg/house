@@ -8,6 +8,9 @@ spring:
 lianjia:
   city:
     districts: jianye/,qinhuai/,xuanwu/,yuhuatai/,qixia/,jiangning/,pukou/,liuhe/,lishui/,gaochun/
+    second:
+      hand:
+        districts: pudong/,minhang/,baoshan/,xuhui/,putuo/,yangpu/,minhang/,changning/,songjiang/,jiading/,huangpu/,qingpu/,fengxian/,jinshan/,chongming/,shanghaizhoubian/
 
 pusher:
   communities: 蓝筹,阅城

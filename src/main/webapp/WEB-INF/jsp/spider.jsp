@@ -19,7 +19,7 @@
       $.messager.alert('提示', '表单还未填写完成!');
       return;
     }
-    $.get("crawler/start/1000", null, function (data) {
+    $.get("crawler/sh/start/1000", null, function (data) {
       var a;
       if (data.status == 200) {
         a = JSON.stringify(data.data);
@@ -31,7 +31,7 @@
   }
 
   function crawlerStatus() {
-    $.get("crawler/status", null, function (data) {
+    $.get("crawler/sh/status", null, function (data) {
       var a;
       if (data.status == 200) {
         data.data.startTime = new Date(data.data.startTime);

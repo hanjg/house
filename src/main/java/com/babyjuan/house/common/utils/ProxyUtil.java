@@ -88,7 +88,7 @@ public class ProxyUtil {
         javax.net.ssl.SSLContext sc = javax.net.ssl.SSLContext
                 .getInstance("SSL");
         sc.init(null, trustAllCerts, null);
-        javax.net.ssl.HttpsURLConnection.setDefaultSSLSocketFactory(sc
+        HttpsURLConnection.setDefaultSSLSocketFactory(sc
                 .getSocketFactory());
     }
 
