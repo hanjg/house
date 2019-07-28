@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.babyjuan.house.dao.CommunityMapper" >
-  <resultMap id="BaseResultMap" type="com.babyjuan.house.dao.entity.Community" >
+<mapper namespace="com.babyjuan.house.repository.CommunityMapper" >
+  <resultMap id="BaseResultMap" type="com.babyjuan.house.repository.entity.Community" >
     <id column="info_id" property="infoId" jdbcType="BIGINT" />
     <result column="source_id" property="sourceId" jdbcType="INTEGER" />
     <result column="community_code" property="communityCode" jdbcType="VARCHAR" />
@@ -78,7 +78,7 @@
     info_id, source_id, community_code, community_name, latitude, longitude, city, district, 
     block, md5, from_time, to_time, status
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.babyjuan.house.dao.entity.CommunityExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.babyjuan.house.repository.entity.CommunityExample" >
     select
     <if test="distinct" >
       distinct
@@ -102,13 +102,13 @@
     delete from community
     where info_id = #{infoId,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.babyjuan.house.dao.entity.CommunityExample" >
+  <delete id="deleteByExample" parameterType="com.babyjuan.house.repository.entity.CommunityExample" >
     delete from community
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.babyjuan.house.dao.entity.Community" >
+  <insert id="insert" parameterType="com.babyjuan.house.repository.entity.Community" >
     <selectKey keyProperty="infoId" resultType="long" order="AFTER">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -123,7 +123,7 @@
       #{md5,jdbcType=VARCHAR}, #{fromTime,jdbcType=TIMESTAMP}, #{toTime,jdbcType=TIMESTAMP}, 
       #{status,jdbcType=TINYINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.babyjuan.house.dao.entity.Community" >
+  <insert id="insertSelective" parameterType="com.babyjuan.house.repository.entity.Community" >
     <selectKey keyProperty="infoId" resultType="long" order="AFTER">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -211,7 +211,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.babyjuan.house.dao.entity.CommunityExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.babyjuan.house.repository.entity.CommunityExample" resultType="java.lang.Integer" >
     select count(*) from community
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -283,7 +283,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.babyjuan.house.dao.entity.Community" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.babyjuan.house.repository.entity.Community" >
     update community
     <set >
       <if test="sourceId != null" >
@@ -325,7 +325,7 @@
     </set>
     where info_id = #{infoId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.babyjuan.house.dao.entity.Community" >
+  <update id="updateByPrimaryKey" parameterType="com.babyjuan.house.repository.entity.Community" >
     update community
     set source_id = #{sourceId,jdbcType=INTEGER},
       community_code = #{communityCode,jdbcType=VARCHAR},
@@ -344,6 +344,6 @@
   <update id="updateStatus">
     update community
     set status = status - 1
-    where status != 0
+    where status > 0
   </update>
 </mapper>

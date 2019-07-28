@@ -8,6 +8,9 @@ spring:
 lianjia:
   city:
     districts: liuhe/
+    second:
+      hand:
+        districts:
 
 pusher:
   communities: 盘金

@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: pro
   mvc:
     view:
       prefix: /WEB-INF/jsp/
@@ -34,7 +34,7 @@ server:
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml  #对应mapper映射xml文件的所在路径
-#  type-aliases-package: com.babyjuan.house.dao.entity # 对应实体类的路径非必须
+#  type-aliases-package: com.babyjuan.house.repository.entity # 对应实体类的路径非必须
 
 #pagehelper分页插件
 pagehelper:
@@ -48,6 +48,11 @@ lianjia:
     rent:
       root: https://nj.lianjia.com/zufang/
     name: 南京
+    second:
+      hand:
+        root: https://sh.lianjia.com/ershoufang/
+        name: 上海
+
 
 spider:
   retryTimes: 3

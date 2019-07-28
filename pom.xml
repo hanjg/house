@@ -62,8 +62,7 @@
       <groupId>org.apache.tomcat.embed</groupId>
       <artifactId>tomcat-embed-jasper</artifactId>
       <!--springboot自带的tomcat并没有携带tomcat-embed-jasper的依赖。
-      使用内置tomcat的时候需要设为默认的complie-->
-      <!--<scope>provided</scope>-->
+      使用内置tomcat的时候需要设为默认的complie，使用外置的tomcat用provided-->
     </dependency>
 
     <!--dao-->
