@@ -82,7 +82,11 @@ public class LianjiaSecondHandPageProcessor implements PageProcessor {
         for (Element script : scripts) {
             LOGGER.debug("script html: {}", script.html());
             if (script.html().contains("['ershoufang/sellDetail/detailV3']")) {
-                matcher = initPattern.matcher(script.html().replace("\n", "").replace(" ", ""));
+                matcher = initPattern.matcher(script.html().replace("\n", "").replace(" ", "")
+                        .replace("$.getQuery(location.href,'is_sem')", "")
+                        .replace("$.getQuery(location.href,'agUCId')", "")
+                        .replace("$.getQuery(location.href,'agent_id')", "")
+                );
                 if (matcher.find()) {
                     Json json = new Json(matcher.group(1));
                     page.putField(LianjiaFieldInfo.HOUSE_CODE, json.jsonPath("$.houseId").get());
