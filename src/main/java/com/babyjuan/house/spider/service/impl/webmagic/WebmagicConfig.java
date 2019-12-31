@@ -4,9 +4,12 @@ import com.babyjuan.house.common.constant.LianjiaConst;
 import com.babyjuan.house.spider.constant.CrawlerConst;
 import com.babyjuan.house.spider.service.impl.webmagic.pageprocessor.LianjiaPageProcessor;
 import com.babyjuan.house.spider.service.impl.webmagic.pageprocessor.LianjiaSecondHandPageProcessor;
+import com.babyjuan.house.spider.service.impl.webmagic.pageprocessor.LianjiaShDealPageProcessor;
 import com.babyjuan.house.spider.service.impl.webmagic.pipeline.LianjiaDbPipeLine;
 import com.babyjuan.house.spider.service.impl.webmagic.pipeline.LianjiaSecondHandDbPipeLine;
+import com.babyjuan.house.spider.service.impl.webmagic.pipeline.LianjiaShDealDbPipeLine;
 import com.babyjuan.house.spider.service.impl.webmagic.scheduler.DuplicateQueueScheduler;
+import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -36,6 +39,8 @@ public class WebmagicConfig {
     @Autowired
     @Qualifier("secondHandPageProcessor")
     private PageProcessor secondHandPageProcessor;
+    @Resource(name = "shDealPageProcessor")
+    private PageProcessor shDealPageProcessor;
 
     @Autowired
     @Qualifier("pipeline")
@@ -43,6 +48,8 @@ public class WebmagicConfig {
     @Autowired
     @Qualifier("secondHandHousePipeline")
     private Pipeline secondHandHousePipeline;
+    @Resource(name = "shDealPipeline")
+    private Pipeline shDealPipeline;
 
     @Autowired
     private HttpClientDownloader downloader;
@@ -53,6 +60,8 @@ public class WebmagicConfig {
     @Autowired
     @Qualifier("secondHandHouseScheduler")
     private Scheduler secondHandHouseScheduler;
+    @Resource(name = "shDealScheduler")
+    private Scheduler shDealScheduler;
 
     @Bean
     public Spider secondHandHouseSpider() {
@@ -75,6 +84,16 @@ public class WebmagicConfig {
     }
 
     @Bean
+    public Spider shDealSpider() {
+        Spider spider = Spider.create(shDealPageProcessor);
+        spider.addPipeline(shDealPipeline);
+        spider.setDownloader(downloader);
+        spider.setScheduler(shDealScheduler);
+        spider.thread(crawlerConst.getThreadNum());
+        return spider;
+    }
+
+    @Bean
     public Pipeline pipeline() {
         return new LianjiaDbPipeLine();
     }
@@ -85,12 +104,22 @@ public class WebmagicConfig {
     }
 
     @Bean
+    public Pipeline shDealPipeline() {
+        return new LianjiaShDealDbPipeLine();
+    }
+
+    @Bean
     public Scheduler scheduler() {
         return new DuplicateQueueScheduler();
     }
 
     @Bean
     public Scheduler secondHandHouseScheduler() {
+        return new DuplicateQueueScheduler();
+    }
+
+    @Bean
+    public Scheduler shDealScheduler() {
         return new DuplicateQueueScheduler();
     }
 
@@ -109,6 +138,15 @@ public class WebmagicConfig {
                 crawlerConst.getRetryTimes());
         pageProcessor.setSecondHandCityRoot(lianjiaConst.getSecondHandCityRoot());
         pageProcessor.setCity(lianjiaConst.getSecondHandCityName());
+        return pageProcessor;
+    }
+
+    @Bean
+    public PageProcessor shDealPageProcessor(@Autowired LianjiaConst lianjiaConst, @Autowired CrawlerConst crawlerConst) {
+        LianjiaShDealPageProcessor pageProcessor = new LianjiaShDealPageProcessor(crawlerConst.getSleepTimes(),
+                crawlerConst.getRetryTimes());
+        pageProcessor.setShDealCityRoot(lianjiaConst.getShDealCityRoot());
+        pageProcessor.setCity(lianjiaConst.getShDealCityName());
         return pageProcessor;
     }
 

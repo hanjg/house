@@ -11,6 +11,8 @@ lianjia:
     second:
       hand:
         districts:
-
+    sh:
+      deal:
+        districts: pudong/
 pusher:
   communities: 盘金

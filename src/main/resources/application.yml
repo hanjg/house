@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: pro
+    active: dev
   mvc:
     view:
       prefix: /WEB-INF/jsp/
@@ -51,6 +51,10 @@ lianjia:
     second:
       hand:
         root: https://sh.lianjia.com/ershoufang/
+        name: 上海
+    sh:
+      deal:
+        root: https://sh.lianjia.com/chengjiao/
         name: 上海
 
 

@@ -28,6 +28,7 @@ mvnw*
 /nbdist/
 /.nb-gradle/
 
-### my ###
+### mine ###
 /logs
 *.txt
+/backup

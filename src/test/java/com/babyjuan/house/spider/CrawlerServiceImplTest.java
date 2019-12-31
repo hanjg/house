@@ -4,10 +4,13 @@ import com.babyjuan.house.HouseApplicationTests;
 import com.babyjuan.house.repository.CommunityMapper;
 import com.babyjuan.house.repository.RentingHouseMapper;
 import com.babyjuan.house.repository.SecondHandHouseMapper;
+import com.babyjuan.house.repository.ShHouseDealMapper;
 import com.babyjuan.house.repository.entity.CommunityExample;
 import com.babyjuan.house.repository.entity.RentingHouseExample;
 import com.babyjuan.house.repository.entity.SecondHandHouseExample;
+import com.babyjuan.house.repository.entity.ShHouseDealExample;
 import com.babyjuan.house.spider.service.CrawlerService;
+import javax.annotation.Resource;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,12 +34,17 @@ public class CrawlerServiceImplTest extends HouseApplicationTests {
     @Autowired
     @Qualifier("secondHandCrawlerServiceImpl")
     private CrawlerService secondHandCrawlerService;
+    @Resource(name = "shHouseDealCrawlerServiceImpl")
+    private CrawlerService shHouseDealCrawlerService;
+
     @Autowired
     private RentingHouseMapper rentingHouseMapper;
     @Autowired
     private CommunityMapper communityMapper;
     @Autowired
     private SecondHandHouseMapper secondHandHouseMapper;
+    @Autowired
+    private ShHouseDealMapper shHouseDealMapper;
 
     @Test
     public void start() throws Exception {
@@ -76,5 +84,16 @@ public class CrawlerServiceImplTest extends HouseApplicationTests {
         CommunityExample communityExample = new CommunityExample();
         communityExample.createCriteria().andCityEqualTo("上海");
         LOGGER.info("community from db: {}", communityMapper.countByExample(communityExample));
+    }
+
+    @Test
+    public void testUrl3() throws InterruptedException {
+        String url = "https://sh.lianjia.com/chengjiao/pudong/";
+        shHouseDealCrawlerService.test(url, 1);
+        do {
+            Thread.sleep(1000);
+        }
+        while (!shHouseDealCrawlerService.status().getStatus().equals(Status.Stopped));
+        LOGGER.info("house from db: {}", shHouseDealMapper.countByExample(new ShHouseDealExample()));
     }
 }

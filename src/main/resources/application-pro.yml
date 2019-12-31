@@ -11,6 +11,8 @@ lianjia:
     second:
       hand:
         districts: pudong/,minhang/,baoshan/,xuhui/,putuo/,yangpu/,changning/,songjiang/,jiading/,huangpu/,jingan/,hongkou/,qingpu/,fengxian/,jinshan/,chongming/,shanghaizhoubian/
-
+    sh:
+      deal:
+        districts: pudong/,minhang/,baoshan/,xuhui/,putuo/,yangpu/,changning/,songjiang/,jiading/,huangpu/,jingan/,hongkou/,qingpu/,fengxian/,jinshan/,chongming/,shanghaizhoubian/
 pusher:
   communities: 蓝筹,阅城

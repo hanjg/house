@@ -1,8 +1,7 @@
 package com.babyjuan.house.spider;
 
-import com.babyjuan.house.repository.entity.CommunityExample;
-import com.babyjuan.house.repository.entity.SecondHandHouseExample;
 import com.babyjuan.house.spider.service.CrawlerService;
+import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -19,8 +18,16 @@ public class SpiderTask {
     @Qualifier("secondHandCrawlerServiceImpl")
     private CrawlerService secondHandCrawlerService;
 
+    @Resource(name = "shHouseDealCrawlerServiceImpl")
+    private CrawlerService shHouseDealCrawlerService;
+
     @Scheduled(fixedDelay = 10 * 1000)
-    public void testUrl2() throws InterruptedException {
+    public void shHouse() throws InterruptedException {
         secondHandCrawlerService.start(1);
+    }
+
+    @Scheduled(fixedDelay = 1 * 1000)
+    public void shDeal() throws InterruptedException {
+        shHouseDealCrawlerService.start(1);
     }
 }

@@ -26,4 +26,25 @@ ALTER TABLE `second_hand_house`
   ADD CONSTRAINT `FK_second_hand_house_community`
 FOREIGN KEY (`community_info_id`) REFERENCES `community` (`info_id`);
 
+ALTER TABLE `second_hand_house`
+  ADD KEY `idx_md5` (`md5`)
+
+CREATE TABLE `sh_house_deal`
+(
+  `info_id`           BIGINT      NOT NULL AUTO_INCREMENT,
+  `source_id`         INT         NOT NULL,
+  `house_code`        VARCHAR(32) NOT NULL,
+  `origin_price`      BIGINT      NOT NULL,
+  `final_price`       BIGINT      NOT NULL,
+  `final_unit_price`  BIGINT      NOT NULL,
+  `deal_time`         INT,
+  `adjust_count`      INT,
+  `look_count`        INT,
+  `attention_count`   INT,
+  `md5`               VARCHAR(32) NOT NULL,
+  `gmt_modified`      TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`info_id`),
+  KEY `idx_md5` (`md5`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='二手房交易记录';
+
 SET FOREIGN_KEY_CHECKS = 1

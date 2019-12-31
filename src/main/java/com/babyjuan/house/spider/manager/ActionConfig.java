@@ -20,4 +20,14 @@ public class ActionConfig {
     public Action updateStatusProcess() {
         return new Action();
     }
+
+    @Bean
+    public Action shDealCrawlProcess() {
+        return new Action();
+    }
+
+    @Bean
+    public Action shDealUpdateStatusProcess() {
+        return new Action();
+    }
 }

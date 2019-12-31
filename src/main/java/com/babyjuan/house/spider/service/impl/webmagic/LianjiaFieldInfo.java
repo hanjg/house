@@ -19,6 +19,13 @@ public class LianjiaFieldInfo {
     public static final String UNIT_PRICE = "unitPrice";
     public static final String HOUSE_CODE = "houseCode";
     public static final String HOUSE_TYPE = "houseType";
+    public static final String ORIGIN_PRICE = "originPrice";
+    public static final String FINAL_PRICE = "finalPrice";
+    public static final String FINAL_UNIT_PRICE = "finalUnitPrice";
+    public static final String DEAL_TIME = "dealTime";
+    public static final String ADJUST_COUNT = "adjustCount";
+    public static final String LOOK_COUNT = "lookCount";
+    public static final String ATTENTION_COUNT = "attentionCount";
 
     /**
      * 社区

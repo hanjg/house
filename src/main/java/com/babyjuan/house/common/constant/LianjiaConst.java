@@ -26,6 +26,13 @@ public class LianjiaConst {
     @Value("${lianjia.city.second.hand.name}")
     private String secondHandCityName;
 
+    @Value("${lianjia.city.sh.deal.root}")
+    private String shDealCityRoot;
+    @Value("#{'${lianjia.city.sh.deal.districts}'.split(',')}")
+    private List<String> shDealDistricts;
+    @Value("${lianjia.city.sh.deal.name}")
+    private String shDealCityName;
+
     public String getRentCityRoot() {
         return rentCityRoot;
     }
@@ -72,5 +79,29 @@ public class LianjiaConst {
 
     public void setSecondHandCityName(String secondHandCityName) {
         this.secondHandCityName = secondHandCityName;
+    }
+
+    public String getShDealCityRoot() {
+        return shDealCityRoot;
+    }
+
+    public void setShDealCityRoot(String shDealCityRoot) {
+        this.shDealCityRoot = shDealCityRoot;
+    }
+
+    public List<String> getShDealDistricts() {
+        return shDealDistricts;
+    }
+
+    public void setShDealDistricts(List<String> shDealDistricts) {
+        this.shDealDistricts = shDealDistricts;
+    }
+
+    public String getShDealCityName() {
+        return shDealCityName;
+    }
+
+    public void setShDealCityName(String shDealCityName) {
+        this.shDealCityName = shDealCityName;
     }
 }
