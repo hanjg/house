@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: ${HOUSE_ENV}
   mvc:
     view:
       prefix: /WEB-INF/jsp/
@@ -60,7 +60,7 @@ lianjia:
 
 spider:
   retryTimes: 3
-  sleepTime: 1000
+  sleepTime: 10
   threadnum: 2
   proxy:
     xiciRoot: http://www.xicidaili.com/nn/

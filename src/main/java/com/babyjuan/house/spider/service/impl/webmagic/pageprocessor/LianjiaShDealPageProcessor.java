@@ -1,8 +1,10 @@
 package com.babyjuan.house.spider.service.impl.webmagic.pageprocessor;
 
 import com.babyjuan.house.spider.service.impl.webmagic.LianjiaFieldInfo;
+import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -62,19 +64,27 @@ public class LianjiaShDealPageProcessor implements PageProcessor {
         String priceInfo = document.select(".info .price").outerHtml().replaceAll("\n", "").replaceAll(" ", "");
         Matcher matcher = pricePattern.matcher(priceInfo);
         if (matcher.find()) {
-            page.putField(LianjiaFieldInfo.FINAL_PRICE, matcher.group(1) + "0000");
-            page.putField(LianjiaFieldInfo.FINAL_UNIT_PRICE, matcher.group(2));
+            BigDecimal finalPrice = new BigDecimal(matcher.group(1));
+            page.putField(LianjiaFieldInfo.FINAL_PRICE, finalPrice.multiply(new BigDecimal(10000)).longValue());
+            page.putField(LianjiaFieldInfo.FINAL_UNIT_PRICE, new BigDecimal(matcher.group(1)).longValue());
         }
 
         //其他信息
         String msgInfo = document.select(".msg").outerHtml().replaceAll("\n", "").replaceAll(" ", "");
         matcher = msgPattern.matcher(msgInfo);
         if (matcher.find()) {
-            page.putField(LianjiaFieldInfo.ORIGIN_PRICE, matcher.group(1) + "0000");
-            page.putField(LianjiaFieldInfo.DEAL_TIME, matcher.group(2));
-            page.putField(LianjiaFieldInfo.ADJUST_COUNT, matcher.group(3));
-            page.putField(LianjiaFieldInfo.LOOK_COUNT, matcher.group(4));
-            page.putField(LianjiaFieldInfo.ATTENTION_COUNT, matcher.group(5));
+            BigDecimal oriPrice = new BigDecimal(matcher.group(1));
+            page.putField(LianjiaFieldInfo.ORIGIN_PRICE, oriPrice.multiply(new BigDecimal(10000)).longValue());
+            String dealTimeStr = matcher.group(2);
+            page.putField(LianjiaFieldInfo.DEAL_TIME,
+                    NumberUtils.isDigits(dealTimeStr) ? Integer.valueOf(dealTimeStr) : -1);
+            String adjStr = matcher.group(3);
+            page.putField(LianjiaFieldInfo.ADJUST_COUNT, NumberUtils.isDigits(adjStr) ? Integer.valueOf(adjStr) : -1);
+            String lookStr = matcher.group(4);
+            page.putField(LianjiaFieldInfo.LOOK_COUNT, NumberUtils.isDigits(lookStr) ? Integer.valueOf(lookStr) : -1);
+            String attStr = matcher.group(5);
+            page.putField(LianjiaFieldInfo.ATTENTION_COUNT,
+                    NumberUtils.isDigits(attStr) ? Integer.valueOf(attStr) : -1);
         }
 
     }

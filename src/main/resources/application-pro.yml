@@ -3,7 +3,7 @@ spring:
     name: online
     url: jdbc:mysql://47.96.107.70:3306/house?characterEncoding=utf8
     username: root
-    password: root
+    password: ${HOUSE_DB_PWD}
 
 lianjia:
   city:

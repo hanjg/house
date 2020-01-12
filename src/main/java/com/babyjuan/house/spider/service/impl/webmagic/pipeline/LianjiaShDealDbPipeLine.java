@@ -55,24 +55,24 @@ public class LianjiaShDealDbPipeLine implements Pipeline {
      */
     private ShHouseDeal getCurrentDeal(ResultItems resultItems) {
         String houseCode = resultItems.get(LianjiaFieldInfo.HOUSE_CODE);
-        String originPrice = resultItems.get(LianjiaFieldInfo.ORIGIN_PRICE);
-        String finalPrice = resultItems.get(LianjiaFieldInfo.FINAL_PRICE);
-        String finalUnitPrice = resultItems.get(LianjiaFieldInfo.FINAL_UNIT_PRICE);
-        String dealTime = resultItems.get(LianjiaFieldInfo.DEAL_TIME);
-        String adjustCount = resultItems.get(LianjiaFieldInfo.ADJUST_COUNT);
-        String lookCount = resultItems.get(LianjiaFieldInfo.LOOK_COUNT);
-        String attentionCount = resultItems.get(LianjiaFieldInfo.ATTENTION_COUNT);
+        Long originPrice = resultItems.get(LianjiaFieldInfo.ORIGIN_PRICE);
+        Long finalPrice = resultItems.get(LianjiaFieldInfo.FINAL_PRICE);
+        Long finalUnitPrice = resultItems.get(LianjiaFieldInfo.FINAL_UNIT_PRICE);
+        Integer dealTime = resultItems.get(LianjiaFieldInfo.DEAL_TIME);
+        Integer adjustCount = resultItems.get(LianjiaFieldInfo.ADJUST_COUNT);
+        Integer lookCount = resultItems.get(LianjiaFieldInfo.LOOK_COUNT);
+        Integer attentionCount = resultItems.get(LianjiaFieldInfo.ATTENTION_COUNT);
 
         ShHouseDeal shHouseDeal = new ShHouseDeal();
         shHouseDeal.setSourceId(sourceId);
         shHouseDeal.setHouseCode(houseCode);
-        shHouseDeal.setOriginPrice(Long.valueOf(originPrice));
-        shHouseDeal.setFinalPrice(Long.valueOf(finalPrice));
-        shHouseDeal.setFinalUnitPrice(Long.valueOf(finalUnitPrice));
-        shHouseDeal.setDealTime(Integer.valueOf(dealTime));
-        shHouseDeal.setAdjustCount(Integer.valueOf(adjustCount));
-        shHouseDeal.setLookCount(Integer.valueOf(lookCount));
-        shHouseDeal.setAttentionCount(Integer.valueOf(attentionCount));
+        shHouseDeal.setOriginPrice(originPrice);
+        shHouseDeal.setFinalPrice(finalPrice);
+        shHouseDeal.setFinalUnitPrice(finalUnitPrice);
+        shHouseDeal.setDealTime(dealTime);
+        shHouseDeal.setAdjustCount(adjustCount);
+        shHouseDeal.setLookCount(lookCount);
+        shHouseDeal.setAttentionCount(attentionCount);
         shHouseDeal.setMd5(getMd5(shHouseDeal));
         return shHouseDeal;
     }

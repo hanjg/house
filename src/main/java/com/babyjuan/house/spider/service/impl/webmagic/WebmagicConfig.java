@@ -51,8 +51,12 @@ public class WebmagicConfig {
     @Resource(name = "shDealPipeline")
     private Pipeline shDealPipeline;
 
-    @Autowired
+    @Resource(name = "downloader")
     private HttpClientDownloader downloader;
+    @Resource(name = "secondHandHouseDownloader")
+    private HttpClientDownloader secondHandHouseDownloader;
+    @Resource(name = "shHouseDealDownloader")
+    private HttpClientDownloader shHouseDealDownloader;
 
     @Autowired
     @Qualifier("scheduler")
@@ -67,7 +71,7 @@ public class WebmagicConfig {
     public Spider secondHandHouseSpider() {
         Spider spider = Spider.create(secondHandPageProcessor);
         spider.addPipeline(secondHandHousePipeline);
-        spider.setDownloader(downloader);
+        spider.setDownloader(secondHandHouseDownloader);
         spider.setScheduler(secondHandHouseScheduler);
         spider.thread(crawlerConst.getThreadNum());
         return spider;
@@ -87,7 +91,7 @@ public class WebmagicConfig {
     public Spider shDealSpider() {
         Spider spider = Spider.create(shDealPageProcessor);
         spider.addPipeline(shDealPipeline);
-        spider.setDownloader(downloader);
+        spider.setDownloader(shHouseDealDownloader);
         spider.setScheduler(shDealScheduler);
         spider.thread(crawlerConst.getThreadNum());
         return spider;
@@ -151,7 +155,17 @@ public class WebmagicConfig {
     }
 
     @Bean
-    public HttpClientDownloader httpClientDownloader() {
+    public HttpClientDownloader downloader() {
+        return new HttpClientDownloader();
+    }
+
+    @Bean
+    public HttpClientDownloader secondHandHouseDownloader() {
+        return new HttpClientDownloader();
+    }
+
+    @Bean
+    public HttpClientDownloader shHouseDealDownloader() {
         return new HttpClientDownloader();
     }
 }
