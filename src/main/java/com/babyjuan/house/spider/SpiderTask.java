@@ -23,7 +23,6 @@ public class SpiderTask {
 
     @Scheduled(fixedDelay = 10 * 1000)
     public void shHouse() throws InterruptedException {
-        shHouseDealCrawlerService.start(1);
         secondHandCrawlerService.start(1);
     }
 }
