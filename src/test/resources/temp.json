@@ -1,133 +1,122 @@
-{
-  ucid: '',
-  hasCompare: '1',
-  houseType: '普通住宅',
-  isUnique: '不唯一',
-  registerTime: '暂无数据',
-  area: '149.35',
-  totalPrice: '499',
-  price: '33412',
-  houseId: '107100929445',
-  resblockId: '5011000003189',
-  resblockName: '鼎信公寓',
-  isRemove: '0',
-  defaultImg: 'https://s1.ljcdn.com/feroot/pc/asset/img/blank.gif?_v=201912102024435',
-  defaultBrokerIcon: 'https://s1.ljcdn.com/feroot/pc/asset/img/blank.gif?_v=201912102024435',
-  resblockPosition: '121.24133,31.035924',
-  cityId: '310000',
-  cityName: '上海',
-  changedate: [
-    1,
-    3,
-    4,
-    5,
-    3
-  ],
-  changenum: [
-    123,
-    567,
-    232,
-    347,
-    122
-  ],
-  hasDaikan: true,
-  uniqueAgent: false,
-  showCart: '0',
-  showType:,
-  queryAgUCId:,
-  queryAgentId:,
-  hasFangjia: false,
-  test_400_hide: '',
-  newTax: false,
-  shoufu: null,
-  uuid: '9c01666e-9edf-44fa-ba5c-090596bc57ca',
-  loadingImg: 'https://s1.ljcdn.com/feroot/pc/asset/ershoufang/sellDetail/img/loading.gif?_v=201912102024435',
-  qrImg: '//ajax.api.lianjia.com/qr/getDownloadQr',
-  title: '鼎信公寓四房，户型方正，楼层好，近地铁，南北直通_上海松江松江新城鼎信公寓二手房(上海链家)',
-  images: [
-    {
-      "roomName": "\u5ba2\u5385",
-      "roomType": 100900000002,
-      "code": 1,
-      "id": 6400000037788920,
-      "type": "\u5ba2\u5385",
-      "uri": "https:\/\/image1.ljcdn.com\/310000-inspection\/prod-8e7da101-6247-4439-9580-d1a8b4d770a8.jpg",
-      "url": "https:\/\/image1.ljcdn.com\/310000-inspection\/prod-8e7da101-6247-4439-9580-d1a8b4d770a8.jpg.710x400.jpg"
-    },
-    {
-      "roomName": "\u5367\u5ba4A",
-      "roomType": 100900000001,
-      "code": 2.1,
-      "id": 6400000037788924,
-      "type": "\u5367\u5ba4A",
-      "uri": "https:\/\/image1.ljcdn.com\/310000-inspection\/prod-7bae97f0-f2a7-4c3c-be33-72c523382f16.jpg",
-      "url": "https:\/\/image1.ljcdn.com\/310000-inspection\/prod-7bae97f0-f2a7-4c3c-be33-72c523382f16.jpg.710x400.jpg"
-    },
-    {
-      "roomName": "\u6237\u578b\u56fe",
-      "roomType": 99,
-      "code": 99,
-      "id": 1,
-      "type": "\u6237\u578b\u56fe",
-      "fcSort": 0,
-      "isOverground": 0,
-      "uri": "https:\/\/image1.ljcdn.com\/x-se\/hdic-frame\/prod-108a4100-7c8f-44a5-a821-ec1580c2a483.png",
-      "url": "https:\/\/image1.ljcdn.com\/x-se\/hdic-frame\/prod-108a4100-7c8f-44a5-a821-ec1580c2a483.png.533x400.jpg"
-    },
-    {
-      "roomName": "\u5367\u5ba4B",
-      "roomType": 100900000001,
-      "code": 2.2,
-      "id": 6400000037788923,
-      "type": "\u5367\u5ba4B",
-      "uri": "https:\/\/image1.ljcdn.com\/310000-inspection\/prod-47cd5e85-c056-4877-b465-b7c08769a68a.jpg",
-      "url": "https:\/\/image1.ljcdn.com\/310000-inspection\/prod-47cd5e85-c056-4877-b465-b7c08769a68a.jpg.710x400.jpg"
-    },
-    {
-      "roomName": "\u5367\u5ba4C",
-      "roomType": 100900000001,
-      "code": 2.3,
-      "id": 6400000037788922,
-      "type": "\u5367\u5ba4C",
-      "uri": "https:\/\/image1.ljcdn.com\/310000-inspection\/prod-2a06772b-5181-4b3e-b2ae-9c0b1241a240.jpg",
-      "url": "https:\/\/image1.ljcdn.com\/310000-inspection\/prod-2a06772b-5181-4b3e-b2ae-9c0b1241a240.jpg.710x400.jpg"
-    },
-    {
-      "roomName": "\u5367\u5ba4D",
-      "roomType": 100900000001,
-      "code": 2.4,
-      "id": 6400000037788921,
-      "type": "\u5367\u5ba4D",
-      "uri": "https:\/\/image1.ljcdn.com\/310000-inspection\/prod-09c32498-6a4f-47dd-b423-da6ea67789f3.jpg",
-      "url": "https:\/\/image1.ljcdn.com\/310000-inspection\/prod-09c32498-6a4f-47dd-b423-da6ea67789f3.jpg.710x400.jpg"
-    },
-    {
-      "roomName": "\u53a8\u623f",
-      "roomType": 100900000003,
-      "code": 3,
-      "id": 6400000037788926,
-      "type": "\u53a8\u623f",
-      "uri": "https:\/\/image1.ljcdn.com\/310000-inspection\/prod-52151e0e-5cdd-4304-a88a-a9359661c3c2.jpg",
-      "url": "https:\/\/image1.ljcdn.com\/310000-inspection\/prod-52151e0e-5cdd-4304-a88a-a9359661c3c2.jpg.710x400.jpg"
-    },
-    {
-      "roomName": "\u536b\u751f\u95f4A",
-      "roomType": 100900000004,
-      "code": 4.1,
-      "id": 6400000037788927,
-      "type": "\u536b\u751f\u95f4A",
-      "uri": "https:\/\/image1.ljcdn.com\/310000-inspection\/prod-f47bc8ea-4bec-41bd-9dcb-d5b0404eb0d2.jpg",
-      "url": "https:\/\/image1.ljcdn.com\/310000-inspection\/prod-f47bc8ea-4bec-41bd-9dcb-d5b0404eb0d2.jpg.710x400.jpg"
-    },
-    {
-      "roomName": "\u536b\u751f\u95f4B",
-      "roomType": 100900000004,
-      "code": 4.2,
-      "id": 6400000037788925,
-      "type": "\u536b\u751f\u95f4B",
-      "uri": "https:\/\/image1.ljcdn.com\/310000-inspection\/prod-0c2c16ee-adb4-4613-b8b0-50eda19c765b.jpg",
-      "url": "https:\/\/image1.ljcdn.com\/310000-inspection\/prod-0c2c16ee-adb4-4613-b8b0-50eda19c765b.jpg.710x400.jpg"
-    }
-  ],
-  videoId: ''
-}
+[
+  {
+    "infoId": null,
+    "district": "黄浦",
+    "avgTotalPrice": 11336506.0096,
+    "avgUnitPrice": 96141.8401,
+    "totalHouseCount": "832",
+    "infoTime": null
+  },
+  {
+    "infoId": null,
+    "district": "静安",
+    "avgTotalPrice": 7286485.4518,
+    "avgUnitPrice": 77262.9211,
+    "totalHouseCount": "2612",
+    "infoTime": null
+  },
+  {
+    "infoId": null,
+    "district": "徐汇",
+    "avgTotalPrice": 7228597.4548,
+    "avgUnitPrice": 76335.9819,
+    "totalHouseCount": "2986",
+    "infoTime": null
+  },
+  {
+    "infoId": null,
+    "district": "长宁",
+    "avgTotalPrice": 7566140.3172,
+    "avgUnitPrice": 72061.7626,
+    "totalHouseCount": "2081",
+    "infoTime": null
+  },
+  {
+    "infoId": null,
+    "district": "虹口",
+    "avgTotalPrice": 5861514.1753,
+    "avgUnitPrice": 66896.8222,
+    "totalHouseCount": "776",
+    "infoTime": null
+  },
+  {
+    "infoId": null,
+    "district": "杨浦",
+    "avgTotalPrice": 5076743.1193,
+    "avgUnitPrice": 62940.2508,
+    "totalHouseCount": "2616",
+    "infoTime": null
+  },
+  {
+    "infoId": null,
+    "district": "普陀",
+    "avgTotalPrice": 4964175.7409,
+    "avgUnitPrice": 58500.4018,
+    "totalHouseCount": "2902",
+    "infoTime": null
+  },
+  {
+    "infoId": null,
+    "district": "浦东",
+    "avgTotalPrice": 6794951.9835,
+    "avgUnitPrice": 56451.9356,
+    "totalHouseCount": "8747",
+    "infoTime": null
+  },
+  {
+    "infoId": null,
+    "district": "闵行",
+    "avgTotalPrice": 6225107.0111,
+    "avgUnitPrice": 49676.3286,
+    "totalHouseCount": "4607",
+    "infoTime": null
+  },
+  {
+    "infoId": null,
+    "district": "宝山",
+    "avgTotalPrice": 3804560.2564,
+    "avgUnitPrice": 41800.4192,
+    "totalHouseCount": "2340",
+    "infoTime": null
+  },
+  {
+    "infoId": null,
+    "district": "青浦",
+    "avgTotalPrice": 7971386.3049,
+    "avgUnitPrice": 37448.1408,
+    "totalHouseCount": "774",
+    "infoTime": null
+  },
+  {
+    "infoId": null,
+    "district": "松江",
+    "avgTotalPrice": 6103391.1552,
+    "avgUnitPrice": 36996.2501,
+    "totalHouseCount": "2623",
+    "infoTime": null
+  },
+  {
+    "infoId": null,
+    "district": "嘉定",
+    "avgTotalPrice": 3222187.3684,
+    "avgUnitPrice": 34017.4111,
+    "totalHouseCount": "1900",
+    "infoTime": null
+  },
+  {
+    "infoId": null,
+    "district": "奉贤",
+    "avgTotalPrice": 2457575.0799,
+    "avgUnitPrice": 23658.5256,
+    "totalHouseCount": "626",
+    "infoTime": null
+  },
+  {
+    "infoId": null,
+    "district": "金山",
+    "avgTotalPrice": 1915260.5863,
+    "avgUnitPrice": 20025.9577,
+    "totalHouseCount": "307",
+    "infoTime": null
+  }
+]

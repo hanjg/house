@@ -2,6 +2,8 @@ package com.babyjuan.house.repository;
 
 import com.babyjuan.house.repository.entity.SecondHandHouse;
 import com.babyjuan.house.repository.entity.SecondHandHouseExample;
+import com.babyjuan.house.repository.entity.ShHouseDistrictSummary;
+import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -30,4 +32,6 @@ public interface SecondHandHouseMapper {
     int updateByPrimaryKey(SecondHandHouse record);
 
     int updateStatus();
+
+    List<ShHouseDistrictSummary> queryDistrictSummary(Date date);
 }

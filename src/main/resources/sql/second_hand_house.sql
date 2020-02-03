@@ -47,4 +47,16 @@ CREATE TABLE `sh_house_deal`
   KEY `idx_md5` (`md5`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='二手房交易记录';
 
+CREATE TABLE `sh_house_district_summary`
+(
+  `info_id`           BIGINT      NOT NULL AUTO_INCREMENT,
+  `district`          VARCHAR(20) NOT NULL,
+  `avg_total_price`   DECIMAL(10, 2),
+  `avg_unit_price`    DECIMAL(10, 2),
+  `total_house_count` VARCHAR(32) NOT NULL,
+  `info_time`         TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`info_id`),
+  KEY `idx_time` (`info_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='二手房行政区汇总';
+
 SET FOREIGN_KEY_CHECKS = 1

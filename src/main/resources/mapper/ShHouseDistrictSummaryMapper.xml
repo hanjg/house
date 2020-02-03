@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.babyjuan.house.repository.ShHouseDistrictSummaryMapper" >
+  <resultMap id="BaseResultMap" type="com.babyjuan.house.repository.entity.ShHouseDistrictSummary" >
+    <id column="info_id" property="infoId" jdbcType="BIGINT" />
+    <result column="district" property="district" jdbcType="VARCHAR" />
+    <result column="avg_total_price" property="avgTotalPrice" jdbcType="DECIMAL" />
+    <result column="avg_unit_price" property="avgUnitPrice" jdbcType="DECIMAL" />
+    <result column="total_house_count" property="totalHouseCount" jdbcType="VARCHAR" />
+    <result column="info_time" property="infoTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    info_id, district, avg_total_price, avg_unit_price, total_house_count, info_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.babyjuan.house.repository.entity.ShHouseDistrictSummaryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sh_house_district_summary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sh_house_district_summary
+    where info_id = #{infoId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sh_house_district_summary
+    where info_id = #{infoId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.babyjuan.house.repository.entity.ShHouseDistrictSummaryExample" >
+    delete from sh_house_district_summary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.babyjuan.house.repository.entity.ShHouseDistrictSummary" >
+    insert into sh_house_district_summary (info_id, district, avg_total_price, 
+      avg_unit_price, total_house_count, info_time
+      )
+    values (#{infoId,jdbcType=BIGINT}, #{district,jdbcType=VARCHAR}, #{avgTotalPrice,jdbcType=DECIMAL}, 
+      #{avgUnitPrice,jdbcType=DECIMAL}, #{totalHouseCount,jdbcType=VARCHAR}, #{infoTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.babyjuan.house.repository.entity.ShHouseDistrictSummary" >
+    insert into sh_house_district_summary
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="infoId != null" >
+        info_id,
+      </if>
+      <if test="district != null" >
+        district,
+      </if>
+      <if test="avgTotalPrice != null" >
+        avg_total_price,
+      </if>
+      <if test="avgUnitPrice != null" >
+        avg_unit_price,
+      </if>
+      <if test="totalHouseCount != null" >
+        total_house_count,
+      </if>
+      <if test="infoTime != null" >
+        info_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="infoId != null" >
+        #{infoId,jdbcType=BIGINT},
+      </if>
+      <if test="district != null" >
+        #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="avgTotalPrice != null" >
+        #{avgTotalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="avgUnitPrice != null" >
+        #{avgUnitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="totalHouseCount != null" >
+        #{totalHouseCount,jdbcType=VARCHAR},
+      </if>
+      <if test="infoTime != null" >
+        #{infoTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.babyjuan.house.repository.entity.ShHouseDistrictSummaryExample" resultType="java.lang.Integer" >
+    select count(*) from sh_house_district_summary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sh_house_district_summary
+    <set >
+      <if test="record.infoId != null" >
+        info_id = #{record.infoId,jdbcType=BIGINT},
+      </if>
+      <if test="record.district != null" >
+        district = #{record.district,jdbcType=VARCHAR},
+      </if>
+      <if test="record.avgTotalPrice != null" >
+        avg_total_price = #{record.avgTotalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.avgUnitPrice != null" >
+        avg_unit_price = #{record.avgUnitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.totalHouseCount != null" >
+        total_house_count = #{record.totalHouseCount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.infoTime != null" >
+        info_time = #{record.infoTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sh_house_district_summary
+    set info_id = #{record.infoId,jdbcType=BIGINT},
+      district = #{record.district,jdbcType=VARCHAR},
+      avg_total_price = #{record.avgTotalPrice,jdbcType=DECIMAL},
+      avg_unit_price = #{record.avgUnitPrice,jdbcType=DECIMAL},
+      total_house_count = #{record.totalHouseCount,jdbcType=VARCHAR},
+      info_time = #{record.infoTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.babyjuan.house.repository.entity.ShHouseDistrictSummary" >
+    update sh_house_district_summary
+    <set >
+      <if test="district != null" >
+        district = #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="avgTotalPrice != null" >
+        avg_total_price = #{avgTotalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="avgUnitPrice != null" >
+        avg_unit_price = #{avgUnitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="totalHouseCount != null" >
+        total_house_count = #{totalHouseCount,jdbcType=VARCHAR},
+      </if>
+      <if test="infoTime != null" >
+        info_time = #{infoTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where info_id = #{infoId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.babyjuan.house.repository.entity.ShHouseDistrictSummary" >
+    update sh_house_district_summary
+    set district = #{district,jdbcType=VARCHAR},
+      avg_total_price = #{avgTotalPrice,jdbcType=DECIMAL},
+      avg_unit_price = #{avgUnitPrice,jdbcType=DECIMAL},
+      total_house_count = #{totalHouseCount,jdbcType=VARCHAR},
+      info_time = #{infoTime,jdbcType=TIMESTAMP}
+    where info_id = #{infoId,jdbcType=BIGINT}
+  </update>
+</mapper>

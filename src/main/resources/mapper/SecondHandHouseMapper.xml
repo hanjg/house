@@ -18,6 +18,14 @@
     <result column="to_time" property="toTime" jdbcType="TIMESTAMP" />
     <result column="status" property="status" jdbcType="TINYINT" />
   </resultMap>
+  <resultMap id="StrictSummaryResultMap" type="com.babyjuan.house.repository.entity.ShHouseDistrictSummary" >
+    <id column="info_id" property="infoId" jdbcType="BIGINT" />
+    <result column="district" property="district" jdbcType="VARCHAR" />
+    <result column="avg_total_price" property="avgTotalPrice" jdbcType="DECIMAL" />
+    <result column="avg_unit_price" property="avgUnitPrice" jdbcType="DECIMAL" />
+    <result column="total_house_count" property="totalHouseCount" jdbcType="VARCHAR" />
+    <result column="info_time" property="infoTime" jdbcType="TIMESTAMP" />
+  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -372,4 +380,12 @@
     set status = status - 1
     where status > 0
   </update>
+  <select id="queryDistrictSummary" resultMap="StrictSummaryResultMap" parameterType="date">
+    SELECT district, AVG(price_total) avg_total_price, AVG(unit_price) avg_unit_price,
+      COUNT(DISTINCT house_code) total_house_count
+    FROM second_hand_house INNER JOIN community ON second_hand_house.community_info_id = community.info_id
+    WHERE second_hand_house.from_time <![CDATA[ <= ]]> #{date} AND second_hand_house.to_time <![CDATA[ >= ]]> #{date}
+    GROUP BY district
+    ORDER BY avg_unit_price DESC;
+  </select>
 </mapper>
