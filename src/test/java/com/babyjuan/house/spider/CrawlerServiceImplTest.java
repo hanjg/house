@@ -73,7 +73,7 @@ public class CrawlerServiceImplTest extends HouseApplicationTests {
 
     @Test
     public void testSh() throws InterruptedException {
-        String url = "https://sh.lianjia.com/ershoufang/107101857180.html";
+        String url = "https://sh.lianjia.com/ershoufang/107102118056.html";
         secondHandCrawlerService.test(url, 1);
         do {
             Thread.sleep(1000);

@@ -27,7 +27,11 @@ ALTER TABLE `second_hand_house`
 FOREIGN KEY (`community_info_id`) REFERENCES `community` (`info_id`);
 
 ALTER TABLE `second_hand_house`
-  ADD KEY `idx_md5` (`md5`)
+  ADD KEY `idx_md5` (`md5`);
+ALTER TABLE `second_hand_house`
+  ADD KEY `idx_from_time` (`from_time`);
+ALTER TABLE `second_hand_house`
+  ADD KEY `idx_to_time` (`to_time`);
 
 CREATE TABLE `sh_house_deal`
 (
