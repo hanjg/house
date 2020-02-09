@@ -59,7 +59,7 @@ public class CrawlerServiceImplTest extends HouseApplicationTests {
     }
 
     @Test
-    public void testUrl() throws InterruptedException {
+    public void testRent() throws InterruptedException {
         String url = "https://nj.lianjia.com/zufang/103102434083.html";
         crawlerService.test(url, 2);
         do {
@@ -72,8 +72,8 @@ public class CrawlerServiceImplTest extends HouseApplicationTests {
     }
 
     @Test
-    public void testUrl2() throws InterruptedException {
-        String url = "https://sh.lianjia.com/ershoufang/107100929445.html";
+    public void testSh() throws InterruptedException {
+        String url = "https://sh.lianjia.com/ershoufang/107101857180.html";
         secondHandCrawlerService.test(url, 1);
         do {
             Thread.sleep(1000);
@@ -87,7 +87,7 @@ public class CrawlerServiceImplTest extends HouseApplicationTests {
     }
 
     @Test
-    public void testUrl3() throws InterruptedException {
+    public void testShdeal() throws InterruptedException {
         String url = "https://sh.lianjia.com/chengjiao/107101998462.html";
         shHouseDealCrawlerService.test(url, 1);
         do {

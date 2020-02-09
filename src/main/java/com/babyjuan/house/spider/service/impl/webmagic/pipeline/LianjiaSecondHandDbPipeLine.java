@@ -4,6 +4,7 @@ package com.babyjuan.house.spider.service.impl.webmagic.pipeline;
 import com.babyjuan.house.common.constant.Constant;
 import com.babyjuan.house.common.enums.HouseSource;
 import com.babyjuan.house.common.enums.RecordStatus;
+import com.babyjuan.house.common.utils.JsonUtils;
 import com.babyjuan.house.repository.CommunityMapper;
 import com.babyjuan.house.repository.SecondHandHouseMapper;
 import com.babyjuan.house.repository.entity.Community;
@@ -15,6 +16,8 @@ import com.babyjuan.house.spider.service.impl.webmagic.LianjiaFieldInfo;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
 import us.codecraft.webmagic.ResultItems;
@@ -28,6 +31,8 @@ import us.codecraft.webmagic.pipeline.Pipeline;
  */
 public class LianjiaSecondHandDbPipeLine implements Pipeline {
 
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
     @Autowired
     private SecondHandHouseMapper secondHandHouseMapper;
     @Autowired
@@ -37,10 +42,15 @@ public class LianjiaSecondHandDbPipeLine implements Pipeline {
 
     @Override
     public void process(ResultItems resultItems, Task task) {
-        //插入小区相关信息
-        long communityInfoId = processCommunity(resultItems);
-        //插入住房相关信息
-        processSecondHandHouse(resultItems, communityInfoId);
+        try {
+            //插入小区相关信息
+            long communityInfoId = processCommunity(resultItems);
+            //插入住房相关信息
+            processSecondHandHouse(resultItems, communityInfoId);
+        } catch (Exception e) {
+            logger.error("{} process error, result: {}", getClass().getCanonicalName(),
+                    JsonUtils.objectToJson(resultItems.getAll()));
+        }
     }
 
     private long processCommunity(ResultItems resultItems) {

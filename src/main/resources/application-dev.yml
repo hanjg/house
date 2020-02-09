@@ -13,6 +13,6 @@ lianjia:
         districts: pudong/,minhang/
     sh:
       deal:
-        districts: pudong/,minhang/
+        districts:
 pusher:
   communities: 盘金
