@@ -17,7 +17,7 @@ CREATE TABLE `community`
   `block`          VARCHAR(20) NOT NULL,
   `md5`            VARCHAR(32) NOT NULL,
   `from_time`      TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `to_time`        TIMESTAMP   NOT NULL,
+  `to_time`        TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status`         TINYINT     NOT NULL DEFAULT 2,
   CONSTRAINT `PK_community` PRIMARY KEY (`info_id`)
 );
@@ -36,7 +36,7 @@ CREATE TABLE `renting_house`
   `community_info_id` BIGINT      NOT NULL,
   `md5`               VARCHAR(32) NOT NULL,
   `from_time`         TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `to_time`           TIMESTAMP   NOT NULL,
+  `to_time`           TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status`            TINYINT     NOT NULL DEFAULT 2,
   CONSTRAINT `PK_renting_house` PRIMARY KEY (`info_id`)
 );

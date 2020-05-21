@@ -61,7 +61,7 @@ lianjia:
 spider:
   retryTimes: 3
   sleepTime: 500
-  threadnum: 2
+  threadnum: 1
   proxy:
     xiciRoot: http://www.xicidaili.com/nn/
     mimiipRoot: http://www.mimiip.com/gngao/

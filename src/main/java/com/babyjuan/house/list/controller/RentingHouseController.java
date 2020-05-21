@@ -21,8 +21,8 @@ public class RentingHouseController {
 
     @RequestMapping("/list")
     @ResponseBody
-    public EasyUIDataGridResult getHouseList(Integer page, Integer rows) {
-        return rentingHouseService.getRentingHouseList(page, rows);
+    public EasyUIDataGridResult getHouseList() {
+        return rentingHouseService.getRentingHouseList(1, 10);
     }
 
     @RequestMapping("/favourate/list")

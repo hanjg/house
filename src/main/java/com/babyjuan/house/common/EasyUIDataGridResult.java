@@ -9,9 +9,19 @@ import java.util.List;
  */
 public class EasyUIDataGridResult {
 
+    private Integer code = 20000;
+
     private long total;
 
     private List<?> rows;
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
 
     public long getTotal() {
         return total;
