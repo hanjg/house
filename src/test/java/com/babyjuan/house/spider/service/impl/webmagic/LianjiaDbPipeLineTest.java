@@ -1,7 +1,8 @@
 package com.babyjuan.house.spider.service.impl.webmagic;
 
 import com.babyjuan.house.HouseApplicationTests;
-import com.babyjuan.house.spider.service.impl.webmagic.pageprocessor.LianjiaPageProcessor;
+import com.babyjuan.house.task.spider.webmagic.LianjiaFieldInfo;
+import com.babyjuan.house.task.spider.webmagic.pageprocessor.LianjiaPageProcessor;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import us.codecraft.webmagic.ResultItems;

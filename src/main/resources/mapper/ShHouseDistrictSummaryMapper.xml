@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.babyjuan.house.repository.ShHouseDistrictSummaryMapper" >
+<mapper namespace="com.babyjuan.house.repository.mapper.ShHouseDistrictSummaryMapper" >
   <resultMap id="BaseResultMap" type="com.babyjuan.house.repository.entity.ShHouseDistrictSummary" >
     <id column="info_id" property="infoId" jdbcType="BIGINT" />
     <result column="district" property="district" jdbcType="VARCHAR" />
@@ -85,7 +85,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from sh_house_district_summary
     where info_id = #{infoId,jdbcType=BIGINT}
@@ -101,10 +101,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.babyjuan.house.repository.entity.ShHouseDistrictSummary" >
-    insert into sh_house_district_summary (info_id, district, avg_total_price, 
+    insert into sh_house_district_summary (info_id, district, avg_total_price,
       avg_unit_price, total_house_count, info_time
       )
-    values (#{infoId,jdbcType=BIGINT}, #{district,jdbcType=VARCHAR}, #{avgTotalPrice,jdbcType=DECIMAL}, 
+    values (#{infoId,jdbcType=BIGINT}, #{district,jdbcType=VARCHAR}, #{avgTotalPrice,jdbcType=DECIMAL},
       #{avgUnitPrice,jdbcType=DECIMAL}, #{totalHouseCount,jdbcType=VARCHAR}, #{infoTime,jdbcType=TIMESTAMP}
       )
   </insert>

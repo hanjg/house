@@ -2,8 +2,8 @@ package com.babyjuan.house.spider;
 
 import com.babyjuan.house.HouseApplicationTests;
 import com.babyjuan.house.common.utils.ProxyUtil;
-import com.babyjuan.house.spider.service.CrawlerService;
-import com.babyjuan.house.spider.service.ProxyService;
+import com.babyjuan.house.service.CrawlerService;
+import com.babyjuan.house.service.ProxyService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

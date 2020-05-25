@@ -1,15 +1,15 @@
 package com.babyjuan.house.spider;
 
 import com.babyjuan.house.HouseApplicationTests;
-import com.babyjuan.house.repository.CommunityMapper;
-import com.babyjuan.house.repository.RentingHouseMapper;
-import com.babyjuan.house.repository.SecondHandHouseMapper;
-import com.babyjuan.house.repository.ShHouseDealMapper;
+import com.babyjuan.house.repository.mapper.CommunityMapper;
+import com.babyjuan.house.repository.mapper.RentingHouseMapper;
+import com.babyjuan.house.repository.mapper.SecondHandHouseMapper;
+import com.babyjuan.house.repository.mapper.ShHouseDealMapper;
 import com.babyjuan.house.repository.entity.CommunityExample;
 import com.babyjuan.house.repository.entity.RentingHouseExample;
 import com.babyjuan.house.repository.entity.SecondHandHouseExample;
 import com.babyjuan.house.repository.entity.ShHouseDealExample;
-import com.babyjuan.house.spider.service.CrawlerService;
+import com.babyjuan.house.service.CrawlerService;
 import javax.annotation.Resource;
 import org.junit.Test;
 import org.slf4j.Logger;

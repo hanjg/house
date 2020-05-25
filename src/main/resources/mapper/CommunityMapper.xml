@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.babyjuan.house.repository.CommunityMapper" >
+<mapper namespace="com.babyjuan.house.repository.mapper.CommunityMapper" >
   <resultMap id="BaseResultMap" type="com.babyjuan.house.repository.entity.Community" >
     <id column="info_id" property="infoId" jdbcType="BIGINT" />
     <result column="source_id" property="sourceId" jdbcType="INTEGER" />
@@ -75,7 +75,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    info_id, source_id, community_code, community_name, latitude, longitude, city, district, 
+    info_id, source_id, community_code, community_name, latitude, longitude, city, district,
     block, md5, from_time, to_time, status
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.babyjuan.house.repository.entity.CommunityExample" >
@@ -93,7 +93,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from community
     where info_id = #{infoId,jdbcType=BIGINT}
@@ -112,15 +112,15 @@
     <selectKey keyProperty="infoId" resultType="long" order="AFTER">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into community (info_id, source_id, community_code, 
-      community_name, latitude, longitude, 
-      city, district, block, 
-      md5, from_time, to_time, 
+    insert into community (info_id, source_id, community_code,
+      community_name, latitude, longitude,
+      city, district, block,
+      md5, from_time, to_time,
       status)
-    values (#{infoId,jdbcType=BIGINT}, #{sourceId,jdbcType=INTEGER}, #{communityCode,jdbcType=VARCHAR}, 
-      #{communityName,jdbcType=VARCHAR}, #{latitude,jdbcType=DECIMAL}, #{longitude,jdbcType=DECIMAL}, 
-      #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, #{block,jdbcType=VARCHAR}, 
-      #{md5,jdbcType=VARCHAR}, #{fromTime,jdbcType=TIMESTAMP}, #{toTime,jdbcType=TIMESTAMP}, 
+    values (#{infoId,jdbcType=BIGINT}, #{sourceId,jdbcType=INTEGER}, #{communityCode,jdbcType=VARCHAR},
+      #{communityName,jdbcType=VARCHAR}, #{latitude,jdbcType=DECIMAL}, #{longitude,jdbcType=DECIMAL},
+      #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, #{block,jdbcType=VARCHAR},
+      #{md5,jdbcType=VARCHAR}, #{fromTime,jdbcType=TIMESTAMP}, #{toTime,jdbcType=TIMESTAMP},
       #{status,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.babyjuan.house.repository.entity.Community" >

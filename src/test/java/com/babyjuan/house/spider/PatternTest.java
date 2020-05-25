@@ -1,6 +1,6 @@
 package com.babyjuan.house.spider;
 
-import com.babyjuan.house.spider.service.impl.webmagic.LianjiaFieldInfo;
+import com.babyjuan.house.task.spider.webmagic.LianjiaFieldInfo;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;

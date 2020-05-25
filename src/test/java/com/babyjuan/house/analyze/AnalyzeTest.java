@@ -1,6 +1,7 @@
 package com.babyjuan.house.analyze;
 
 import com.babyjuan.house.HouseApplicationTests;
+import com.babyjuan.house.task.analyze.AnalyzeJob;
 import java.util.Calendar;
 import java.util.Date;
 import org.junit.Test;
