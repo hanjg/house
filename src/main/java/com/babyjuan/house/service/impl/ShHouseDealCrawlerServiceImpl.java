@@ -1,10 +1,10 @@
 package com.babyjuan.house.service.impl;
 
-import com.babyjuan.house.service.dto.HouseResult;
-import com.babyjuan.house.task.spider.SpiderState;
-import com.babyjuan.house.task.spider.config.LianjiaConst;
 import com.babyjuan.house.manager.ShDealSpiderThreadManager;
 import com.babyjuan.house.service.CrawlerService;
+import com.babyjuan.house.service.dto.BaseResponse;
+import com.babyjuan.house.task.spider.SpiderState;
+import com.babyjuan.house.task.spider.config.LianjiaConst;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,21 +33,21 @@ public class ShHouseDealCrawlerServiceImpl implements CrawlerService {
     private LianjiaConst lianjiaConst;
 
     @Override
-    public HouseResult start(int repeatTimes) {
+    public BaseResponse<String> start(int repeatTimes) {
         if (shDealSpiderThreadManager.isSpiderRunnnig()) {
             LOGGER.info("spider is running");
-            return HouseResult.ok("spider is running");
+            return BaseResponse.newSuccessResponse("spider is running");
         }
         LOGGER.info("spider is starting, for {} turn", repeatTimes);
         shDealSpiderThreadManager.start(repeatTimes, readStartUrls());
-        return HouseResult.ok("spider started");
+        return BaseResponse.newSuccessResponse("spider started");
     }
 
     private List<String> readStartUrls() {
         List<String> districts = lianjiaConst.getShDealDistricts();
         List<String> urlList = new ArrayList<>();
         for (String district : districts) {
-            if(district.isEmpty()){
+            if (district.isEmpty()) {
                 continue;
             }
             String url = lianjiaConst.getShDealCityRoot() + district;
@@ -55,11 +55,6 @@ public class ShHouseDealCrawlerServiceImpl implements CrawlerService {
         }
         LOGGER.info("root url: {}", urlList);
         return urlList;
-    }
-
-    @Deprecated
-    @Override
-    public void stop() {
     }
 
     @Override
@@ -70,6 +65,10 @@ public class ShHouseDealCrawlerServiceImpl implements CrawlerService {
             spiderState.setStartTime(shDealSpider.getStartTime());
             spiderState.setThreadAlive(shDealSpider.getThreadAlive());
             spiderState.setStatus(shDealSpider.getStatus());
+            long duration = System.currentTimeMillis() - shDealSpider.getStartTime().getTime();
+            spiderState.setDuration(duration);
+            long pageCount = shDealSpider.getPageCount();
+            spiderState.setMillSecondsPerPage(pageCount == 0 ? -1 : (double)duration / pageCount);
         }
         return spiderState;
     }

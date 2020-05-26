@@ -1,6 +1,6 @@
 package com.babyjuan.house.service.impl;
 
-import com.babyjuan.house.service.dto.EasyUIDataGridResult;
+import com.babyjuan.house.service.dto.PageDTO;
 import com.babyjuan.house.common.constant.Constant;
 import com.babyjuan.house.common.enums.RecordStatus;
 import com.babyjuan.house.service.dto.RentingHouseDTO;
@@ -58,7 +58,7 @@ public class RentingHouseServiceImpl implements RentingHouseService {
     }
 
     @Override
-    public EasyUIDataGridResult getFavourateHouseList(int page, int rows) {
+    public PageDTO getFavourateHouseList(int page, int rows) {
         List<RentingHouse> houseList = new ArrayList<>();
         for (String communityName : pusherConst.getPushedCommunities()) {
             houseList.addAll(getLatestFavourateHouseList(communityName, Constant.LONG_LONG_AGO));
@@ -72,7 +72,7 @@ public class RentingHouseServiceImpl implements RentingHouseService {
             houseDtoList.add(houseDto);
         }
 
-        EasyUIDataGridResult result = new EasyUIDataGridResult();
+        PageDTO result = new PageDTO();
         result.setTotal(houseDtoList.size());
         result.setRows(houseDtoList);
 
@@ -80,7 +80,7 @@ public class RentingHouseServiceImpl implements RentingHouseService {
     }
 
     @Override
-    public EasyUIDataGridResult getRentingHouseList(int page, int rows) {
+    public PageDTO getRentingHouseList(int page, int rows) {
         //使用pagehelper插件分页
         PageHelper.startPage(page, rows);
 
@@ -100,7 +100,7 @@ public class RentingHouseServiceImpl implements RentingHouseService {
 
         PageInfo<RentingHouse> pageInfo = new PageInfo<>(houseList);
 
-        EasyUIDataGridResult result = new EasyUIDataGridResult();
+        PageDTO result = new PageDTO();
         result.setTotal(pageInfo.getTotal());
         result.setRows(houseDtoList);
 

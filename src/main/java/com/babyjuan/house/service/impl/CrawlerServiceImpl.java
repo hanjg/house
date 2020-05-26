@@ -1,10 +1,10 @@
 package com.babyjuan.house.service.impl;
 
-import com.babyjuan.house.service.dto.HouseResult;
+import com.babyjuan.house.manager.SpiderThreadManager;
+import com.babyjuan.house.service.CrawlerService;
+import com.babyjuan.house.service.dto.BaseResponse;
 import com.babyjuan.house.task.spider.SpiderState;
 import com.babyjuan.house.task.spider.config.LianjiaConst;
-import com.babyjuan.house.service.CrawlerService;
-import com.babyjuan.house.manager.SpiderThreadManager;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,14 +35,14 @@ public class CrawlerServiceImpl implements CrawlerService {
     private LianjiaConst lianjiaConst;
 
     @Override
-    public HouseResult start(int repeatTimes) {
+    public BaseResponse<String> start(int repeatTimes) {
         if (spiderThreadManager.isSpiderRunnnig()) {
             LOGGER.info("spider is running");
-            return HouseResult.ok("spider is running");
+            return BaseResponse.newSuccessResponse("spider is running");
         }
         LOGGER.info("spider is starting, for {} turn", repeatTimes);
         spiderThreadManager.start(repeatTimes, readStartUrls());
-        return HouseResult.ok("spider started");
+        return BaseResponse.newSuccessResponse("spider started");
     }
 
     private List<String> readStartUrls() {
@@ -56,15 +56,6 @@ public class CrawlerServiceImpl implements CrawlerService {
         return urlList;
     }
 
-    @Deprecated
-    @Override
-    public void stop() {
-        LOGGER.debug("spider start stop");
-        if (spider != null) {
-            spider.stop();
-        }
-    }
-
     @Override
     public SpiderState status() {
         SpiderState spiderState = new SpiderState();
@@ -73,6 +64,10 @@ public class CrawlerServiceImpl implements CrawlerService {
             spiderState.setStartTime(spider.getStartTime());
             spiderState.setThreadAlive(spider.getThreadAlive());
             spiderState.setStatus(spider.getStatus());
+            long duration = System.currentTimeMillis() - spider.getStartTime().getTime();
+            spiderState.setDuration(duration);
+            long pageCount = spider.getPageCount();
+            spiderState.setMillSecondsPerPage(pageCount == 0 ? -1 : (double)duration / pageCount);
         }
         return spiderState;
     }

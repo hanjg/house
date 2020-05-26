@@ -1,6 +1,6 @@
 package com.babyjuan.house.service.impl;
 
-import com.babyjuan.house.service.dto.HouseResult;
+import com.babyjuan.house.service.dto.BaseResponse;
 import com.babyjuan.house.task.spider.SpiderState;
 import com.babyjuan.house.task.spider.config.LianjiaConst;
 import com.babyjuan.house.manager.SecondHandSpiderThreadManager;
@@ -35,14 +35,14 @@ public class SecondHandCrawlerServiceImpl implements CrawlerService {
     private LianjiaConst lianjiaConst;
 
     @Override
-    public HouseResult start(int repeatTimes) {
+    public BaseResponse<String> start(int repeatTimes) {
         if (spiderThreadManager.isSpiderRunnnig()) {
             LOGGER.info("spider is running");
-            return HouseResult.ok("spider is running");
+            return BaseResponse.newSuccessResponse("spider is running");
         }
         LOGGER.info("spider is starting, for {} turn", repeatTimes);
         spiderThreadManager.start(repeatTimes, readStartUrls());
-        return HouseResult.ok("spider started");
+        return BaseResponse.newSuccessResponse("spider started");
     }
 
     private List<String> readStartUrls() {
@@ -59,11 +59,6 @@ public class SecondHandCrawlerServiceImpl implements CrawlerService {
         return urlList;
     }
 
-    @Deprecated
-    @Override
-    public void stop() {
-    }
-
     @Override
     public SpiderState status() {
         SpiderState spiderState = new SpiderState();
@@ -72,6 +67,10 @@ public class SecondHandCrawlerServiceImpl implements CrawlerService {
             spiderState.setStartTime(secondHandHouseSpider.getStartTime());
             spiderState.setThreadAlive(secondHandHouseSpider.getThreadAlive());
             spiderState.setStatus(secondHandHouseSpider.getStatus());
+            long duration = System.currentTimeMillis() - secondHandHouseSpider.getStartTime().getTime();
+            spiderState.setDuration(duration);
+            long pageCount = secondHandHouseSpider.getPageCount();
+            spiderState.setMillSecondsPerPage(pageCount == 0 ? -1 : (double)duration / pageCount);
         }
         return spiderState;
     }

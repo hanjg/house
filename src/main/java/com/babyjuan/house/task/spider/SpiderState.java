@@ -11,8 +11,10 @@ import us.codecraft.webmagic.Spider.Status;
 public class SpiderState {
 
     private Status status;
-    private Date startTime;
     private long pageCount;
+    private Date startTime;
+    private long duration;
+    private double millSecondsPerPage;
     private int threadAlive;
 
     public Status getStatus() {
@@ -47,12 +49,30 @@ public class SpiderState {
         this.threadAlive = threadAlive;
     }
 
+    public long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
+    }
+
+    public double getMillSecondsPerPage() {
+        return millSecondsPerPage;
+    }
+
+    public void setMillSecondsPerPage(double millSecondsPerPage) {
+        this.millSecondsPerPage = millSecondsPerPage;
+    }
+
     @Override
     public String toString() {
         return "SpiderState{" +
                 "status=" + status +
-                ", startTime=" + startTime +
                 ", pageCount=" + pageCount +
+                ", startTime=" + startTime +
+                ", duration=" + duration +
+                ", millSecondsPerPage=" + millSecondsPerPage +
                 ", threadAlive=" + threadAlive +
                 '}';
     }

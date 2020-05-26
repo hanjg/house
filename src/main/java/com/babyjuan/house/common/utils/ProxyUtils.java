@@ -14,7 +14,7 @@ import javax.net.ssl.SSLSession;
  * @Date: Create in 2018/6/9 21:31
  * @Description: csdn上的工具，暂时没有作用
  */
-public class ProxyUtil {
+public class ProxyUtils {
 
     static HostnameVerifier hv = new HostnameVerifier() {
         public boolean verify(String urlHostName, SSLSession session) {

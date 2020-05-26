@@ -1,6 +1,6 @@
 package com.babyjuan.house.service;
 
-import com.babyjuan.house.service.dto.EasyUIDataGridResult;
+import com.babyjuan.house.service.dto.PageDTO;
 import com.babyjuan.house.repository.entity.RentingHouse;
 import java.util.Date;
 import java.util.List;
@@ -21,11 +21,11 @@ public interface RentingHouseService {
     /**
      * 获得关注小区的租房信息
      */
-    EasyUIDataGridResult getFavourateHouseList(int page, int rows);
+    PageDTO getFavourateHouseList(int page, int rows);
 
     /**
      * 获得所有租房信息
      */
-    EasyUIDataGridResult getRentingHouseList(int page, int rows);
+    PageDTO getRentingHouseList(int page, int rows);
 
 }

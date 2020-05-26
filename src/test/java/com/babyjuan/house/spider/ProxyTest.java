@@ -1,14 +1,13 @@
 package com.babyjuan.house.spider;
 
 import com.babyjuan.house.HouseApplicationTests;
-import com.babyjuan.house.common.utils.ProxyUtil;
+import com.babyjuan.house.common.utils.ProxyUtils;
 import com.babyjuan.house.service.CrawlerService;
 import com.babyjuan.house.service.ProxyService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import us.codecraft.webmagic.proxy.Proxy;
-import us.codecraft.webmagic.utils.ProxyUtils;
 
 /**
  * @Author: hjg
@@ -41,10 +40,10 @@ public class ProxyTest extends HouseApplicationTests {
             String[] tokens = url.split(": ");
             String host = tokens[0];
             int port = Integer.valueOf(tokens[1]);
-            boolean canreach = ProxyUtils.validateProxy(new Proxy(host, port));
+            boolean canreach = us.codecraft.webmagic.utils.ProxyUtils.validateProxy(new Proxy(host, port));
             System.out.println("webmagic: " + canreach);
 
-            System.out.println("csdn: " + ProxyUtil.isConnServerByHttp("http://" + url));
+            System.out.println("csdn: " + ProxyUtils.isConnServerByHttp("http://" + url));
         }
     }
 

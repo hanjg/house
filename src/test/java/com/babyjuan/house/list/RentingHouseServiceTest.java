@@ -1,7 +1,7 @@
 package com.babyjuan.house.list;
 
 import com.babyjuan.house.HouseApplicationTests;
-import com.babyjuan.house.service.dto.EasyUIDataGridResult;
+import com.babyjuan.house.service.dto.PageDTO;
 import com.babyjuan.house.service.RentingHouseService;
 import com.babyjuan.house.repository.entity.RentingHouse;
 import com.babyjuan.house.service.dto.RentingHouseDTO;
@@ -34,7 +34,7 @@ public class RentingHouseServiceTest extends HouseApplicationTests {
 
     @Test
     public void getRentingHosueList() {
-        EasyUIDataGridResult result = rentingHouseService.getRentingHouseList(1, 10);
+        PageDTO result = rentingHouseService.getRentingHouseList(1, 10);
         List<RentingHouseDTO> dtos = (List<RentingHouseDTO>) result.getRows();
         for (RentingHouseDTO house : dtos) {
             System.out.println(house.toString());

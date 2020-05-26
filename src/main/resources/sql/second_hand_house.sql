@@ -62,5 +62,7 @@ CREATE TABLE `sh_house_district_summary`
   PRIMARY KEY (`info_id`),
   KEY `idx_time` (`info_time`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='二手房行政区汇总';
+ALTER TABLE `sh_house_district_summary`
+  ADD UNIQUE KEY `uk_district_infotime` (`district` ,`info_time`);
 
 SET FOREIGN_KEY_CHECKS = 1

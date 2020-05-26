@@ -1,13 +1,12 @@
 package com.babyjuan.house.controller;
 
-import com.babyjuan.house.common.utils.ExceptionUtil;
-import com.babyjuan.house.service.dto.HouseResult;
+import com.babyjuan.house.common.utils.ExceptionUtils;
 import com.babyjuan.house.service.CrawlerService;
+import com.babyjuan.house.service.dto.BaseResponse;
 import com.babyjuan.house.task.spider.SpiderState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -28,60 +27,29 @@ public class CrawlerController {
     @Qualifier("secondHandCrawlerServiceImpl")
     private CrawlerService secondHandCrawlerService;
 
-    @RequestMapping("/start/{repeatTimes}")
+    @RequestMapping("/rentingHouse/status")
     @ResponseBody
-    public HouseResult start(@PathVariable(required = false) Integer repeatTimes) {
-        if (repeatTimes == null) {
-            repeatTimes = 1000;
-        }
-        HouseResult result = null;
-        try {
-            result = crawlerService.start(repeatTimes);
-        } catch (Exception e) {
-            result = HouseResult.build(500, ExceptionUtil.getStackTrace(e));
-        }
-        return result;
-    }
-
-    @RequestMapping("/status")
-    @ResponseBody
-    public HouseResult status() {
-        HouseResult result = null;
+    public BaseResponse status() {
+        BaseResponse result = null;
         try {
             SpiderState spiderState = crawlerService.status();
-            result = HouseResult.ok(spiderState);
+            result = BaseResponse.newSuccessResponse(spiderState);
         } catch (Exception e) {
-            result = HouseResult.build(500, ExceptionUtil.getStackTrace(e));
+            result = BaseResponse.newFailureResponse(ExceptionUtils.getStackTrace(e));
         }
         return result;
     }
 
-    @RequestMapping("sh/start/{repeatTimes}")
+    @RequestMapping("/secondHandHouse/status")
     @ResponseBody
-    public HouseResult shStart(@PathVariable(required = false) Integer repeatTimes) {
-        if (repeatTimes == null) {
-            repeatTimes = 1000;
-        }
-        HouseResult result = null;
-        try {
-            result = secondHandCrawlerService.start(repeatTimes);
-        } catch (Exception e) {
-            result = HouseResult.build(500, ExceptionUtil.getStackTrace(e));
-        }
-        return result;
-    }
-
-    @RequestMapping("sh/status")
-    @ResponseBody
-    public HouseResult shStatus() {
-        HouseResult result = null;
+    public BaseResponse shStatus() {
+        BaseResponse result = null;
         try {
             SpiderState spiderState = secondHandCrawlerService.status();
-            result = HouseResult.ok(spiderState);
+            result = BaseResponse.newSuccessResponse(spiderState);
         } catch (Exception e) {
-            result = HouseResult.build(500, ExceptionUtil.getStackTrace(e));
+            result = BaseResponse.newFailureResponse(ExceptionUtils.getStackTrace(e));
         }
         return result;
     }
-
 }
