@@ -20,7 +20,7 @@ public class PageDTO<T> {
         this.total = total;
     }
 
-    public List<?> getRows() {
+    public List<T> getRows() {
         return rows;
     }
 

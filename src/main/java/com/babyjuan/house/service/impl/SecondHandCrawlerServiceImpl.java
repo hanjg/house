@@ -5,9 +5,12 @@ import com.babyjuan.house.task.spider.SpiderState;
 import com.babyjuan.house.task.spider.config.LianjiaConst;
 import com.babyjuan.house.manager.SecondHandSpiderThreadManager;
 import com.babyjuan.house.service.CrawlerService;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,8 @@ import us.codecraft.webmagic.Spider;
 public class SecondHandCrawlerServiceImpl implements CrawlerService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SecondHandCrawlerServiceImpl.class);
+
+    private Date startTime = new Date();
 
     @Autowired
     @Qualifier("secondHandHouseSpider")
@@ -67,10 +72,12 @@ public class SecondHandCrawlerServiceImpl implements CrawlerService {
             spiderState.setStartTime(secondHandHouseSpider.getStartTime());
             spiderState.setThreadAlive(secondHandHouseSpider.getThreadAlive());
             spiderState.setStatus(secondHandHouseSpider.getStatus());
-            long duration = System.currentTimeMillis() - secondHandHouseSpider.getStartTime().getTime();
+            long duration = System.currentTimeMillis() - startTime.getTime();
             spiderState.setDuration(duration);
             long pageCount = secondHandHouseSpider.getPageCount();
-            spiderState.setMillSecondsPerPage(pageCount == 0 ? -1 : (double)duration / pageCount);
+            double secondsPerPage = NumberUtils
+                    .toScaledBigDecimal((double) duration / pageCount, 2, RoundingMode.HALF_UP).doubleValue();
+            spiderState.setMillSecondsPerPage(pageCount == 0 ? -1 : secondsPerPage);
         }
         return spiderState;
     }

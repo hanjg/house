@@ -17,7 +17,7 @@ public class SecondHandHouseSummaryDTO
 
     private BigDecimal avgUnitPrice;
 
-    private String totalHouseCount;
+    private Integer totalHouseCount;
 
     public String getDistrict() {
         return district;
@@ -51,11 +51,11 @@ public class SecondHandHouseSummaryDTO
         this.avgUnitPrice = avgUnitPrice;
     }
 
-    public String getTotalHouseCount() {
+    public Integer getTotalHouseCount() {
         return totalHouseCount;
     }
 
-    public void setTotalHouseCount(String totalHouseCount) {
+    public void setTotalHouseCount(Integer totalHouseCount) {
         this.totalHouseCount = totalHouseCount;
     }
 }

@@ -2,9 +2,13 @@ package com.babyjuan.house.controller;
 
 import com.babyjuan.house.service.SecondHandHouseService;
 import com.babyjuan.house.service.dto.BaseResponse;
+import com.babyjuan.house.service.dto.DistrictSecondHandHouseSummaryDTO;
 import com.babyjuan.house.service.dto.PageDTO;
 import com.babyjuan.house.service.dto.SecondHandHouseDTO;
 import com.babyjuan.house.service.dto.SecondHandHouseSummaryDTO;
+import java.util.Date;
+import java.util.List;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,5 +39,14 @@ public class SecondHandHouseController {
     BaseResponse<PageDTO<SecondHandHouseSummaryDTO>> getSecondHouseSummaryList(@RequestParam Integer page,
             @RequestParam Integer size) {
         return secondHandHouseService.getSecondHouseSummaryList(page, size);
+    }
+
+    @RequestMapping("/summary/range")
+    @ResponseBody
+    BaseResponse<DistrictSecondHandHouseSummaryDTO> getSecondHouseSummaryRange() {
+        Date now = new Date();
+        Date from = DateUtils.addMonths(now, -3);
+        Date to = DateUtils.addDays(now, -3);
+        return secondHandHouseService.getSecondHouseSummaryRange(from, to);
     }
 }
