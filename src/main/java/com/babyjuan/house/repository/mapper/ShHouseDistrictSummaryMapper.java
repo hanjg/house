@@ -29,4 +29,6 @@ public interface ShHouseDistrictSummaryMapper {
     int updateByPrimaryKeySelective(ShHouseDistrictSummary record);
 
     int updateByPrimaryKey(ShHouseDistrictSummary record);
+
+    List<String> queryAllDistricts();
 }

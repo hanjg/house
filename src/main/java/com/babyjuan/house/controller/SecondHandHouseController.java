@@ -6,6 +6,7 @@ import com.babyjuan.house.service.dto.DistrictSecondHandHouseSummaryDTO;
 import com.babyjuan.house.service.dto.PageDTO;
 import com.babyjuan.house.service.dto.SecondHandHouseDTO;
 import com.babyjuan.house.service.dto.SecondHandHouseSummaryDTO;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.apache.commons.lang3.time.DateUtils;
@@ -26,6 +27,12 @@ public class SecondHandHouseController {
 
     @Autowired
     private SecondHandHouseService secondHandHouseService;
+
+    @RequestMapping("/districts")
+    @ResponseBody
+    public BaseResponse<List<String>> getAllDistricts() {
+        return secondHandHouseService.getAllDistricts();
+    }
 
     @RequestMapping("/list")
     @ResponseBody
@@ -48,5 +55,14 @@ public class SecondHandHouseController {
         Date from = DateUtils.addMonths(now, -3);
         Date to = DateUtils.addDays(now, -3);
         return secondHandHouseService.getSecondHouseSummaryRange(from, to);
+    }
+
+    @RequestMapping("/summary/specific")
+    @ResponseBody
+    BaseResponse<DistrictSecondHandHouseSummaryDTO> getSecondHouseSummarySpecific(
+            @RequestParam Long from, @RequestParam Long to, @RequestParam String district) {
+        List<String> districts = new ArrayList<>();
+        districts.add(district);
+        return secondHandHouseService.getSecondHouseSummarySpecific(new Date(from), new Date(to), districts);
     }
 }

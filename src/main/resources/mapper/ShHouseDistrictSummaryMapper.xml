@@ -225,4 +225,9 @@
       info_time = #{infoTime,jdbcType=TIMESTAMP}
     where info_id = #{infoId,jdbcType=BIGINT}
   </update>
+  <select id="queryAllDistricts" resultType="java.lang.String">
+    SELECT distinct district
+    FROM sh_house_district_summary
+    ORDER BY district asc;
+  </select>
 </mapper>

@@ -46,6 +46,12 @@ public class SecondHandHouseServiceImpl implements SecondHandHouseService {
     private ShHouseDistrictSummaryMapper shHouseDistrictSummaryMapper;
 
     @Override
+    public BaseResponse<List<String>> getAllDistricts() {
+        List<String> districts = shHouseDistrictSummaryMapper.queryAllDistricts();
+        return BaseResponse.newSuccessResponse(districts);
+    }
+
+    @Override
     public BaseResponse<PageDTO<SecondHandHouseDTO>> getSecondHouseList(int page, int pageSize) {
         PageHelper.startPage(page, pageSize);
 
@@ -92,6 +98,21 @@ public class SecondHandHouseServiceImpl implements SecondHandHouseService {
         ShHouseDistrictSummaryExample example = new ShHouseDistrictSummaryExample();
         example.createCriteria().andInfoTimeBetween(from, to);
         List<ShHouseDistrictSummary> summaryList = shHouseDistrictSummaryMapper.selectByExample(example);
+        DistrictSecondHandHouseSummaryDTO result = assembleSummary(summaryList);
+        return BaseResponse.newSuccessResponse(result);
+    }
+
+    @Override
+    public BaseResponse<DistrictSecondHandHouseSummaryDTO> getSecondHouseSummarySpecific(Date from, Date to,
+            List<String> districts) {
+        ShHouseDistrictSummaryExample example = new ShHouseDistrictSummaryExample();
+        example.createCriteria().andInfoTimeBetween(from, to).andDistrictIn(districts);
+        List<ShHouseDistrictSummary> summaryList = shHouseDistrictSummaryMapper.selectByExample(example);
+        DistrictSecondHandHouseSummaryDTO result = assembleSummary(summaryList);
+        return BaseResponse.newSuccessResponse(result);
+    }
+
+    private DistrictSecondHandHouseSummaryDTO assembleSummary(List<ShHouseDistrictSummary> summaryList) {
         Map<Date, List<ShHouseDistrictSummary>> dateMap = summaryList.stream()
                 .collect(Collectors.groupingBy(
                         ShHouseDistrictSummary::getInfoTime,
@@ -106,7 +127,7 @@ public class SecondHandHouseServiceImpl implements SecondHandHouseService {
         result.setTimeList(dateList);
         result.setDistricts(districtSet);
         result.setSumMap(sumMap);
-        return BaseResponse.newSuccessResponse(result);
+        return result;
     }
 
     private Map<String, List<SecondHandHouseSummaryDTO>> assembleSumMap(Map<Date,

@@ -14,9 +14,14 @@ import java.util.List;
  */
 public interface SecondHandHouseService {
 
+    BaseResponse<List<String>> getAllDistricts();
+
     BaseResponse<PageDTO<SecondHandHouseDTO>> getSecondHouseList(int page, int pageSize);
 
     BaseResponse<PageDTO<SecondHandHouseSummaryDTO>> getSecondHouseSummaryList(int page, int pageSize);
 
     BaseResponse<DistrictSecondHandHouseSummaryDTO> getSecondHouseSummaryRange(Date from, Date to);
+
+    BaseResponse<DistrictSecondHandHouseSummaryDTO> getSecondHouseSummarySpecific(Date from, Date to,
+            List<String> districts);
 }
