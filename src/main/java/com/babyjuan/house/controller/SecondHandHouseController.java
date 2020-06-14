@@ -52,7 +52,7 @@ public class SecondHandHouseController {
     @ResponseBody
     BaseResponse<DistrictSecondHandHouseSummaryDTO> getSecondHouseSummaryRange() {
         Date now = new Date();
-        Date from = DateUtils.addMonths(now, -3);
+        Date from = DateUtils.addMonths(now, -1);
         Date to = DateUtils.addDays(now, -3);
         return secondHandHouseService.getSecondHouseSummaryRange(from, to);
     }
