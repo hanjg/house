@@ -1,11 +1,11 @@
 package com.babyjuan.house.manager;
 
 import com.babyjuan.house.common.enums.RecordStatus;
-import com.babyjuan.house.repository.mapper.CommunityMapper;
-import com.babyjuan.house.repository.mapper.SecondHandHouseMapper;
-import com.babyjuan.house.repository.entity.CommunityExample;
-import com.babyjuan.house.repository.entity.SecondHandHouseExample;
-import com.babyjuan.house.repository.entity.SecondHandHouseExample.Criteria;
+import com.babyjuan.house.repository.mysql.mapper.CommunityMapper;
+import com.babyjuan.house.repository.mysql.mapper.SecondHandHouseMapper;
+import com.babyjuan.house.repository.mysql.entity.CommunityExample;
+import com.babyjuan.house.repository.mysql.entity.SecondHandHouseExample;
+import com.babyjuan.house.repository.mysql.entity.SecondHandHouseExample.Criteria;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

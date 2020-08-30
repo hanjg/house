@@ -1,9 +1,11 @@
 package com.babyjuan.house.task.spider;
 
+import com.babyjuan.house.common.condition.ProCondition;
 import com.babyjuan.house.service.CrawlerService;
 import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Component;
  * @version 2019/7/24 0:49
  */
 @Component
+@Conditional({ProCondition.class})
 public class SpiderTask {
 
     @Autowired

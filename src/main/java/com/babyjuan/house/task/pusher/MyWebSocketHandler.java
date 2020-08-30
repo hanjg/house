@@ -1,7 +1,7 @@
 package com.babyjuan.house.task.pusher;
 
 import com.babyjuan.house.common.constant.Constant;
-import com.babyjuan.house.repository.entity.RentingHouse;
+import com.babyjuan.house.repository.mysql.entity.RentingHouse;
 import com.babyjuan.house.service.CrawlerService;
 import com.babyjuan.house.task.spider.config.LianjiaConst;
 import com.babyjuan.house.task.spider.SpiderState;

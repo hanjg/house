@@ -1,14 +1,16 @@
 package com.babyjuan.house.service.impl;
 
 import com.babyjuan.house.common.enums.RecordStatus;
-import com.babyjuan.house.repository.entity.Community;
-import com.babyjuan.house.repository.entity.SecondHandHouse;
-import com.babyjuan.house.repository.entity.SecondHandHouseExample;
-import com.babyjuan.house.repository.entity.ShHouseDistrictSummary;
-import com.babyjuan.house.repository.entity.ShHouseDistrictSummaryExample;
-import com.babyjuan.house.repository.mapper.CommunityMapper;
-import com.babyjuan.house.repository.mapper.SecondHandHouseMapper;
-import com.babyjuan.house.repository.mapper.ShHouseDistrictSummaryMapper;
+import com.babyjuan.house.repository.es.mapper.ESMapper;
+import com.babyjuan.house.repository.es.entity.SecondHandHouseEO;
+import com.babyjuan.house.repository.mysql.entity.Community;
+import com.babyjuan.house.repository.mysql.entity.SecondHandHouse;
+import com.babyjuan.house.repository.mysql.entity.SecondHandHouseExample;
+import com.babyjuan.house.repository.mysql.entity.ShHouseDistrictSummary;
+import com.babyjuan.house.repository.mysql.entity.ShHouseDistrictSummaryExample;
+import com.babyjuan.house.repository.mysql.mapper.CommunityMapper;
+import com.babyjuan.house.repository.mysql.mapper.SecondHandHouseMapper;
+import com.babyjuan.house.repository.mysql.mapper.ShHouseDistrictSummaryMapper;
 import com.babyjuan.house.service.SecondHandHouseService;
 import com.babyjuan.house.service.dto.BaseResponse;
 import com.babyjuan.house.service.dto.DistrictSecondHandHouseSummaryDTO;
@@ -26,6 +28,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +47,9 @@ public class SecondHandHouseServiceImpl implements SecondHandHouseService {
 
     @Autowired
     private ShHouseDistrictSummaryMapper shHouseDistrictSummaryMapper;
+
+    @Autowired(required = false)
+    private ESMapper esMapper;
 
     @Override
     public BaseResponse<List<String>> getAllDistricts() {
@@ -72,6 +78,30 @@ public class SecondHandHouseServiceImpl implements SecondHandHouseService {
         PageDTO<SecondHandHouseDTO> pageDTO = new PageDTO<>();
         pageDTO.setTotal(pageInfo.getTotal());
         pageDTO.setRows(houseDtoList);
+        return BaseResponse.newSuccessResponse(pageDTO);
+    }
+
+    @Override
+    public BaseResponse<PageDTO<SecondHandHouseDTO>> getSecondHouseListFromES(int offset, int limit) {
+        Pair<Long, List<SecondHandHouseEO>> esResult = esMapper.getSecondHouseList(offset, limit);
+        List<SecondHandHouseDTO> result = esResult.getValue().stream()
+                .map(this::buildSecondHandHouseDTO)
+                .collect(Collectors.toList());
+        PageDTO<SecondHandHouseDTO> pageDTO = new PageDTO<>();
+        pageDTO.setTotal(esResult.getKey());
+        pageDTO.setRows(result);
+        return BaseResponse.newSuccessResponse(pageDTO);
+    }
+
+    @Override
+    public BaseResponse<PageDTO<SecondHandHouseDTO>> getSecondHouseListFromES(int offset, int limit, String title) {
+        Pair<Long, List<SecondHandHouseEO>> esResult = esMapper.getSecondHouseList(offset, limit, title);
+        List<SecondHandHouseDTO> result = esResult.getValue().stream()
+                .map(this::buildSecondHandHouseDTO)
+                .collect(Collectors.toList());
+        PageDTO<SecondHandHouseDTO> pageDTO = new PageDTO<>();
+        pageDTO.setTotal(esResult.getKey());
+        pageDTO.setRows(result);
         return BaseResponse.newSuccessResponse(pageDTO);
     }
 
@@ -228,6 +258,16 @@ public class SecondHandHouseServiceImpl implements SecondHandHouseService {
         houseDto.setFromTime(house.getFromTime());
         houseDto.setPriceTotal(house.getPriceTotal());
         houseDto.setTitle(house.getTitle());
+        return houseDto;
+    }
+
+    private SecondHandHouseDTO buildSecondHandHouseDTO(SecondHandHouseEO eo) {
+        SecondHandHouseDTO houseDto = new SecondHandHouseDTO();
+        houseDto.setArea(new BigDecimal(eo.getArea()));
+        houseDto.setUnitPrice(eo.getUnitPrice());
+        houseDto.setFromTime(new Date(eo.getFromTime()));
+        houseDto.setPriceTotal(eo.getPriceTotal());
+        houseDto.setTitle(eo.getTitle());
         return houseDto;
     }
 }

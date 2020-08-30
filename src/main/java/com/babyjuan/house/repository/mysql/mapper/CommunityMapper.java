@@ -1,7 +1,7 @@
-package com.babyjuan.house.repository.mapper;
+package com.babyjuan.house.repository.mysql.mapper;
 
-import com.babyjuan.house.repository.entity.Community;
-import com.babyjuan.house.repository.entity.CommunityExample;
+import com.babyjuan.house.repository.mysql.entity.Community;
+import com.babyjuan.house.repository.mysql.entity.CommunityExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

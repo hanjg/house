@@ -1,9 +1,9 @@
-package com.babyjuan.house.repository.entity;
+package com.babyjuan.house.repository.mysql.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class SecondHandHouse {
+public class RentingHouse {
     private Long infoId;
 
     private Integer sourceId;
@@ -20,9 +20,7 @@ public class SecondHandHouse {
 
     private Integer priceTotal;
 
-    private Integer unitPrice;
-
-    private BigDecimal area;
+    private BigDecimal rentArea;
 
     private Long communityInfoId;
 
@@ -98,20 +96,12 @@ public class SecondHandHouse {
         this.priceTotal = priceTotal;
     }
 
-    public Integer getUnitPrice() {
-        return unitPrice;
+    public BigDecimal getRentArea() {
+        return rentArea;
     }
 
-    public void setUnitPrice(Integer unitPrice) {
-        this.unitPrice = unitPrice;
-    }
-
-    public BigDecimal getArea() {
-        return area;
-    }
-
-    public void setArea(BigDecimal area) {
-        this.area = area;
+    public void setRentArea(BigDecimal rentArea) {
+        this.rentArea = rentArea;
     }
 
     public Long getCommunityInfoId() {
@@ -152,5 +142,25 @@ public class SecondHandHouse {
 
     public void setStatus(Byte status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "RentingHouse{" +
+                "infoId=" + infoId +
+                ", sourceId=" + sourceId +
+                ", houseCode='" + houseCode + '\'' +
+                ", title='" + title + '\'' +
+                ", bedroomNum=" + bedroomNum +
+                ", hallNum=" + hallNum +
+                ", orientation='" + orientation + '\'' +
+                ", priceTotal=" + priceTotal +
+                ", rentArea=" + rentArea +
+                ", communityInfoId=" + communityInfoId +
+                ", md5='" + md5 + '\'' +
+                ", fromTime=" + fromTime +
+                ", toTime=" + toTime +
+                ", status=" + status +
+                '}';
     }
 }

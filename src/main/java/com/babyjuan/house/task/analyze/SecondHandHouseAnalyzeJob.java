@@ -1,10 +1,11 @@
 package com.babyjuan.house.task.analyze;
 
+import com.babyjuan.house.common.condition.ProCondition;
 import com.babyjuan.house.common.utils.SleepUtils;
-import com.babyjuan.house.repository.entity.ShHouseDistrictSummary;
-import com.babyjuan.house.repository.entity.ShHouseDistrictSummaryExample;
-import com.babyjuan.house.repository.mapper.SecondHandHouseMapper;
-import com.babyjuan.house.repository.mapper.ShHouseDistrictSummaryMapper;
+import com.babyjuan.house.repository.mysql.entity.ShHouseDistrictSummary;
+import com.babyjuan.house.repository.mysql.entity.ShHouseDistrictSummaryExample;
+import com.babyjuan.house.repository.mysql.mapper.SecondHandHouseMapper;
+import com.babyjuan.house.repository.mysql.mapper.ShHouseDistrictSummaryMapper;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -12,6 +13,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Component;
  * @version 2020/2/3 18:25
  */
 @Component
+@Conditional({ProCondition.class})
 public class SecondHandHouseAnalyzeJob {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SecondHandHouseAnalyzeJob.class);

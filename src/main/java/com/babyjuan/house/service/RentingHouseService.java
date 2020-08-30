@@ -1,7 +1,7 @@
 package com.babyjuan.house.service;
 
 import com.babyjuan.house.service.dto.PageDTO;
-import com.babyjuan.house.repository.entity.RentingHouse;
+import com.babyjuan.house.repository.mysql.entity.RentingHouse;
 import java.util.Date;
 import java.util.List;
 

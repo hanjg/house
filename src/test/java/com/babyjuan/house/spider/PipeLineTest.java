@@ -1,8 +1,8 @@
 package com.babyjuan.house.spider;
 
 import com.babyjuan.house.HouseApplicationTests;
-import com.babyjuan.house.repository.entity.Community;
-import com.babyjuan.house.repository.mapper.CommunityMapper;
+import com.babyjuan.house.repository.mysql.entity.Community;
+import com.babyjuan.house.repository.mysql.mapper.CommunityMapper;
 import java.math.BigDecimal;
 import org.junit.Assert;
 import org.junit.Test;

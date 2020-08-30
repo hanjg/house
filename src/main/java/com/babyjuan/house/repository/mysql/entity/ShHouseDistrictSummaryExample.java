@@ -1,4 +1,4 @@
-package com.babyjuan.house.repository.entity;
+package com.babyjuan.house.repository.mysql.entity;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

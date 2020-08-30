@@ -1,0 +1,74 @@
+{
+  "scrollId": null,
+  "totalShards": 3,
+  "successfulShards": 3,
+  "skippedShards": 0,
+  "shardFailures": [],
+  "clusters": {
+    "total": 0,
+    "successful": 0,
+    "skipped": 0,
+    "fragment": true
+  },
+  "numReducePhases": 1,
+  "profileResults": {},
+  "terminatedEarly": null,
+  "hits": {
+    "hits": [
+      {
+        "score": 1.0,
+        "id": "001",
+        "type": "_doc",
+        "nestedIdentity": null,
+        "version": -1,
+        "fields": {},
+        "highlightFields": {},
+        "sortValues": [],
+        "matchedQueries": [],
+        "explanation": null,
+        "shard": null,
+        "index": "second_hand_house",
+        "clusterAlias": null,
+        "sourceAsMap": {
+          "area": 200.0,
+          "title": "房屋11",
+          "unit_price": 100000,
+          "to_time": 1597690308,
+          "from_time": 1597680310,
+          "price_total": 20000000
+        },
+        "innerHits": null,
+        "sourceRef": {
+          "childResources": [],
+          "fragment": true
+        },
+        "sourceAsString": "{\"title\":\"房屋11\",\"price_total\":20000000,\"unit_price\":100000,\"area\":200.0,\"from_time\":1597680310,\"to_time\":1597690308}",
+        "fragment": false
+      }
+    ],
+    "totalHits": 0,
+    "maxScore": 1.0,
+    "fragment": true
+  },
+  "took": {
+    "days": 0,
+    "nanos": 4000000,
+    "stringRep": "4ms",
+    "hours": 0,
+    "millis": 4,
+    "minutes": 0,
+    "seconds": 0,
+    "minutesFrac": 6.666666666666667E-5,
+    "millisFrac": 4.0,
+    "micros": 4000,
+    "microsFrac": 4000.0,
+    "secondsFrac": 0.004,
+    "hoursFrac": 1.111111111111111E-6,
+    "daysFrac": 4.6296296296296295E-8
+  },
+  "aggregations": null,
+  "suggest": null,
+  "timedOut": false,
+  "failedShards": 0,
+  "fragment": false
+}

@@ -1,6 +1,6 @@
 package com.babyjuan.house.spider;
 
-import com.babyjuan.house.repository.entity.RentingHouse;
+import com.babyjuan.house.repository.mysql.entity.RentingHouse;
 import org.junit.Test;
 
 /**

@@ -34,7 +34,7 @@ server:
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml  #对应mapper映射xml文件的所在路径
-#  type-aliases-package: com.babyjuan.house.repository.entity # 对应实体类的路径非必须
+#  type-aliases-package: com.babyjuan.house.repository.mysql.entity # 对应实体类的路径非必须
 
 #pagehelper分页插件
 pagehelper:
@@ -60,7 +60,7 @@ lianjia:
 
 spider:
   retryTimes: 3
-  sleepTime: 200
+  sleepTime: 400
   threadnum: 1
   proxy:
     xiciRoot: http://www.xicidaili.com/nn/

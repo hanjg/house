@@ -3,7 +3,7 @@ package com.babyjuan.house.list;
 import com.babyjuan.house.HouseApplicationTests;
 import com.babyjuan.house.service.dto.PageDTO;
 import com.babyjuan.house.service.RentingHouseService;
-import com.babyjuan.house.repository.entity.RentingHouse;
+import com.babyjuan.house.repository.mysql.entity.RentingHouse;
 import com.babyjuan.house.service.dto.RentingHouseDTO;
 import java.util.Date;
 import java.util.List;

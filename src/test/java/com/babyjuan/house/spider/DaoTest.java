@@ -2,12 +2,12 @@ package com.babyjuan.house.spider;
 
 import com.babyjuan.house.HouseApplicationTests;
 import com.babyjuan.house.common.enums.RecordStatus;
-import com.babyjuan.house.repository.entity.Community;
-import com.babyjuan.house.repository.entity.CommunityExample;
-import com.babyjuan.house.repository.entity.CommunityExample.Criteria;
-import com.babyjuan.house.repository.entity.RentingHouse;
-import com.babyjuan.house.repository.mapper.CommunityMapper;
-import com.babyjuan.house.repository.mapper.RentingHouseMapper;
+import com.babyjuan.house.repository.mysql.entity.Community;
+import com.babyjuan.house.repository.mysql.entity.CommunityExample;
+import com.babyjuan.house.repository.mysql.entity.CommunityExample.Criteria;
+import com.babyjuan.house.repository.mysql.entity.RentingHouse;
+import com.babyjuan.house.repository.mysql.mapper.CommunityMapper;
+import com.babyjuan.house.repository.mysql.mapper.RentingHouseMapper;
 import java.util.List;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

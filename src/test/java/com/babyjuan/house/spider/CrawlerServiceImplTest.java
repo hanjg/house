@@ -1,14 +1,14 @@
 package com.babyjuan.house.spider;
 
 import com.babyjuan.house.HouseApplicationTests;
-import com.babyjuan.house.repository.mapper.CommunityMapper;
-import com.babyjuan.house.repository.mapper.RentingHouseMapper;
-import com.babyjuan.house.repository.mapper.SecondHandHouseMapper;
-import com.babyjuan.house.repository.mapper.ShHouseDealMapper;
-import com.babyjuan.house.repository.entity.CommunityExample;
-import com.babyjuan.house.repository.entity.RentingHouseExample;
-import com.babyjuan.house.repository.entity.SecondHandHouseExample;
-import com.babyjuan.house.repository.entity.ShHouseDealExample;
+import com.babyjuan.house.repository.mysql.mapper.CommunityMapper;
+import com.babyjuan.house.repository.mysql.mapper.RentingHouseMapper;
+import com.babyjuan.house.repository.mysql.mapper.SecondHandHouseMapper;
+import com.babyjuan.house.repository.mysql.mapper.ShHouseDealMapper;
+import com.babyjuan.house.repository.mysql.entity.CommunityExample;
+import com.babyjuan.house.repository.mysql.entity.RentingHouseExample;
+import com.babyjuan.house.repository.mysql.entity.SecondHandHouseExample;
+import com.babyjuan.house.repository.mysql.entity.ShHouseDealExample;
 import com.babyjuan.house.service.CrawlerService;
 import javax.annotation.Resource;
 import org.junit.Test;
@@ -73,7 +73,7 @@ public class CrawlerServiceImplTest extends HouseApplicationTests {
 
     @Test
     public void testSh() throws InterruptedException {
-        String url = "https://sh.lianjia.com/ershoufang/107102118056.html";
+        String url = "https://sh.lianjia.com/ershoufang/jiangqiao/pg3/";
         secondHandCrawlerService.test(url, 1);
         do {
             Thread.sleep(1000);

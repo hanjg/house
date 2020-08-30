@@ -2,10 +2,10 @@ package com.babyjuan.house.task.spider.webmagic.pipeline;
 
 
 import com.babyjuan.house.common.enums.HouseSource;
-import com.babyjuan.house.repository.mapper.ShHouseDealMapper;
-import com.babyjuan.house.repository.entity.ShHouseDeal;
-import com.babyjuan.house.repository.entity.ShHouseDealExample;
-import com.babyjuan.house.repository.entity.ShHouseDealExample.Criteria;
+import com.babyjuan.house.repository.mysql.mapper.ShHouseDealMapper;
+import com.babyjuan.house.repository.mysql.entity.ShHouseDeal;
+import com.babyjuan.house.repository.mysql.entity.ShHouseDealExample;
+import com.babyjuan.house.repository.mysql.entity.ShHouseDealExample.Criteria;
 import com.babyjuan.house.task.spider.webmagic.LianjiaFieldInfo;
 import java.util.List;
 import java.util.Objects;

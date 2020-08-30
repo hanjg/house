@@ -18,6 +18,10 @@ public interface SecondHandHouseService {
 
     BaseResponse<PageDTO<SecondHandHouseDTO>> getSecondHouseList(int page, int pageSize);
 
+    BaseResponse<PageDTO<SecondHandHouseDTO>> getSecondHouseListFromES(int offset, int limit);
+
+    BaseResponse<PageDTO<SecondHandHouseDTO>> getSecondHouseListFromES(int offset, int limit, String title);
+
     BaseResponse<PageDTO<SecondHandHouseSummaryDTO>> getSecondHouseSummaryList(int page, int pageSize);
 
     BaseResponse<DistrictSecondHandHouseSummaryDTO> getSecondHouseSummaryRange(Date from, Date to);

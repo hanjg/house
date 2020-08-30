@@ -1,4 +1,4 @@
-package com.babyjuan.house.repository.config;
+package com.babyjuan.house.repository.mysql.config;
 
 import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
-@MapperScan("com.babyjuan.house.repository")
+@MapperScan("com.babyjuan.house.repository.mysql")
 public class MybatisConfig {
 
     @Autowired

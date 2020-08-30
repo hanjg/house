@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.babyjuan.house.repository.mapper.SecondHandHouseMapper" >
-  <resultMap id="BaseResultMap" type="com.babyjuan.house.repository.entity.SecondHandHouse" >
+<mapper namespace="com.babyjuan.house.repository.mysql.mapper.SecondHandHouseMapper" >
+  <resultMap id="BaseResultMap" type="com.babyjuan.house.repository.mysql.entity.SecondHandHouse" >
     <id column="info_id" property="infoId" jdbcType="BIGINT" />
     <result column="source_id" property="sourceId" jdbcType="INTEGER" />
     <result column="house_code" property="houseCode" jdbcType="VARCHAR" />
@@ -18,7 +18,7 @@
     <result column="to_time" property="toTime" jdbcType="TIMESTAMP" />
     <result column="status" property="status" jdbcType="TINYINT" />
   </resultMap>
-  <resultMap id="StrictSummaryResultMap" type="com.babyjuan.house.repository.entity.ShHouseDistrictSummary" >
+  <resultMap id="StrictSummaryResultMap" type="com.babyjuan.house.repository.mysql.entity.ShHouseDistrictSummary" >
     <id column="info_id" property="infoId" jdbcType="BIGINT" />
     <result column="district" property="district" jdbcType="VARCHAR" />
     <result column="avg_total_price" property="avgTotalPrice" jdbcType="DECIMAL" />
@@ -88,7 +88,7 @@
     info_id, source_id, house_code, title, bedroom_num, hall_num, orientation, price_total,
     unit_price, area, community_info_id, md5, from_time, to_time, status
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.babyjuan.house.repository.entity.SecondHandHouseExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.babyjuan.house.repository.mysql.entity.SecondHandHouseExample" >
     select
     <if test="distinct" >
       distinct
@@ -112,13 +112,13 @@
     delete from second_hand_house
     where info_id = #{infoId,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.babyjuan.house.repository.entity.SecondHandHouseExample" >
+  <delete id="deleteByExample" parameterType="com.babyjuan.house.repository.mysql.entity.SecondHandHouseExample" >
     delete from second_hand_house
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.babyjuan.house.repository.entity.SecondHandHouse" >
+  <insert id="insert" parameterType="com.babyjuan.house.repository.mysql.entity.SecondHandHouse" >
     insert into second_hand_house (info_id, source_id, house_code,
       title, bedroom_num, hall_num,
       orientation, price_total, unit_price,
@@ -132,7 +132,7 @@
       #{fromTime,jdbcType=TIMESTAMP}, #{toTime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.babyjuan.house.repository.entity.SecondHandHouse" >
+  <insert id="insertSelective" parameterType="com.babyjuan.house.repository.mysql.entity.SecondHandHouse" >
     insert into second_hand_house
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="infoId != null" >
@@ -229,7 +229,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.babyjuan.house.repository.entity.SecondHandHouseExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.babyjuan.house.repository.mysql.entity.SecondHandHouseExample" resultType="java.lang.Integer" >
     select count(*) from second_hand_house
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -309,7 +309,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.babyjuan.house.repository.entity.SecondHandHouse" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.babyjuan.house.repository.mysql.entity.SecondHandHouse" >
     update second_hand_house
     <set >
       <if test="sourceId != null" >
@@ -357,7 +357,7 @@
     </set>
     where info_id = #{infoId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.babyjuan.house.repository.entity.SecondHandHouse" >
+  <update id="updateByPrimaryKey" parameterType="com.babyjuan.house.repository.mysql.entity.SecondHandHouse" >
     update second_hand_house
     set source_id = #{sourceId,jdbcType=INTEGER},
       house_code = #{houseCode,jdbcType=VARCHAR},
