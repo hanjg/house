@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.babyjuan</groupId>
+    <artifactId>house</artifactId>
+    <version>${house.version}</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+
+  <artifactId>house-repository</artifactId>
+  <version>${house.version}</version>
+  <packaging>jar</packaging>
+  <name>house-repository</name>
+  <description>house-repository</description>
+
+  <properties>
+    <java.version>1.8</java.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.babyjuan</groupId>
+      <artifactId>house-common</artifactId>
+      <version>${house.version}</version>
+    </dependency>
+
+    <!--dao-->
+    <dependency>
+      <groupId>org.mybatis.spring.boot</groupId>
+      <artifactId>mybatis-spring-boot-starter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <!-- 分页插件 -->
+    <dependency>
+      <groupId>com.github.pagehelper</groupId>
+      <artifactId>pagehelper-spring-boot-starter</artifactId>
+    </dependency>
+    <!-- alibaba的druid数据库连接池 -->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>druid-spring-boot-starter</artifactId>
+    </dependency>
+
+    <!--es-->
+    <dependency>
+      <groupId>org.elasticsearch.client</groupId>
+      <artifactId>elasticsearch-rest-high-level-client</artifactId>
+      <!--<version>${elastic.client.version}</version>-->
+    </dependency>
+  </dependencies>
+
+</project>

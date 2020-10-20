@@ -2,170 +2,157 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>2.1.1.RELEASE</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
+
   <groupId>com.babyjuan</groupId>
   <artifactId>house</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <version>${house.version}</version>
+  <packaging>pom</packaging>
   <name>house</name>
-  <description>house by spring boot</description>
+  <description>house by spring cloud</description>
+
+  <modules>
+    <module>house-contract</module>
+    <module>house-common</module>
+    <module>house-integration</module>
+    <module>house-repository</module>
+    <module>house-manager</module>
+    <module>house-task</module>
+    <module>house-api</module>
+    <module>house-ms</module>
+    <module>house-rest</module>
+    <module>house-gateway</module>
+    <module>house-oauth</module>
+  </modules>
 
   <properties>
+    <house.version>0.0.1-SNAPSHOT</house.version>
+    <spring.boot.version>2.1.1.RELEASE</spring.boot.version>
+    <dubbo.version>2.6.9</dubbo.version>
+    <netty.all.version>4.1.51.Final</netty.all.version>
+    <curator.veriosn>2.12.0</curator.veriosn>
     <java.version>1.8</java.version>
     <mysql.version>5.1.37</mysql.version>
     <druid.version>1.1.10</druid.version>
-    <jstl.version>1.2</jstl.version>
     <servlet-api.version>3.1.0</servlet-api.version>
     <joda-time.version>2.9.9</joda-time.version>
     <pagehelper.starter.version>1.2.5</pagehelper.starter.version>
     <mybatis.starter.version>1.3.2</mybatis.starter.version>
     <webmagic.version>0.7.3</webmagic.version>
     <commons-fileupload.version>1.3.1</commons-fileupload.version>
-    <elastic.client.version>7.8.0</elastic.client.version>
     <commons-beanutils.version>1.9.4</commons-beanutils.version>
   </properties>
 
-  <dependencies>
-    <!--web-->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-      <exclusions>
-        <!--log4j和logback冲突，干掉logback-->
-        <exclusion>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-logging</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
+  <dependencyManagement>
+    <dependencies>
+      <!--dao-->
+      <dependency>
+        <groupId>org.mybatis.spring.boot</groupId>
+        <artifactId>mybatis-spring-boot-starter</artifactId>
+        <version>${mybatis.starter.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>${mysql.version}</version>
+        <scope>runtime</scope>
+      </dependency>
+      <!-- 分页插件 -->
+      <dependency>
+        <groupId>com.github.pagehelper</groupId>
+        <artifactId>pagehelper-spring-boot-starter</artifactId>
+        <version>${pagehelper.starter.version}</version>
+      </dependency>
+      <!-- alibaba的druid数据库连接池 -->
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>druid-spring-boot-starter</artifactId>
+        <version>${druid.version}</version>
+      </dependency>
 
-    <!-- servlet 依赖 -->
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>jstl</artifactId>
-    </dependency>
-    <!-- tomcat 的支持 provider作用域-->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-tomcat</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.tomcat.embed</groupId>
-      <artifactId>tomcat-embed-jasper</artifactId>
-      <!--springboot自带的tomcat并没有携带tomcat-embed-jasper的依赖。
-      使用内置tomcat的时候需要设为默认的complie，使用外置的tomcat用provided-->
-    </dependency>
+      <!--rpc-->
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>dubbo</artifactId>
+        <version>${dubbo.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.netty</groupId>
+        <artifactId>netty-all</artifactId>
+        <version>${netty.all.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.curator</groupId>
+        <artifactId>curator-framework</artifactId>
+        <version>${curator.veriosn}</version>
+      </dependency>
 
-    <!--dao-->
-    <dependency>
-      <groupId>org.mybatis.spring.boot</groupId>
-      <artifactId>mybatis-spring-boot-starter</artifactId>
-      <version>${mybatis.starter.version}</version>
-    </dependency>
-    <!-- 分页插件 -->
-    <dependency>
-      <groupId>com.github.pagehelper</groupId>
-      <artifactId>pagehelper-spring-boot-starter</artifactId>
-      <version>${pagehelper.starter.version}</version>
-    </dependency>
-    <!-- alibaba的druid数据库连接池 -->
-    <dependency>
-      <groupId>com.alibaba</groupId>
-      <artifactId>druid-spring-boot-starter</artifactId>
-      <version>${druid.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-    <!--es-->
-    <dependency>
-      <groupId>org.elasticsearch.client</groupId>
-      <artifactId>elasticsearch-rest-high-level-client</artifactId>
-      <!--<version>${elastic.client.version}</version>-->
-    </dependency>
+      <!--webmagic-->
+      <dependency>
+        <groupId>us.codecraft</groupId>
+        <artifactId>webmagic-core</artifactId>
+        <version>${webmagic.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>us.codecraft</groupId>
+        <artifactId>webmagic-extension</artifactId>
+        <version>${webmagic.version}</version>
+      </dependency>
 
-    <!--aop-->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-aop</artifactId>
-    </dependency>
+      <!--工具类-->
+      <dependency>
+        <groupId>commons-beanutils</groupId>
+        <artifactId>commons-beanutils</artifactId>
+        <version>${commons-beanutils.version}</version>
+      </dependency>
 
-    <!--webmagic-->
-    <dependency>
-      <groupId>us.codecraft</groupId>
-      <artifactId>webmagic-core</artifactId>
-      <version>${webmagic.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>us.codecraft</groupId>
-      <artifactId>webmagic-extension</artifactId>
-      <version>${webmagic.version}</version>
-    </dependency>
+      <dependency>
+        <groupId>com.alibaba.cloud</groupId>
+        <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        <version>${spring.boot.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-gateway</artifactId>
+        <version>${spring.boot.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-oauth2</artifactId>
+        <version>${spring.boot.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-security</artifactId>
+        <version>${spring.boot.version}</version>
+      </dependency>
 
-    <!--websocket-->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-websocket</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.tomcat.embed</groupId>
-      <artifactId>tomcat-embed-websocket</artifactId>
-      <version>8.5.15</version>
-    </dependency>
-
-    <!-- 时间操作组件 -->
-    <dependency>
-      <groupId>joda-time</groupId>
-      <artifactId>joda-time</artifactId>
-      <version>${joda-time.version}</version>
-    </dependency>
-
-    <!-- 文工具类 -->
-    <dependency>
-      <groupId>commons-fileupload</groupId>
-      <artifactId>commons-fileupload</artifactId>
-      <version>${commons-fileupload.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-beanutils</groupId>
-      <artifactId>commons-beanutils</artifactId>
-      <version>${commons-beanutils.version}</version>
-    </dependency>
-
-    <!--test-->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-  </dependencies>
+    </dependencies>
+  </dependencyManagement>
 
   <build>
-    <finalName>${project.artifactId}</finalName>
+    <!--<finalName>${project.artifactId}</finalName>-->
 
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <!--重命名可执行jar-->
+          <classifier>exec</classifier>
+        </configuration>
       </plugin>
     </plugins>
     <resources>
