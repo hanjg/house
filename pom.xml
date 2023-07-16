@@ -29,6 +29,7 @@
     <module>house-rest</module>
     <module>house-gateway</module>
     <module>house-oauth</module>
+    <module>house-test</module>
   </modules>
 
   <properties>
